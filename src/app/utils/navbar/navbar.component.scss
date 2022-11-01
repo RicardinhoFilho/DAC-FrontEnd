@@ -1,0 +1,13 @@
+.nav-tool-items {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 20px;
+  button {
+    margin-inline: 10px;
+  }
+  .logout-btn {
+    margin-left: auto;
+    float: right;
+  }
+}

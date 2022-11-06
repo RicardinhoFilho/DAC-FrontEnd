@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  menuCliente: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  menu(usuario: string) {
+    switch (usuario) {
+      case 'cliente':
+        this.menuCliente = true;
+        break;
+      default:
+        this.menuCliente = false;
+        break;
+    }
   }
 
 }

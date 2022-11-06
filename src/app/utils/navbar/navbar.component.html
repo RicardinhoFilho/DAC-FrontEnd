@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" class="app-header">
   <h2>Bantads</h2>
-  <div class="nav-tool-items">
+  <div class="nav-tool-items" *ngIf="!this.menuCliente">
     <button
       mat-button
       mat-raised-button
@@ -13,11 +13,28 @@
     <button
       mat-button
       mat-raised-button
+      routerLink="/cliente/home"
+      routerLinkActive="active"
+      (click)="this.menu('cliente')"
+    >
+      Log in cliente
+    </button>
+    <button
+      mat-button
+      mat-raised-button
       routerLink="register"
       routerLinkActive="active"
     >
       Register
     </button>
-    <button mat-button mat-raised-button class="logout-btn">Log out</button>
+    <button mat-button mat-raised-button class="logout-btn" (click)="this.menu('')">Log out</button>
+  </div>
+  <div class="nav-tool-items" *ngIf="this.menuCliente">
+    <button mat-button mat-raised-button routerLink="/cliente/alterar"> Alterar Perfil</button>
+    <button mat-button mat-raised-button routerLink="/cliente/depositar"> Depositar</button>
+    <button mat-button mat-raised-button routerLink="/cliente/extrato"> Extrato</button>
+    <button mat-button mat-raised-button routerLink="/cliente/saque"> Saque</button>
+    <button mat-button mat-raised-button routerLink="/cliente/transferencia"> Transferencia</button>
+    <button mat-button mat-raised-button class="logout-btn" routerLink="" (click)="this.menu('')">Log out</button>
   </div>
 </mat-toolbar>

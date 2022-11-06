@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ClienteModule } from './components/cliente';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './utils/navbar/navbar.component';
@@ -22,6 +23,7 @@ import { NavbarComponent } from './utils/navbar/navbar.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    ClienteModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

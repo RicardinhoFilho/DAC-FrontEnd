@@ -35,6 +35,8 @@
         <mat-form-field class="register-full-width">
           <input
             matInput
+            type="number"
+            pattern="[0-9]*"
             placeholder="Telefone"
             name="phone"
             formControlName="phone"
@@ -69,7 +71,13 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="CEP" name="cep" formControlName="cep" />
+          <input
+            matInput
+            placeholder="CEP"
+            name="cep"
+            (input)="cepChange()"
+            formControlName="cep"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
           <input
@@ -84,6 +92,7 @@
             matInput
             type="number"
             min="0"
+            pattern="[0-9]*"
             placeholder="Número"
             name="number"
             formControlName="number"

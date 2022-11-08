@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
     let partTwo = numeric.slice(3, 6) + '.';
     let partThree = numeric.slice(6, 9) + '-';
 
-    if (cpfLength && cpfLength < 4) {
+    if (cpfLength < 4) {
       this.form.controls['cpf'].setValue(numeric);
     } else if (cpfLength >= 4 && cpfLength < 7) {
       let formatCPF = partOne + numeric.slice(3);
@@ -71,6 +71,26 @@ export class RegisterComponent implements OnInit {
     } else if (cpfLength >= 12) {
       let formatCPF = partOne + partTwo + partThree + numeric.slice(9, 11);
       this.form.controls['cpf'].setValue(formatCPF);
+    }
+  }
+
+  cepChange(): void {
+    console.log('dale');
+    let cepValue: string = this.form.value.cep;
+    let numeric = cepValue.replace(/[^0-9]+/g, '');
+    let cepLength = numeric.length;
+
+    let partOne = numeric.slice(0, 2) + '.';
+    let partTwo = numeric.slice(2, 5) + '-';
+
+    if (cepLength < 2) {
+      this.form.controls['cep'].setValue(numeric);
+    } else if (cepLength >= 3 && cepLength < 6) {
+      let formatCEP = partOne + numeric.slice(2);
+      this.form.controls['cep'].setValue(formatCEP);
+    } else if (cepLength >= 6) {
+      let formatCPF = partOne + partTwo + numeric.slice(5, 8);
+      this.form.controls['cep'].setValue(formatCPF);
     }
   }
 }

@@ -3,43 +3,89 @@
     <mat-card-header>
       <mat-card-title>Cadastro</mat-card-title>
     </mat-card-header>
-    <form class="register-form">
+    <form class="register-form" [formGroup]="form" (ngSubmit)="register()">
       <mat-card-content>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Nome" />
+          <input
+            matInput
+            placeholder="Nome"
+            name="name"
+            formControlName="name"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput type="email" placeholder="E-mail" />
+          <input
+            matInput
+            type="email"
+            placeholder="E-mail"
+            name="email"
+            formControlName="email"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="CPF" />
+          <input matInput placeholder="CPF" name="cpf" formControlName="cpf" />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Telefone" />
+          <input
+            matInput
+            placeholder="Telefone"
+            name="phone"
+            formControlName="phone"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Salário" />
+          <input
+            matInput
+            placeholder="Salário"
+            name="salary"
+            formControlName="salary"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Estado" />
+          <input
+            matInput
+            placeholder="Estado"
+            name="state"
+            formControlName="state"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Cidade" />
+          <input
+            matInput
+            placeholder="Cidade"
+            name="city"
+            formControlName="city"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="CEP" />
+          <input matInput placeholder="CEP" name="cep" formControlName="cep" />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Rua" />
+          <input
+            matInput
+            placeholder="Rua"
+            name="street"
+            formControlName="street"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Número" />
+          <input
+            matInput
+            placeholder="Número"
+            name="number"
+            formControlName="number"
+          />
         </mat-form-field>
         <mat-form-field class="register-full-width">
-          <input matInput placeholder="Complemento" />
+          <input
+            matInput
+            placeholder="Complemento"
+            name="complement"
+            formControlName="complement"
+          />
         </mat-form-field>
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block">
+      <button mat-stroked-button color="accent" class="btn-block" type="submit">
         Cadastrar
       </button>
     </form>

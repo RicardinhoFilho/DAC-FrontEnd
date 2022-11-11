@@ -9,6 +9,7 @@ import { AppRoutingModule } from './../app-routing.module';
 import { ClienteModule } from './cliente';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -21,7 +22,7 @@ import { RegisterComponent } from './register/register.component';
     ClienteModule,
     AngularMaterialModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
+    FlexLayoutModule
   ],
   exports: [ClienteModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

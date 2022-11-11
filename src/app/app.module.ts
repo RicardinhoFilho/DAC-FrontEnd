@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
 import { UtilsModule } from './utils/utils.module';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [AppComponent],

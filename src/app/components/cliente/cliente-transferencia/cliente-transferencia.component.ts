@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente-transferencia',
@@ -7,7 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClienteTransferenciaComponent implements OnInit {
 
-  constructor() { }
+  formTransferencia: FormGroup;
+  date = new FormControl(new Date());
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
+    this.formTransferencia = this.formBuilder.group({
+    valorTransferencia: new FormControl('', Validators.required),
+    contaTransferencia: new FormControl('', Validators.required)
+    });
+  }
 
   ngOnInit(): void {
   }

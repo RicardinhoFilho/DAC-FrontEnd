@@ -1,3 +1,31 @@
+.container-alterar {
+    padding: 30px;
+}
+
+.container-cabecalho {
+    position: relative;
+    width: 100%;
+}
+
+.voltar {
+    position: absolute;
+    right: 20px;
+    top: 0px;
+}
+
+.container-formulario {
+    width: 100%;
+    margin-top: 30px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.titulo {
+    font-size: 36px;
+    font-weight: bolder;
+}
+
 .container-inputs {
     width: 100%;
 }

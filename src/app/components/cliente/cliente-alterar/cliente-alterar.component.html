@@ -1,52 +1,55 @@
-<p>Atualizar Perfil</p>
-
-<p routerLink="/cliente/home">voltar</p>
-
-<div fxLayout="row" fxLayoutAlign="center center">
-    <form fxLayout="column" fxLayoutAlign="center center">
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-            <mat-form-field fxFlex="45%">
-                <input matInput placeholder="Nome" />
-            </mat-form-field>
-            <mat-form-field fxFlex="45%">
-                <input matInput type="email" placeholder="E-mail" />
-            </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-            <mat-form-field fxFlex="45%">
-                <input matInput placeholder="Telefone" />
-            </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-            <mat-form-field fxFlex="45%">
-                <input matInput placeholder="Salário" />
-            </mat-form-field>
-            <mat-form-field fxFlex="45%">
-                <input matInput placeholder="Estado" />
-            </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-            <mat-form-field fxFlex="45%">
-                <input matInput placeholder="Cidade" />
-            </mat-form-field>
-            <mat-form-field fxFlex="45%">
-                <input matInput placeholder="CEP" />
-            </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-            <mat-form-field fxFlex="60%">
-                <input matInput placeholder="Rua" />
-            </mat-form-field>
-            <mat-form-field fxFlex="15%">
-                <input matInput placeholder="Número" />
-            </mat-form-field>
-            <mat-form-field fxFlex="15%">
-                <input matInput placeholder="Complemento" />
-            </mat-form-field>
-        </div>
-        <button mat-stroked-button color="accent">
-            Atualizar
-        </button>
-    </form>
+<div fxLayout="column" fxLayoutAlign="center center" class="container-alterar">
+    <div fxLayout="column" fxLayoutAlign="center center" class="container-cabecalho">
+        <div class="titulo">Atualizar Perfil</div>
+        <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
+    </div>
+    <!-- TODO, formatar campos -->
+    <div xLayout="row" fxLayoutAlign="center center" class="container-formulario">
+        <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+                <mat-form-field fxFlex="45%">
+                    <input matInput placeholder="Nome" />
+                </mat-form-field>
+                <mat-form-field fxFlex="45%">
+                    <input matInput type="email" placeholder="E-mail" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+                <mat-form-field fxFlex="45%">
+                    <input matInput placeholder="Telefone" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+                <mat-form-field fxFlex="45%">
+                    <input matInput placeholder="Salário" />
+                </mat-form-field>
+                <mat-form-field fxFlex="45%">
+                    <input matInput placeholder="Estado" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+                <mat-form-field fxFlex="45%">
+                    <input matInput placeholder="Cidade" />
+                </mat-form-field>
+                <mat-form-field fxFlex="45%">
+                    <input matInput placeholder="CEP" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+                <mat-form-field fxFlex="60%">
+                    <input matInput placeholder="Rua" />
+                </mat-form-field>
+                <mat-form-field fxFlex="15%">
+                    <input matInput placeholder="Número" />
+                </mat-form-field>
+                <mat-form-field fxFlex="15%">
+                    <input matInput placeholder="Complemento" />
+                </mat-form-field>
+            </div>
+            <button mat-raised-button color="primary">
+                Atualizar
+            </button>
+        </form>
+    </div>
+          
 </div>
-  

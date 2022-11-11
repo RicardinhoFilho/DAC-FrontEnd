@@ -10,6 +10,11 @@ import { AppRoutingModuleCliente } from './app-routing-cliente';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -29,6 +34,11 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    CurrencyMaskModule,
+    MatTableModule
   ],
   exports: [
     ClienteHomeComponent,

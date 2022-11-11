@@ -1,3 +1,22 @@
-<p>cliente-depositar works!</p>
-
-<p routerLink="/cliente/home">voltar</p>
+<div fxLayout="column" fxLayoutAlign="center center" class="container-alterar">
+    <div fxLayout="column" fxLayoutAlign="center center" class="container-cabecalho">
+        <div class="titulo">Realizar Deposito</div>
+        <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
+    </div>
+    <!-- TODO, formatar campos -->
+    <div fxLayout="row" fxLayoutAlign="center center" class="container-formulario">
+        <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center" [formGroup]="form">
+            <div fxLayout="row" fxLayoutAlign="start center" class="container-inputs">
+                <p>Informe o valor do deposito: </p>
+                <mat-form-field class="input-deposito">
+                    <input matInput placeholder="Deposito valor (R$)" name="deposito" 
+                    formControlName="deposito" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+                </mat-form-field>
+            </div>
+            <button mat-raised-button color="primary">
+                Confirmar Deposito
+            </button>
+        </form>
+    </div>
+          
+</div>

@@ -1,3 +1,71 @@
-<p>cliente-extrato works!</p>
+<div fxLayout="column" fxLayoutAlign="center center" class="container-alterar">
+    <div fxLayout="column" fxLayoutAlign="center center" class="container-cabecalho">
+        <div class="titulo">Consultar extrato</div>
+        <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
+    </div>
+    <!-- TODO, formatar campos -->
+    <div fxLayout="row" fxLayoutAlign="center center" class="container-formulario" *ngIf="!this.telaExtrato">
+        <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center" [formGroup]="formExtrato">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-dates">
+                <div fxLayout="row" fxLayoutAlign="center center" class="container-inputs date">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Data inicial da consulta: </mat-label>
+                        <input matInput [matDatepicker]="pickerInicio" [formControl]="dateInicio" readonly>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerInicio></mat-datepicker>
+                      </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" class="container-inputs date">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Data final da consulta: </mat-label>
+                        <input matInput [matDatepicker]="pickerFinal" [formControl]="dateFinal" readonly>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="pickerFinal"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFinal></mat-datepicker>
+                      </mat-form-field>
+                </div>
+            </div>
+            <button mat-raised-button color="primary" (click)="this.trocarTela()">
+                Confirmar transferencia
+            </button>
+        </form>
+    </div>
 
-<p routerLink="/cliente/home">voltar</p>
+    <div fxLayout="column" fxLayoutAlign="center center" class="container-extrato" *ngIf="this.telaExtrato">
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabela-extrato">
+            <ng-container matColumnDef="dataHora">
+              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Data/Hora </th>
+              <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.dataHora}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="operacao">
+              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Operação </th>
+              <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.operacao}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="cliente">
+              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Cliente </th>
+              <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.cliente}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="valor">
+              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Valor </th>
+              <td mat-cell *matCellDef="let element" class="alinhar-text color-blue" [ngClass]="{'color-red': element.valor.includes('-')}"> {{element.valor}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="saldo" >
+                <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Saldo após operação </th>
+                <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.saldo}} </td>
+              </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <button mat-raised-button color="primary" (click)="this.trocarTela()">
+            Voltar tela intervalo extrato
+        </button>
+    </div>
+          
+</div>

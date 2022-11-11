@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente-saque',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClienteSaqueComponent implements OnInit {
 
-  constructor() { }
+  formSaque: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
+    this.formSaque= this.formBuilder.group({
+    saque: new FormControl('', Validators.required),
+    });
+  }
 
   ngOnInit(): void {
   }

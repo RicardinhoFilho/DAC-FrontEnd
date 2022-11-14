@@ -22,6 +22,15 @@
     <button
       mat-button
       mat-raised-button
+      routerLink="/admin/home"
+      routerLinkActive="active"
+      (click)="this.menu('admin')"
+    >
+      Log in admin
+    </button>
+    <button
+      mat-button
+      mat-raised-button
       routerLink="register"
       routerLinkActive="active"
     >

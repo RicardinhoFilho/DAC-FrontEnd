@@ -7,12 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './../angular-material.module';
 import { AppRoutingModule } from './../app-routing.module';
 import { ClienteModule } from './cliente';
+import { AdminModule } from './admin';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     FormsModule,
     ReactiveFormsModule,
     ClienteModule,
+    AdminModule,
     AngularMaterialModule,
     BrowserAnimationsModule,
     FlexLayoutModule

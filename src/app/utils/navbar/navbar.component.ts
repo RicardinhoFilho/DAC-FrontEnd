@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   menuCliente: boolean = false;
+  menuAdmin: boolean = false;
 
   constructor() { }
 
@@ -19,8 +20,12 @@ export class NavbarComponent implements OnInit {
       case 'cliente':
         this.menuCliente = true;
         break;
+      case 'admin':
+        this.menuAdmin = true;
+        break;
       default:
         this.menuCliente = false;
+        this.menuAdmin = false;
         break;
     }
   }

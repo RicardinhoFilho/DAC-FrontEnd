@@ -1,0 +1,47 @@
+[1mdiff --git a/src/app/components/components.module.ts b/src/app/components/components.module.ts[m
+[1mindex c9f21f4..fe43e25 100644[m
+[1m--- a/src/app/components/components.module.ts[m
+[1m+++ b/src/app/components/components.module.ts[m
+[36m@@ -7,12 +7,13 @@[m [mimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';[m
+ import { AngularMaterialModule } from './../angular-material.module';[m
+ import { AppRoutingModule } from './../app-routing.module';[m
+ import { ClienteModule } from './cliente';[m
+[32m+[m[32mimport { AdminModule } from './admin';[m
+ import { LoginComponent } from './login/login.component';[m
+ import { RegisterComponent } from './register/register.component';[m
+ import { MatDatepickerModule } from '@angular/material/datepicker';[m
+ [m
+ @NgModule({[m
+[31m-  declarations: [LoginComponent, RegisterComponent],[m
+[32m+[m[32m  declarations: [LoginComponent, RegisterComponent ],[m
+   imports: [[m
+     BrowserModule,[m
+     AppRoutingModule,[m
+[36m@@ -20,6 +21,7 @@[m [mimport { MatDatepickerModule } from '@angular/material/datepicker';[m
+     FormsModule,[m
+     ReactiveFormsModule,[m
+     ClienteModule,[m
+[32m+[m[32m    AdminModule,[m
+     AngularMaterialModule,[m
+     BrowserAnimationsModule,[m
+     FlexLayoutModule[m
+[1mdiff --git a/src/app/utils/navbar/navbar.component.html b/src/app/utils/navbar/navbar.component.html[m
+[1mindex 7ef0596..31ebf18 100644[m
+[1m--- a/src/app/utils/navbar/navbar.component.html[m
+[1m+++ b/src/app/utils/navbar/navbar.component.html[m
+[36m@@ -19,6 +19,15 @@[m
+     >[m
+       Log in cliente[m
+     </button>[m
+[32m+[m[32m    <button[m
+[32m+[m[32m      mat-button[m
+[32m+[m[32m      mat-raised-button[m
+[32m+[m[32m      routerLink="/admin/home"[m
+[32m+[m[32m      routerLinkActive="active"[m
+[32m+[m[32m      (click)="this.menu('admin')"[m
+[32m+[m[32m    >[m
+[32m+[m[32m      Log in admin[m
+[32m+[m[32m    </button>[m
+     <button[m
+       mat-button[m
+       mat-raised-button[m

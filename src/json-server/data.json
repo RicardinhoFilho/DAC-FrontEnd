@@ -1,0 +1,23 @@
+{
+  "clientes-pendentes": [
+    {
+      "id": 1,
+      "cpf": "03411614030",
+      "nome": "Ricardo Filho",
+      "salario": "3000"
+    },
+    {
+      "id": 3,
+      "cpf": "11122233396",
+      "nome": "Wagner Oliveira",
+      "salario": "8500"
+    },
+
+    {
+      "id": 2,
+      "cpf": "11122233396",
+      "nome": "Felipe Boareto",
+      "salario": "7000"
+    }
+  ]
+}

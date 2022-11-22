@@ -1,3 +1,23 @@
 <div fxLayout="column" fxLayoutAlign="center start" class="container-admin-home">
-    <div class="informacao admin-nome">Bem-Vindo Gerente</div>
+    <div class="informacao admin-nome">Bem-Vindo Gerente home</div>
 </div>
+<h1>Lista de Clientes Pendentes {{ clientes.length }}</h1>
+
+<table class="table table-striped table-bordered table-hover">
+  <tr>
+    <th>Id</th>
+    <th>Nome</th>
+    <th>CPF</th>
+    <th>Salário</th>
+   
+  </tr>
+  <!-- Não sei pq isso nao esta funcionando haha -->
+  <tr *ngOf="let  cliente of clientes">
+    <td>{{ cliente.id }}</td>
+    <td>{{ cliente.nome }}</td>
+    <td>{{ cliente.cpf }}</td>
+    <td>{{ cliente.salario }}</td>
+  </tr> 
+
+  <span> {{(getClientesString())}}</span>
+</table>

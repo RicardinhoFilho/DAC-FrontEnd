@@ -12,6 +12,8 @@ import { AdminListarGerenteComponent } from '@components/admin/admin-listar-gere
 import { AdminAdicionarGerenteComponent } from '@components/admin/admin-adicionar-gerente/admin-adicionar-gerente.component';
 import { AdminRemoverGerenteComponent } from '@components/admin/admin-remover-gerente/admin-remover-gerente.component';
 import { AdminEditarGerenteComponent } from '@components/admin/admin-editar-gerente/admin-editar-gerente.component';
+import { CommonModule ,} from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser'
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -35,7 +37,7 @@ const routes: Routes = [
    
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),CommonModule,BrowserModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

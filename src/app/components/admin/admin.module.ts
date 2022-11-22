@@ -6,6 +6,8 @@ import { AdminAdicionarGerenteComponent } from './admin-adicionar-gerente/admin-
 import { AdminRemoverGerenteComponent } from './admin-remover-gerente/admin-remover-gerente.component';
 import { AdminListarGerenteComponent } from './admin-listar-gerente/admin-listar-gerente.component';
 import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar-gerente.component';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 
 
@@ -19,7 +21,9 @@ import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar
     AdminEditarGerenteComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    RouterModule
   ]
 })
 export class AdminModule { }

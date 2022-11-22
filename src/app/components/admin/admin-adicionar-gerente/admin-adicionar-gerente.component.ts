@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { GerenteService } from '@components/gerente/services/gerente.service';
+import { Gerente } from '@shared/models/gerente.model';
 
 @Component({
   selector: 'app-admin-adicionar-gerente',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminAdicionarGerenteComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild ('formGerente') formGerente !: NgForm;
+  gerente !: Gerente;
+
+  constructor(
+    private gerenteService: GerenteService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.gerente = new Gerente();
+  }
+
+  inserir(): void {
+    if (this.formGerente.form.valid) {
+      this.gerenteService.inserir(this.gerente);
+      this.router.navigate(["/admin/listar-gerente"]);
+    }
   }
 
 }

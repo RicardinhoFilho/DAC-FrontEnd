@@ -12,12 +12,13 @@
    
   </tr>
   <!-- Não sei pq isso nao esta funcionando haha -->
-  <tr *ngOf="let  cliente of clientes">
+  <tr *ngFor="let  cliente of clientes">
     <td>{{ cliente.id }}</td>
     <td>{{ cliente.nome }}</td>
     <td>{{ cliente.cpf }}</td>
     <td>{{ cliente.salario }}</td>
   </tr> 
 
-  <span> {{(getClientesString())}}</span>
+
 </table>
+<span> {{(getClientesString())}}</span>

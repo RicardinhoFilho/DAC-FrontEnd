@@ -10,6 +10,49 @@ import { Cliente } from '@components/cliente/Utils/Cliente';
 export class GerenteClientesComponent implements OnInit {
   clientes: Cliente[] = [];
 
+  clientes2=[
+    {
+      "id": 1,
+      "cpf": "03411614030",
+      "nome": "Ricardo Filho",
+      "salario": "3000",
+      "ativo":true
+    },
+    {
+      "id": 3,
+      "cpf": "11122233396",
+      "nome": "Wagner Oliveira",
+      "salario": "8500",
+      "ativo":true
+    },
+
+    {
+      "id": 4,
+      "cpf": "11122233396",
+      "nome": "Henrrique Félix",
+      "salario": "7000",
+      "ativo":true
+    },
+
+    {
+      "id": 5,
+      "cpf": "11122233396",
+      "nome": "Douglas Zanela ",
+      "salario": "7000",
+      "ativo":false
+    }
+
+    ,
+
+    {
+      "id": 6,
+      "cpf": "11122233396",
+      "nome": "Mario Eduardo Boareto",
+      "salario": "7000",
+      "ativo":false
+    }
+  ]
+
   constructor(private clienteService: ClienteService) {
     this.getClientes();
   }

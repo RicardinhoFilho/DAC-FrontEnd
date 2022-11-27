@@ -4,19 +4,21 @@
     <tbody>
         <tr>
             <th>Nome</th>
-            <th>Idade</th>
+            <th>E-mail</th>
+            <th>CPF</th>
+            <th>Telefone</th>
             <th class="text-center">
                 <a href="#" title="Novo" alt="Novo" class="btn btn-xs btn-success" [routerLink]="['/admin/adicionar-gerente']">
                     <i class="fa fa-plus" aria-hidden="true" ></i>
-                    Novo
+                    Adicionar Gerente
                 </a>
             </th>
         </tr>
         <tr *ngFor="let gerente of gerentes">
             <td> {{ gerente.nome }}</td>
             <td> {{ gerente.email }}</td>
-            <td> {{ gerente.cpf }}</td>
-            <td> {{ gerente.telefone }}</td>
+            <td> {{ gerente.cpf! | mask: 'CPF_CNPJ' }}</td>
+            <td> {{ gerente.telefone! | mask: '(00) 00000-0000' }}</td>
             <td class="text-center" style="width: 300px">
                 <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info" [routerLink]="['/admin/editar-gerente', gerente.id]">
                     <i class="fa fa-edit" aria-hidden="true"></i>

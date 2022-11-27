@@ -8,8 +8,10 @@ import { AdminListarGerenteComponent } from './admin-listar-gerente/admin-listar
 import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar-gerente.component';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { NumericoDirective } from '@shared/directives/numerico.directive';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { Router, RouterModule } from '@angular/router';
     AdminAdicionarGerenteComponent,
     AdminRemoverGerenteComponent,
     AdminListarGerenteComponent,
-    AdminEditarGerenteComponent
+    AdminEditarGerenteComponent,
+    // NumericoDirective
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class AdminModule { }

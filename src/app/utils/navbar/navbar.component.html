@@ -1,6 +1,6 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" class="app-header">
-  <h2>Bantads</h2>
+  <a href="#" class="btn btn-primary btn-lg active" style="background-color:transparent"  role="button" aria-pressed="true" [routerLink]='[this.menuAdmin ? "/admin/home" : this.menuCliente ? "/cliente/home" : "/login" ]'  >BANTADS</a>
   <div class="nav-tool-items" *ngIf="!this.menuCliente && !this.menuAdmin">
     <button
       mat-button

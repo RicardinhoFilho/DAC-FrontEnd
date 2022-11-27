@@ -17,7 +17,7 @@
         <tr *ngFor="let gerente of gerentes">
             <td> {{ gerente.nome }}</td>
             <td> {{ gerente.email }}</td>
-            <td> {{ gerente.cpf }}</td>
+            <td> {{ gerente.cpf! | mask: 'CPF_CNPJ' }}</td>
             <td> {{ gerente.telefone! | mask: '(00) 00000-0000' }}</td>
             <td class="text-center" style="width: 300px">
                 <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info" [routerLink]="['/admin/editar-gerente', gerente.id]">

@@ -22,7 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     FormsModule,
     ReactiveFormsModule,
     ClienteModule,
-    AdminModule,
+    // AdminModule,
     AngularMaterialModule,
     BrowserAnimationsModule,
     FlexLayoutModule

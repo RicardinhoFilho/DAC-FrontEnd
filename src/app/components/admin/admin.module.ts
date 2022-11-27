@@ -9,8 +9,9 @@ import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NumericoDirective } from '@shared/directives/numerico.directive';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NumericoDirective } from '@shared/directives/numerico.directive';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class AdminModule { }

@@ -20,7 +20,7 @@ import { NumericoDirective } from '@shared/directives/numerico.directive';
     AdminRemoverGerenteComponent,
     AdminListarGerenteComponent,
     AdminEditarGerenteComponent,
-    NumericoDirective
+    // NumericoDirective
   ],
   imports: [
     CommonModule,

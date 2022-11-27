@@ -1,11 +1,11 @@
 <div fxLayout="column" fxLayoutAlign="center start" class="container-cliente-home">
     <div class="informacao cliente-nome">Bem vindo Fulano</div>
     <div class="informacao" fxLayout="row">Saldo Atual: 
-        <div class="informacao-saldo" *ngIf="(this.saldo -3000) >= 0">R$ {{ this.saldo -3000 }}</div>
-        <div class="informacao-saldo-negativo" *ngIf="!((this.saldo -3000) >= 0)">R$ {{ this.saldo -3000 }}</div>
+        <div class="informacao-saldo" *ngIf="this.cliente.saldo! >= 0">R$ {{ this.cliente.saldo }}</div>
+        <div class="informacao-saldo-negativo" *ngIf="!(this.cliente.saldo! >= 0)">R$ - {{ this.cliente.saldo }}</div>
     </div>
     <div class="informacao" fxLayout="row">Limite: 
-        <div class="informacao-limite">R$ {{ this.limite }}</div>
+        <div class="informacao-limite">R$ {{ this.cliente.limite }}</div>
     </div>
     <div class="informacao" fxLayout="row">Gerente: 
         <div class="informacao-gerente">Darth Vader</div>

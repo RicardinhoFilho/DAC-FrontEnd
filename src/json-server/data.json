@@ -5,40 +5,104 @@
       "cpf": "03411614030",
       "nome": "Ricardo Filho",
       "salario": "3000",
-      "ativo":true
+      "ativo": true
     },
     {
       "id": 3,
       "cpf": "11122233396",
       "nome": "Wagner Oliveira",
       "salario": "8500",
-      "ativo":true
+      "ativo": true
     },
-
     {
       "id": 4,
       "cpf": "11122233396",
       "nome": "Henrrique Félix",
       "salario": "7000",
-      "ativo":true
+      "ativo": true
     },
-
     {
       "id": 5,
       "cpf": "11122233396",
       "nome": "Douglas Zanela ",
       "salario": "7000",
-      "ativo":false
-    }
-
-    ,
-
+      "ativo": false
+    },
     {
       "id": 6,
       "cpf": "11122233396",
       "nome": "Mario Eduardo Boareto",
       "salario": "7000",
-      "ativo":false
+      "ativo": false
+    },
+    {
+      "id": 123,
+      "cpf": "11122233396",
+      "nome": "Fernando Carvalho Birznek",
+      "salario": "2000",
+      "saldo": 3000,
+      "limite": 1000,
+      "ativo": false
+    }
+  ],
+  "transacaos": [
+    {
+      "id": 1,
+      "idCliente": 123,
+      "tipoTransacao": 1,
+      "valorTransacao": 333,
+      "saldo": 333,
+      "data": "2022-10-26T14:13:26.542Z"
+    },
+    {
+      "id": 2,
+      "idCliente": 123,
+      "tipoTransacao": 1,
+      "valorTransacao": 333,
+      "saldo": 333,
+      "data": "2022-11-26T14:13:26.542Z"
+    },
+    {
+      "id": 3,
+      "idCliente": 123,
+      "tipoTransacao": 2,
+      "valorTransacao": 50,
+      "saldo": 50,
+      "data": "2022-11-26T14:30:12.870Z"
+    },
+    {
+      "id": 4,
+      "idCliente": 123,
+      "tipoTransacao": 3,
+      "valorTransacao": 250,
+      "Destinatario": 456,
+      "saldo": 250,
+      "data": "2022-11-26T14:47:49.979Z"
+    },
+    {
+      "id": 6,
+      "idCliente": 123,
+      "tipoTransacao": 1,
+      "valorTransacao": 500,
+      "saldo": 3500,
+      "data": "2022-11-27T14:03:44.876Z"
+    },
+    {
+      "id": 7,
+      "idCliente": 123,
+      "tipoTransacao": 2,
+      "valorTransacao": 100,
+      "saldo": 3150,
+      "data": "2022-11-27T14:06:50.426Z"
+    },
+    {
+      "id": 8,
+      "idCliente": 123,
+      "tipoTransacao": 3,
+      "valorTransacao": 150,
+      "Destinatario": 999,
+      "saldo": 3000,
+      "data": "2022-11-27T15:16:31.268Z"
     }
   ]
 }

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Transacao } from '@shared/models';
+import { Observable } from 'rxjs';
+import { ClienteService } from '../services';
 
 
 export interface HardCodeExtrato {
@@ -25,6 +29,10 @@ const ELEMENT_DATA: HardCodeExtrato[] = [
 })
 export class ClienteExtratoComponent implements OnInit {
 
+  transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
+  allTransacao: Transacao[] = [];
+  transacaos: Transacao[] = [];
+
   formExtrato: FormGroup;
   dateInicio = new FormControl(new Date());
   dateFinal = new FormControl(new Date());
@@ -34,19 +42,36 @@ export class ClienteExtratoComponent implements OnInit {
   dataSource = ELEMENT_DATA;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private clienteService: ClienteService,
+    private router: Router
   ) {
     this.formExtrato = this.formBuilder.group({
-    dateInicio: new FormControl('', Validators.required),
+    pickerInicio: new FormControl('', Validators.required),
     dateFinal: new FormControl('', Validators.required)
     });
   }
 
   ngOnInit(): void {
+    this.transacaos$ = this.clienteService.getAllTransacaos();
+    this.transacaos$.subscribe( item => {
+      this.allTransacao = item;
+    })
   }
 
-  trocarTela() {
+  trocarTela(dataInicio?: any, dataFinal?: any) {
     this.telaExtrato = !this.telaExtrato;
+    this.allTransacao.forEach(item => {
+      let ano: string = (item.data!.toString().split("T"))[0].split("-")[0];
+      let mes: string = (item.data!.toString().split("T"))[0].split("-")[1];
+      let dia: string = (item.data!.toString().split("T"))[0].split("-")[2];
+      //TODO, precisa salvar e comparar certo as datas
+      console.log("dataInicio.value = ", dataInicio.value.getFullYear());
+      if(dataInicio.value.getFullYear() == dataFinal.value.getFullYear()) {
+        if(dataInicio.value.getFullYear())
+        this.transacaos.push(item);
+      }
+    })
   }
 
 }

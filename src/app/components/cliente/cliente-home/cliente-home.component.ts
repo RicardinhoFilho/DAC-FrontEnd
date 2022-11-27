@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ClienteModel } from '@shared/models';
+import { Observable } from 'rxjs';
+import { ClienteService } from '../services';
+import { Cliente } from '../Utils/Cliente';
 
 @Component({
   selector: 'app-cliente-home',
@@ -7,14 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClienteHomeComponent implements OnInit {
 
-  saldo: number = 0;
-  limite: number = 0;
+  cliente$: Observable<Cliente[]> = new Observable<Cliente[]>();
+  cliente: ClienteModel = new ClienteModel();
 
-  constructor() { }
+  constructor(
+    private clienteService: ClienteService,
+  ) { 
+    this.cliente$ = this.clienteService.buscarSaldoPorId(123);
+    this.cliente$.subscribe(cliente => {
+      this.cliente = cliente[0];
+    })
+  }
 
   ngOnInit(): void {
-    this.saldo = Math.floor(Math.random() * 5000.00);
-    this.limite = Math.floor(Math.random() * 1000.00);
   }
 
 }

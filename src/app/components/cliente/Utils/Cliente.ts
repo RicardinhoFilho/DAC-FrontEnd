@@ -3,5 +3,7 @@ export interface Cliente {
     cpf: string;
     nome: string;
     salario: number;
+    saldo: number;
+    limite: number;
     ativo: boolean;
   }

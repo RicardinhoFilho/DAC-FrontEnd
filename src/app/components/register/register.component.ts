@@ -29,6 +29,19 @@ export class RegisterComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/
+        ),
+      ]),
+      passwordConfirmation: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/
+        ),
+      ]),
+      role: new FormControl('Cliente', Validators.required),
       cpf: new FormControl('', [
         Validators.required,
         Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/),
@@ -138,5 +151,12 @@ export class RegisterComponent implements OnInit {
         this.form.get('city')?.enable();
         this.cities = cities;
       });
+  }
+
+  get passwordsMatch(): boolean {
+    return (
+      this.form.get('password')?.value ===
+      this.form.get('passwordConfirmation')?.value
+    );
   }
 }

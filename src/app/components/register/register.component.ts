@@ -26,19 +26,24 @@ export class RegisterComponent implements OnInit {
         Validators.maxLength(14),
         ValidateCPF,
       ]),
-      phone: new FormControl('', Validators.required),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])[0-9]{3}\-?[0-9]{4}$/
+        ),
+      ]),
       salary: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       cep: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^(\d{2}\.){3}\-\d{3}$/),
-        Validators.minLength(8),
-        Validators.maxLength(8),
+        Validators.pattern(/^(\d{2}\.)\d{3}\-\d{3}$/),
+        Validators.minLength(10),
+        Validators.maxLength(10),
       ]),
       street: new FormControl('', Validators.required),
       number: new FormControl('', Validators.required),
-      complement: new FormControl('', Validators.required),
+      complement: new FormControl(''),
     });
   }
 
@@ -75,7 +80,6 @@ export class RegisterComponent implements OnInit {
   }
 
   cepChange(): void {
-    console.log('dale');
     let cepValue: string = this.form.value.cep;
     let numeric = cepValue.replace(/[^0-9]+/g, '');
     let cepLength = numeric.length;
@@ -91,6 +95,25 @@ export class RegisterComponent implements OnInit {
     } else if (cepLength >= 6) {
       let formatCPF = partOne + partTwo + numeric.slice(5, 8);
       this.form.controls['cep'].setValue(formatCPF);
+    }
+  }
+
+  phoneChange(): void {
+    let phoneValue: string = this.form.value.phone;
+    let numeric = phoneValue.replace(/[^0-9]+/g, '');
+    let phoneLength = numeric.length;
+
+    let partOne = '(' + numeric.slice(0, 2) + ') ';
+    let partTwo = numeric.slice(2, 7) + '-';
+
+    if (phoneLength < 2) {
+      this.form.controls['phone'].setValue(numeric);
+    } else if (phoneLength >= 3 && phoneLength < 6) {
+      let formatPhone = partOne + numeric.slice(2);
+      this.form.controls['phone'].setValue(formatPhone);
+    } else if (phoneLength >= 6) {
+      let formatPhone = partOne + partTwo + numeric.slice(7, 11);
+      this.form.controls['phone'].setValue(formatPhone);
     }
   }
 }

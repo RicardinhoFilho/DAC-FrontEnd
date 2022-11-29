@@ -13,6 +13,18 @@
             formControlName="name"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['name'].invalid &&
+            (form.controls['name'].dirty || form.controls['name'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div [hidden]="!form.controls['name'].errors?.['required']">
+            Insira o nome do usuário
+          </div>
+        </div>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
@@ -22,6 +34,21 @@
             formControlName="email"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['email'].invalid &&
+            (form.controls['email'].dirty || form.controls['email'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div [hidden]="!form.controls['email'].errors?.['required']">
+            Insira o email do usuário
+          </div>
+          <div [hidden]="!form.controls['email'].errors?.['email']">
+            Insira um email válido
+          </div>
+        </div>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
@@ -32,53 +59,107 @@
             formControlName="cpf"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['cpf'].invalid &&
+            (form.controls['cpf'].dirty || form.controls['cpf'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div
+            [hidden]="!form.controls['cpf'].errors?.['required'] && !form.controls['cpf'].errors?.['invalidCPF']"
+          >
+            Insira um CPF válido
+          </div>
+        </div>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
-            type="number"
-            pattern="[0-9]*"
             placeholder="Telefone"
+            mask="(00) 00000-0000"
+            [showMaskTyped]="true"
+            type="text"
             name="phone"
+            (input)="phoneChange()"
             formControlName="phone"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['phone'].invalid &&
+            (form.controls['phone'].dirty || form.controls['phone'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div
+            [hidden]="!form.controls['phone'].errors?.['required'] && !form.controls['phone'].errors?.['pattern'] && !form.controls['phone'].errors?.['mask']"
+          >
+            Insira um telefone válido
+          </div>
+        </div>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
             placeholder="Salário (R$)"
             name="salary"
+            numerico
             formControlName="salary"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['salary'].invalid &&
+            (form.controls['salary'].dirty || form.controls['salary'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div [hidden]="!form.controls['salary'].errors?.['required']">
+            Insira o salário do usuário
+          </div>
+        </div>
+
         <mat-form-field appearance="fill" class="register-full-width">
           <mat-label>Estado</mat-label>
           <mat-select name="state" formControlName="state">
             <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2" disabled
-              >Option 2 (disabled)</mat-option
-            >
-            <mat-option value="option3">Option 3</mat-option>
+            <mat-option value="option3">Option 2</mat-option>
           </mat-select>
         </mat-form-field>
+
         <mat-form-field appearance="fill" class="register-full-width">
           <mat-label>Cidade</mat-label>
           <mat-select name="city" formControlName="city">
             <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2" disabled
-              >Option 2 (disabled)</mat-option
-            >
-            <mat-option value="option3">Option 3</mat-option>
+            <mat-option value="option3">Option 2</mat-option>
           </mat-select>
         </mat-form-field>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
             placeholder="CEP"
             name="cep"
+            mask="00.000-000"
             (input)="cepChange()"
             formControlName="cep"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['cep'].invalid &&
+            (form.controls['cep'].dirty || form.controls['cep'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div
+            [hidden]="!form.controls['cep'].errors?.['required'] && !form.controls['cep'].errors?.['pattern'] && !form.controls['cep'].errors?.['mask']"
+          >
+            Insira um CEP válido
+          </div>
+        </div>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
@@ -87,17 +168,40 @@
             formControlName="street"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['street'].invalid &&
+            (form.controls['street'].dirty || form.controls['street'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div [hidden]="!form.controls['street'].errors?.['required']">
+            Insira a rua do usuário
+          </div>
+        </div>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
-            type="number"
-            min="0"
-            pattern="[0-9]*"
+            type="text"
             placeholder="Número"
+            numerico
             name="number"
             formControlName="number"
           />
         </mat-form-field>
+        <div
+          *ngIf="
+            form.controls['number'].invalid &&
+            (form.controls['number'].dirty || form.controls['number'].touched)
+          "
+          class="alert alert-danger"
+        >
+          <div [hidden]="!form.controls['number'].errors?.['required']">
+            Insira o número do usuário
+          </div>
+        </div>
+
         <mat-form-field class="register-full-width">
           <input
             matInput
@@ -107,7 +211,13 @@
           />
         </mat-form-field>
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block" type="submit">
+      <button
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        type="submit"
+        [disabled]="form.invalid"
+      >
         Cadastrar
       </button>
     </form>

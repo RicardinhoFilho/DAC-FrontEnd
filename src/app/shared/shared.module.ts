@@ -3,9 +3,8 @@ import { NgModule } from '@angular/core';
 import { NumericoDirective } from './directives/numerico.directive';
 
 @NgModule({
-  declarations: [
-    NumericoDirective
-  ],
+  declarations: [NumericoDirective],
   imports: [CommonModule],
+  exports: [NumericoDirective],
 })
 export class SharedModule {}

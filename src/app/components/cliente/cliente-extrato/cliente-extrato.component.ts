@@ -41,13 +41,15 @@ export class ClienteExtratoComponent implements OnInit {
   displayedColumns: string[] = ['dataHora', 'operacao', 'cliente', 'valor', 'saldo'];
   dataSource = ELEMENT_DATA;
 
+  clienteId = 123;
+
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService,
     private router: Router
   ) {
     this.formExtrato = this.formBuilder.group({
-    pickerInicio: new FormControl('', Validators.required),
+    dataInicio: new FormControl('', Validators.required),
     dateFinal: new FormControl('', Validators.required)
     });
   }
@@ -61,14 +63,12 @@ export class ClienteExtratoComponent implements OnInit {
 
   trocarTela(dataInicio?: any, dataFinal?: any) {
     this.telaExtrato = !this.telaExtrato;
+    this.transacaos = [];
+
     this.allTransacao.forEach(item => {
-      let ano: string = (item.data!.toString().split("T"))[0].split("-")[0];
-      let mes: string = (item.data!.toString().split("T"))[0].split("-")[1];
-      let dia: string = (item.data!.toString().split("T"))[0].split("-")[2];
-      //TODO, precisa salvar e comparar certo as datas
-      console.log("dataInicio.value = ", dataInicio.value.getFullYear());
-      if(dataInicio.value.getFullYear() == dataFinal.value.getFullYear()) {
-        if(dataInicio.value.getFullYear())
+      if((dataInicio.value.valueOf() <= item.data! && dataFinal.value.valueOf() >= item.data!) && 
+      (item.idCliente == this.clienteId || +item.destinatario! == this.clienteId)
+      ) {
         this.transacaos.push(item);
       }
     })

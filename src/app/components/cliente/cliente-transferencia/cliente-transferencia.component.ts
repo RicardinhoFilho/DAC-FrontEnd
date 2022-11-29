@@ -5,6 +5,7 @@ import { ClienteModel, Transacao } from '@shared/models';
 import { Observable } from 'rxjs';
 import { ClienteService } from '../services';
 import { Cliente } from '../Utils/Cliente';
+import clienteHelper from '../Utils/clienteHelper';
 
 @Component({
   selector: 'app-cliente-transferencia',
@@ -46,23 +47,10 @@ export class ClienteTransferenciaComponent implements OnInit {
   }
 
   transferir() {
-    var transacao: Transacao = new Transacao();
-    transacao.id = this.transacaos.length + 2;
-    transacao.idCliente = this.cliente[0].id;
-    transacao.tipoTransacao = 3;   //TODO, fazer tipo enum, 1 deposito, 2 saque, 3 transferencia
-    transacao.valorTransacao = this.formTransferencia.value.valorTransferencia;
-    transacao.saldo = this.cliente[0].saldo - this.formTransferencia.value.valorTransferencia;
-    transacao.Destinatario = this.formTransferencia.value.contaTransferencia;
-    transacao.data = new Date();
-
-    let clienteAlterar: ClienteModel = new ClienteModel();
-    clienteAlterar.id = this.cliente[0].id;
-    clienteAlterar.cpf = this.cliente[0].cpf;
-    clienteAlterar.ativo = this.cliente[0].ativo;
-    clienteAlterar.limite = this.cliente[0].limite;
-    clienteAlterar.nome = this.cliente[0].nome;
-    clienteAlterar.salario = this.cliente[0].salario;
-    clienteAlterar.saldo = this.cliente[0].saldo - this.formTransferencia.value.valorTransferencia;
+    var transacao: Transacao = clienteHelper.formatarTransacao(
+      this.transacaos.length + 2, this.cliente, this.formTransferencia.value.valorTransferencia, 3, this.formTransferencia.value.contaTransferencia
+    );
+    let clienteAlterar: ClienteModel = clienteHelper.formatarAlterarSaldoCliente(this.cliente, this.formTransferencia.value.valorTransferencia, 3);
 
     this.clienteService.postTransacao(transacao).subscribe(transacao => {
       this.clienteService.atualizarSaldoCliente(clienteAlterar).subscribe(cliente => {

@@ -3,11 +3,11 @@
         <div class="titulo">Realizar Saque</div>
         <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
     </div>
-
+    <div class="mensagem-erro">{{ this.mensagem }}</div>
     <div fxLayout="row" fxLayoutAlign="center center" class="container-formulario">
         <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center" [formGroup]="formSaque">
             <div fxLayout="row" fxLayoutAlign="start center" class="container-inputs">
-                <p>Informe o valor apra sacar: </p>
+                <p>Informe o valor para sacar: </p>
                 <mat-form-field class="input-deposito">
                     <input matInput placeholder="Deposito valor (R$)" name="saque" 
                     formControlName="saque" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }">

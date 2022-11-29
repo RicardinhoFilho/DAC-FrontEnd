@@ -37,7 +37,7 @@
         <table mat-table [dataSource]="transacaos" class="mat-elevation-z8 tabela-extrato">
             <ng-container matColumnDef="dataHora">
               <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Data/Hora </th>
-              <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.data}} </td>
+              <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.data | date:'dd-MM-yyyy hh:mm'}} </td>
             </ng-container>
           
             <ng-container matColumnDef="operacao">
@@ -52,15 +52,18 @@
             <ng-container matColumnDef="cliente">
               <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Cliente </th>
               <td mat-cell *matCellDef="let element" class="alinhar-text"> 
-                <div *ngIf="element.tipoTransacao == 3"> {{element.destinatario}} </div>
+                <div *ngIf="element.idCliente == this.clienteId && element.destinatario != null">
+                  Nome -> {{element.destinatario}}
+                </div>
+                <div *ngIf="element.destinatario == this.clienteId">{{element.idCliente}} -> Nome</div>
               </td>
             </ng-container>
           
             <ng-container matColumnDef="valor">
               <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Valor </th>
               <td mat-cell *matCellDef="let element" class="alinhar-text color-blue" > 
-                <div [ngClass]="{'color-red': element.tipoTransacao == 2}">
-                  <span *ngIf="element.tipoTransacao == 2">- </span>{{element.valorTransacao}}
+                <div [ngClass]="{'color-red': element.tipoTransacao == 2 || element.tipoTransacao == 3}">
+                  <span *ngIf="element.tipoTransacao == 2 || element.tipoTransacao == 3">- </span>{{element.valorTransacao}}
                 </div>
               </td>
             </ng-container>

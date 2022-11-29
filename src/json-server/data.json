@@ -40,7 +40,7 @@
       "cpf": "11122233396",
       "nome": "Fernando Carvalho Birznek",
       "salario": "2000",
-      "saldo": 3000,
+      "saldo": 1000,
       "limite": 1000,
       "ativo": false
     }
@@ -50,59 +50,103 @@
       "id": 1,
       "idCliente": 123,
       "tipoTransacao": 1,
-      "valorTransacao": 333,
-      "saldo": 333,
-      "data": "2022-10-26T14:13:26.542Z"
+      "valorTransacao": 3000,
+      "saldo": 3000,
+      "data": 1669345200000
     },
     {
       "id": 2,
       "idCliente": 123,
       "tipoTransacao": 1,
-      "valorTransacao": 333,
-      "saldo": 333,
-      "data": "2022-11-26T14:13:26.542Z"
+      "valorTransacao": 500,
+      "saldo": 3500,
+      "data": 1669659490416
     },
     {
       "id": 3,
       "idCliente": 123,
       "tipoTransacao": 2,
-      "valorTransacao": 50,
-      "saldo": 50,
-      "data": "2022-11-26T14:30:12.870Z"
+      "valorTransacao": 100,
+      "saldo": 3400,
+      "data": 1669659588829
     },
     {
-      "id": 4,
+      "id": 5,
       "idCliente": 123,
       "tipoTransacao": 3,
-      "valorTransacao": 250,
-      "Destinatario": 456,
-      "saldo": 250,
-      "data": "2022-11-26T14:47:49.979Z"
+      "valorTransacao": 200,
+      "destinatario": 999,
+      "saldo": 3200,
+      "data": 1669660753613
     },
     {
       "id": 6,
-      "idCliente": 123,
+      "idCliente": 999,
       "tipoTransacao": 1,
-      "valorTransacao": 500,
-      "saldo": 3500,
-      "data": "2022-11-27T14:03:44.876Z"
+      "valorTransacao": 200,
+      "saldo": 1200,
+      "data": 1669660753613
     },
     {
       "id": 7,
-      "idCliente": 123,
-      "tipoTransacao": 2,
-      "valorTransacao": 100,
-      "saldo": 3150,
-      "data": "2022-11-27T14:06:50.426Z"
+      "idCliente": 999,
+      "tipoTransacao": 3,
+      "valorTransacao": 500,
+      "destinatario": 123,
+      "saldo": 2700,
+      "data": 1669660753613
     },
     {
       "id": 8,
       "idCliente": 123,
+      "tipoTransacao": 2,
+      "valorTransacao": 3300,
+      "saldo": -100,
+      "data": 1669669109237
+    },
+    {
+      "id": 9,
+      "idCliente": 123,
+      "tipoTransacao": 1,
+      "valorTransacao": 600,
+      "saldo": 500,
+      "data": 1669678087378
+    },
+    {
+      "id": 10,
+      "idCliente": 123,
+      "tipoTransacao": 2,
+      "valorTransacao": 100,
+      "destinatario": null,
+      "saldo": 400,
+      "data": 1669678942422
+    },
+    {
+      "id": 11,
+      "idCliente": 123,
+      "tipoTransacao": 2,
+      "valorTransacao": 100,
+      "destinatario": null,
+      "saldo": 300,
+      "data": 1669679212239
+    },
+    {
+      "id": 12,
+      "idCliente": 123,
       "tipoTransacao": 3,
-      "valorTransacao": 150,
-      "Destinatario": 999,
-      "saldo": 3000,
-      "data": "2022-11-27T15:16:31.268Z"
+      "valorTransacao": 100,
+      "destinatario": 999,
+      "saldo": 200,
+      "data": 1669679222216
+    },
+    {
+      "id": 13,
+      "idCliente": 123,
+      "tipoTransacao": 1,
+      "valorTransacao": 800,
+      "destinatario": null,
+      "saldo": 1000,
+      "data": 1669679909439
     }
   ]
 }

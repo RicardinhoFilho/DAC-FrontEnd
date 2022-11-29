@@ -17,6 +17,7 @@ export class ClienteHomeComponent implements OnInit {
   constructor(
     private clienteService: ClienteService,
   ) { 
+    //TODO, procurar cliente ta hardcode, quando tiver o login trocar
     this.cliente$ = this.clienteService.buscarSaldoPorId(123);
     this.cliente$.subscribe(cliente => {
       this.cliente = cliente[0];

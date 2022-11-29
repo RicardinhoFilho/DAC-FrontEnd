@@ -5,13 +5,11 @@ import { Cliente } from '@components/cliente/Utils/Cliente';
 @Component({
   selector: 'app-gerente-home',
   templateUrl: './gerente-home.component.html',
-  styleUrls: ['./gerente-home.component.scss']
+  styleUrls: ['./gerente-home.component.scss'],
 })
 export class GerenteHomeComponent implements OnInit {
-
   clientes: Cliente[] = [];
 
- 
   constructor(private clienteService: ClienteService) {
     this.getClientes();
   }
@@ -22,12 +20,12 @@ export class GerenteHomeComponent implements OnInit {
     this.clienteService
       .getPendentes()
       .subscribe(
-        (clientes) => (this.clientes = clientes.filter((item) => !item.ativo))
+        (clientes: Cliente[]) =>
+          (this.clientes = clientes.filter((item: Cliente) => !item.ativo))
       );
   }
 
-  getClientesString(){
+  getClientesString() {
     return JSON.stringify(this.clientes);
   }
-
 }

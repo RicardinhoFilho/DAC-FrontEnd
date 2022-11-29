@@ -1,23 +1,30 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppRoutingModuleCliente } from './app-routing-gerente';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { AngularMaterialModule } from '../../angular-material.module';
-import { MatInputModule } from '@angular/material/input';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { AngularMaterialModule } from '../../angular-material.module';
+import { AppRoutingModuleCliente } from './app-routing-gerente';
+import { GerenteClientesComponent } from './gerente-clientes/gerente-clientes.component';
+import { GerenteHomeComponent } from './gerente-home/gerente-home.component';
+import { GerenteMelhoresClientesComponent } from './gerente-melhores-clientes/gerente-melhores-clientes.component';
+import { GerentePesquisaComponent } from './gerente-pesquisa/gerente-pesquisa.component';
 @NgModule({
-  declarations: [],
+  declarations: [
+    GerenteClientesComponent,
+    GerenteHomeComponent,
+    GerenteMelhoresClientesComponent,
+    GerentePesquisaComponent,
+  ],
   imports: [
     CommonModule,
     AppRoutingModuleCliente,
     FormsModule,
     HttpClientModule,
-    BrowserModule,
     AngularMaterialModule,
     MatInputModule,
     MatButtonModule,

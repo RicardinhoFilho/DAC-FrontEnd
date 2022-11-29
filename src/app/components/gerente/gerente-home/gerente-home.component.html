@@ -1,5 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="center start" class="container-admin-home">
-    <div class="informacao admin-nome">Bem-Vindo Gerente home</div>
+<div
+  fxLayout="column"
+  fxLayoutAlign="center start"
+  class="container-admin-home"
+>
+  <div class="informacao admin-nome">Bem-Vindo Gerente home</div>
 </div>
 <h1>Lista de Clientes Pendentes {{ clientes.length }}</h1>
 
@@ -9,16 +13,12 @@
     <th>Nome</th>
     <th>CPF</th>
     <th>Salário</th>
-   
   </tr>
   <!-- Não sei pq isso nao esta funcionando haha -->
-  <tr *ngFor="let  cliente of clientes">
+  <tr *ngFor="let cliente of clientes">
     <td>{{ cliente.id }}</td>
     <td>{{ cliente.nome }}</td>
     <td>{{ cliente.cpf }}</td>
     <td>{{ cliente.salario }}</td>
-  </tr> 
-
-
+  </tr>
 </table>
-<span> {{(getClientesString())}}</span>

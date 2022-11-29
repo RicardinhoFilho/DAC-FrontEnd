@@ -1,15 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { AdminRelatorioComponent } from './admin-relatorio/admin-relatorio.component';
-import { AdminAdicionarGerenteComponent } from './admin-adicionar-gerente/admin-adicionar-gerente.component';
-import { AdminRemoverGerenteComponent } from './admin-remover-gerente/admin-remover-gerente.component';
-import { AdminListarGerenteComponent } from './admin-listar-gerente/admin-listar-gerente.component';
-import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar-gerente.component';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { NumericoDirective } from '@shared/directives/numerico.directive';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { RouterModule } from '@angular/router';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { AdminAdicionarGerenteComponent } from './admin-adicionar-gerente/admin-adicionar-gerente.component';
+import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar-gerente.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminListarGerenteComponent } from './admin-listar-gerente/admin-listar-gerente.component';
+import { AdminRelatorioComponent } from './admin-relatorio/admin-relatorio.component';
+import { AdminRemoverGerenteComponent } from './admin-remover-gerente/admin-remover-gerente.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -21,13 +20,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     AdminRemoverGerenteComponent,
     AdminListarGerenteComponent,
     AdminEditarGerenteComponent,
-    // NumericoDirective
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    NgxMaskModule.forRoot()
-  ]
+  imports: [CommonModule, FormsModule, RouterModule, NgxMaskModule.forRoot()],
 })
-export class AdminModule { }
+export class AdminModule {}

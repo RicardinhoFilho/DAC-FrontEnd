@@ -122,17 +122,23 @@
 
         <mat-form-field appearance="fill" class="register-full-width">
           <mat-label>Estado</mat-label>
-          <mat-select name="state" formControlName="state">
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option3">Option 2</mat-option>
+          <mat-select
+            name="state"
+            formControlName="state"
+            (selectionChange)="fillCities($event)"
+          >
+            <mat-option *ngFor="let state of states" [value]="state.id">
+              {{ state.nome }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="register-full-width">
           <mat-label>Cidade</mat-label>
           <mat-select name="city" formControlName="city">
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option3">Option 2</mat-option>
+            <mat-option *ngFor="let city of cities" [value]="city.id">
+              {{ city.nome }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 

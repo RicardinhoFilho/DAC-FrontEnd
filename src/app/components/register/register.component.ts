@@ -6,6 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { ValidateCPF } from '../..//shared/cpf-validator';
+import { City } from './../../shared/models/city.model';
+import { State } from './../../shared/models/state.model';
+import { CityService } from './../../shared/services/city.service';
+import { StateService } from './../../shared/services/state.service';
 
 @Component({
   selector: 'app-register',
@@ -14,8 +18,14 @@ import { ValidateCPF } from '../..//shared/cpf-validator';
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
+  states!: State[];
+  cities!: City[];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private cityService: CityService,
+    private stateService: StateService
+  ) {
     this.form = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -34,7 +44,7 @@ export class RegisterComponent implements OnInit {
       ]),
       salary: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
+      city: new FormControl({ value: '', disabled: true }, Validators.required),
       cep: new FormControl('', [
         Validators.required,
         Validators.pattern(/^(\d{2}\.)\d{3}\-\d{3}$/),
@@ -47,7 +57,11 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.stateService
+      .getAllStates()
+      .subscribe((states: State[]) => (this.states = states));
+  }
 
   register(): void {
     console.log(this.form);
@@ -115,5 +129,14 @@ export class RegisterComponent implements OnInit {
       let formatPhone = partOne + partTwo + numeric.slice(7, 11);
       this.form.controls['phone'].setValue(formatPhone);
     }
+  }
+
+  fillCities($event: any): void {
+    this.cityService
+      .getCitiesByStateId(+this.form.get('state')?.value)
+      .subscribe((cities: City[]) => {
+        this.form.get('city')?.enable();
+        this.cities = cities;
+      });
   }
 }

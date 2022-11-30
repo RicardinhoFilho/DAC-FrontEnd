@@ -1,38 +1,72 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="container-alterar">
-    <div fxLayout="column" fxLayoutAlign="center center" class="container-cabecalho">
-        <div class="titulo">Realizar Transferencia</div>
-        <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
-    </div>
-    <!-- TODO, formatar campos -->
-    <div fxLayout="row" fxLayoutAlign="center center" class="container-formulario">
-        <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center" [formGroup]="formTransferencia">
-            <div fxLayout="row" fxLayoutAlign="start center" class="container-inputs">
-                <p>Informe o número da conta destino: </p>
-                <mat-form-field class="input-deposito">
-                    <input matInput type="number" placeholder="Informe número da conta" name="contaTransferencia" 
-                    formControlName="contaTransferencia"/>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="start center" class="container-inputs">
-                <p>Informe o valor para transferir: </p>
-                <mat-form-field class="input-deposito">
-                    <input matInput placeholder="Deposito valor (R$)" name="valorTransferencia" 
-                    formControlName="valorTransferencia" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="center center" class="container-inputs date">
-                <mat-form-field appearance="fill">
-                    <mat-label>Data de transferencia: </mat-label>
-                    <input matInput [matDatepicker]="picker" [formControl]="date" readonly>
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-            </div>
-            <button mat-raised-button color="primary" (click)="this.transferir()">
-                Confirmar transferencia
-            </button>
-        </form>
-    </div>
-          
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    class="container-cabecalho"
+  >
+    <div class="titulo">Realizar Transferencia</div>
+    <button mat-stroked-button class="voltar" routerLink="/cliente/home">
+      voltar
+    </button>
+  </div>
+  <!-- TODO, formatar campos -->
+  <div
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    class="container-formulario"
+  >
+    <form
+      fxFlex="100%"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      [formGroup]="formTransferencia"
+    >
+      <div fxLayout="row" fxLayoutAlign="start center" class="container-inputs">
+        <p>Informe o número da conta destino:</p>
+        <mat-form-field class="input-deposito">
+          <input
+            matInput
+            type="number"
+            placeholder="Informe número da conta"
+            name="contaTransferencia"
+            formControlName="contaTransferencia"
+          />
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" class="container-inputs">
+        <p>Informe o valor para transferir:</p>
+        <mat-form-field class="input-deposito">
+          <input
+            matInput
+            placeholder="Deposito valor (R$)"
+            name="valorTransferencia"
+            formControlName="valorTransferencia"
+            currencyMask
+            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+          />
+        </mat-form-field>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        class="container-inputs date"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Data de transferencia: </mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [formControl]="date"
+            readonly
+          />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" (click)="this.transferir()">
+        Confirmar transferencia
+      </button>
+    </form>
+  </div>
 </div>

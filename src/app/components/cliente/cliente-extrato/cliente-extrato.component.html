@@ -1,84 +1,161 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="container-alterar">
-    <div fxLayout="column" fxLayoutAlign="center center" class="container-cabecalho">
-        <div class="titulo">Consultar extrato</div>
-        <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
-    </div>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    class="container-cabecalho"
+  >
+    <div class="titulo">Consultar extrato</div>
+    <button mat-stroked-button class="voltar" routerLink="/cliente/home">
+      voltar
+    </button>
+  </div>
 
-    <div fxLayout="row" fxLayoutAlign="center center" class="container-formulario" *ngIf="!this.telaExtrato">
-        <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center" [formGroup]="formExtrato">
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-dates">
-                <div fxLayout="row" fxLayoutAlign="center center" class="container-inputs date">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Data inicial da consulta: </mat-label>
-                        <input matInput [matDatepicker]="pickerInicio" [formControl]="dateInicio">
-                        <mat-hint>MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerInicio></mat-datepicker>
-                      </mat-form-field>
-                </div>
-                <div fxLayout="row" fxLayoutAlign="center center" class="container-inputs date">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Data final da consulta: </mat-label>
-                        <input matInput [matDatepicker]="pickerFinal" [formControl]="dateFinal" readonly>
-                        <mat-hint>MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle matSuffix [for]="pickerFinal"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerFinal></mat-datepicker>
-                      </mat-form-field>
-                </div>
-            </div>
-            <button mat-raised-button color="primary" (click)="this.trocarTela(dateInicio, dateFinal)">
-                Confirmar transferencia
-            </button>
-        </form>
-    </div>
+  <div
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    class="container-formulario"
+    *ngIf="!this.telaExtrato"
+  >
+    <form
+      fxFlex="100%"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      [formGroup]="formExtrato"
+    >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        class="container-dates"
+      >
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          class="container-inputs date"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Data inicial da consulta: </mat-label>
+            <input
+              matInput
+              [matDatepicker]="pickerInicio"
+              [formControl]="dateInicio"
+            />
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerInicio"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickerInicio></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          class="container-inputs date"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Data final da consulta: </mat-label>
+            <input
+              matInput
+              [matDatepicker]="pickerFinal"
+              [formControl]="dateFinal"
+              readonly
+            />
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerFinal"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickerFinal></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="this.trocarTela(dateInicio, dateFinal)"
+      >
+        Confirmar transferencia
+      </button>
+    </form>
+  </div>
 
-    <div fxLayout="column" fxLayoutAlign="center center" class="container-extrato" *ngIf="this.telaExtrato">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    class="container-extrato"
+    *ngIf="this.telaExtrato"
+  >
+    <table
+      mat-table
+      [dataSource]="transacaos"
+      class="mat-elevation-z8 tabela-extrato"
+    >
+      <ng-container matColumnDef="dataHora">
+        <th mat-header-cell *matHeaderCellDef class="alinhar-text">
+          Data/Hora
+        </th>
+        <td mat-cell *matCellDef="let element" class="alinhar-text">
+          {{ element.data | date: "dd-MM-yyyy hh:mm" }}
+        </td>
+      </ng-container>
 
-        <table mat-table [dataSource]="transacaos" class="mat-elevation-z8 tabela-extrato">
-            <ng-container matColumnDef="dataHora">
-              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Data/Hora </th>
-              <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.data | date:'dd-MM-yyyy hh:mm'}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="operacao">
-              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Operação </th>
-              <td mat-cell *matCellDef="let element" class="alinhar-text"> 
-                <div *ngIf="element.tipoTransacao == 1"> Deposito </div>
-                <div *ngIf="element.tipoTransacao == 2"> Saque </div>
-                <div *ngIf="element.tipoTransacao == 3"> Transferencia </div>
-              </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="cliente">
-              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Cliente </th>
-              <td mat-cell *matCellDef="let element" class="alinhar-text"> 
-                <div *ngIf="element.idCliente == this.clienteId && element.destinatario != null">
-                  Nome -> {{element.destinatario}}
-                </div>
-                <div *ngIf="element.destinatario == this.clienteId">{{element.idCliente}} -> Nome</div>
-              </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="valor">
-              <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Valor </th>
-              <td mat-cell *matCellDef="let element" class="alinhar-text color-blue" > 
-                <div [ngClass]="{'color-red': element.tipoTransacao == 2 || element.tipoTransacao == 3}">
-                  <span *ngIf="element.tipoTransacao == 2 || element.tipoTransacao == 3">- </span>{{element.valorTransacao}}
-                </div>
-              </td>
-            </ng-container>
+      <ng-container matColumnDef="operacao">
+        <th mat-header-cell *matHeaderCellDef class="alinhar-text">Operação</th>
+        <td mat-cell *matCellDef="let element" class="alinhar-text">
+          <div *ngIf="element.tipoTransacao == 1">Deposito</div>
+          <div *ngIf="element.tipoTransacao == 2">Saque</div>
+          <div *ngIf="element.tipoTransacao == 3">Transferencia</div>
+        </td>
+      </ng-container>
 
-            <ng-container matColumnDef="saldo" >
-                <th mat-header-cell *matHeaderCellDef class="alinhar-text"> Saldo após operação </th>
-                <td mat-cell *matCellDef="let element" class="alinhar-text"> {{element.saldo}} </td>
-              </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <button mat-raised-button color="primary" (click)="this.trocarTela()">
-            Voltar tela intervalo extrato
-        </button>
-    </div>
-          
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef class="alinhar-text">Cliente</th>
+        <td mat-cell *matCellDef="let element" class="alinhar-text">
+          <div
+            *ngIf="
+              element.idCliente == this.clienteId &&
+              element.destinatario != null
+            "
+          >
+            Nome -> {{ element.destinatario }}
+          </div>
+          <div *ngIf="element.destinatario == this.clienteId">
+            {{ element.idCliente }} -> Nome
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valor">
+        <th mat-header-cell *matHeaderCellDef class="alinhar-text">Valor</th>
+        <td mat-cell *matCellDef="let element" class="alinhar-text color-blue">
+          <div
+            [ngClass]="{
+              'color-red':
+                element.tipoTransacao == 2 || element.tipoTransacao == 3
+            }"
+          >
+            <span
+              *ngIf="element.tipoTransacao == 2 || element.tipoTransacao == 3"
+              >- </span
+            >{{ element.valorTransacao }}
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="saldo">
+        <th mat-header-cell *matHeaderCellDef class="alinhar-text">
+          Saldo após operação
+        </th>
+        <td mat-cell *matCellDef="let element" class="alinhar-text">
+          {{ element.saldo }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <button mat-raised-button color="primary" (click)="this.trocarTela()">
+      Voltar tela intervalo extrato
+    </button>
+  </div>
 </div>

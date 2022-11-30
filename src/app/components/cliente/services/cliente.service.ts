@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Transacao } from '@shared/models';
 import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
-import { User } from './../../../shared/models/user.model';
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:3000/contas/';
-  private apiUrlTransacaos = 'http://localhost:3000/transacaos/';
+  private apiUrl = 'http://localhost:3000/contas';
+  private apiUrlTransacaos = 'http://localhost:3000/transacaos';
 
   constructor(private http: HttpClient) {}
 
@@ -44,13 +43,6 @@ export class ClienteService {
     return list;
   }
 
-  // substituir por userService.getUserByCPF()
-  search(cpf: string): Observable<User[]> {
-    const list = this.http.get<User[]>(this.apiUrl + '?cpf=' + cpf);
-
-    return list;
-  }
-
   getAllTransacaos(): Observable<Transacao[]> {
     const lista = this.http.get<Transacao[]>(this.apiUrlTransacaos);
     return lista;
@@ -64,11 +56,18 @@ export class ClienteService {
     );
   }
 
-  buscarSaldoPorId(id: number): Observable<Conta[]> {
-    return this.http.get<Conta[]>(this.apiUrl + '?id=' + id, this.httpOptions);
+  buscarContaPorId(id: number): Observable<Conta> {
+    return this.http.get<Conta>(this.apiUrl + '/' + id, this.httpOptions);
   }
 
-  atualizarSaldoCliente(cliente: Conta): Observable<Conta> {
+  buscarContaPorUserId(id: number): Observable<Conta[]> {
+    return this.http.get<Conta[]>(
+      this.apiUrl + '?idUsuario=' + id,
+      this.httpOptions
+    );
+  }
+
+  atualizarContaCliente(cliente: Conta): Observable<Conta> {
     return this.http.put<Conta>(
       this.apiUrl + '/' + cliente.id,
       JSON.stringify(cliente),

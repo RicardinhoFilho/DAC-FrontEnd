@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
-import { ClienteService } from '../services';
+import { User } from './../../../shared/models/user.model';
+import { AuthService } from './../../auth/services/auth.service';
 
 @Component({
   selector: 'app-cliente-home',
@@ -12,13 +13,13 @@ export class ClienteHomeComponent implements OnInit {
   cliente$: Observable<Conta[]> = new Observable<Conta[]>();
   cliente: Conta = new Conta();
 
-  constructor(private clienteService: ClienteService) {
-    //TODO, procurar cliente ta hardcode, quando tiver o login trocar
-    this.cliente$ = this.clienteService.buscarSaldoPorId(123);
-    this.cliente$.subscribe((cliente: Conta[]) => {
-      this.cliente = cliente[0];
-    });
+  constructor(private authService: AuthService) {
+    this.cliente = this.authService.contaCliente;
   }
 
   ngOnInit(): void {}
+
+  get usuarioLogado(): User {
+    return this.authService.usuarioLogado;
+  }
 }

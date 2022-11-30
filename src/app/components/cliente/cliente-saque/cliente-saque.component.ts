@@ -11,7 +11,7 @@ import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
 import { ClienteService } from '../services';
 import clienteHelper from '../Utils/clienteHelper';
-import { User } from './../../../shared/models/user.model';
+import { AuthService } from './../../auth/services/auth.service';
 
 @Component({
   selector: 'app-cliente-saque',
@@ -23,14 +23,14 @@ export class ClienteSaqueComponent implements OnInit {
   transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
   transacaos: Transacao[] = [];
 
-  cliente$: Observable<User[]> = new Observable<User[]>();
-  cliente: Conta[] = [];
+  cliente!: Conta;
 
   mensagem: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.formSaque = this.formBuilder.group({
@@ -44,28 +44,25 @@ export class ClienteSaqueComponent implements OnInit {
       this.transacaos = item;
     });
 
-    this.cliente$ = this.clienteService.buscarSaldoPorId(123);
-    this.cliente$.subscribe((cliente: Conta[]) => {
-      this.cliente = cliente;
-    });
+    this.cliente = this.authService.contaCliente;
   }
 
   sacar() {
     if (
       this.formSaque.value.saque >
-      this.cliente[0].saldo! + this.cliente[0].limite!
+      this.cliente.saldo! + this.cliente.limite!
     ) {
       this.mensagem = `Não pode realizar o saque. Seu saldo mais o limite é de : ${
-        this.cliente[0].saldo! + this.cliente[0].limite!
+        this.cliente.saldo! + this.cliente.limite!
       }`;
     } else {
-      var transacao: Transacao = clienteHelper.formatarTransacao(
+      const transacao: Transacao = clienteHelper.formatarTransacao(
         this.transacaos.length + 2,
         this.cliente,
         this.formSaque.value.saque,
         2
       );
-      let clienteAlterar: User = clienteHelper.formatarAlterarSaldoCliente(
+      const clienteAlterar: Conta = clienteHelper.formatarAlterarSaldoCliente(
         this.cliente,
         this.formSaque.value.saque,
         2
@@ -73,7 +70,7 @@ export class ClienteSaqueComponent implements OnInit {
 
       this.clienteService.postTransacao(transacao).subscribe(() => {
         this.clienteService
-          .atualizarSaldoCliente(clienteAlterar)
+          .atualizarContaCliente(clienteAlterar)
           .subscribe(() => {
             this.router.navigate(['/cliente/home']);
           });

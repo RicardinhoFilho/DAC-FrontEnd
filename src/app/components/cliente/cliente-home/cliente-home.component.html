@@ -3,7 +3,7 @@
   fxLayoutAlign="center start"
   class="container-cliente-home"
 >
-  <div class="informacao cliente-nome">Bem vindo NOME DO USUÁRIO</div>
+  <div class="informacao cliente-nome">Bem vindo {{ usuarioLogado.nome }}</div>
   <div class="informacao" fxLayout="row">
     Saldo Atual:
     <div class="informacao-saldo" *ngIf="this.cliente.saldo! >= 0">

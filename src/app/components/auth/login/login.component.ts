@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClienteService } from '@components/cliente/services/cliente.service';
+import { Conta } from '@shared/models/conta.model';
 import { Login } from '@shared/models/login.model';
 import { User } from './../../../shared/models/user.model';
 import { AuthService } from './../services/auth.service';
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private clienteService: ClienteService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -41,9 +44,20 @@ export class LoginComponent implements OnInit {
         .then((usuario: User | undefined) => {
           if (usuario) {
             this.authService.usuarioLogado = usuario;
-            this.router.navigate([
-              '/' + this.authService.usuarioLogado.cargo + '/home',
-            ]);
+            if (usuario.cargo == 'cliente') {
+              this.clienteService
+                .buscarContaPorUserId(usuario.id!)
+                .subscribe((contas: Conta[]) => {
+                  this.authService.contaCliente = contas[0];
+                  this.router.navigate([
+                    '/' + this.authService.usuarioLogado.cargo + '/home',
+                  ]);
+                });
+            } else {
+              this.router.navigate([
+                '/' + this.authService.usuarioLogado.cargo + '/home',
+              ]);
+            }
           } else {
             this.message = 'Usuário/Senha inválidos.';
           }

@@ -7,10 +7,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Transacao } from '@shared/models';
+import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
 import { ClienteService } from '../services/cliente.service';
 import clienteHelper from '../Utils/clienteHelper';
-import { User } from './../../../shared/models/user.model';
+import { AuthService } from './../../auth/services/auth.service';
 
 @Component({
   selector: 'app-cliente-depositar',
@@ -20,8 +21,7 @@ import { User } from './../../../shared/models/user.model';
 export class ClienteDepositarComponent implements OnInit {
   form: FormGroup;
 
-  cliente$: Observable<User[]> = new Observable<User[]>();
-  cliente: User[] = [];
+  cliente!: Conta;
 
   transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
   transacaos: Transacao[] = [];
@@ -29,6 +29,7 @@ export class ClienteDepositarComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.form = this.formBuilder.group({
@@ -42,10 +43,7 @@ export class ClienteDepositarComponent implements OnInit {
       this.transacaos = item;
     });
 
-    this.cliente$ = this.clienteService.buscarSaldoPorId(123);
-    this.cliente$.subscribe((cliente: User[]) => {
-      this.cliente = cliente;
-    });
+    this.cliente = this.authService.contaCliente;
   }
 
   depositar() {
@@ -55,7 +53,7 @@ export class ClienteDepositarComponent implements OnInit {
       this.form.value.deposito,
       1
     );
-    let clienteAlterar: User = clienteHelper.formatarAlterarSaldoCliente(
+    let clienteAlterar: Conta = clienteHelper.formatarAlterarSaldoCliente(
       this.cliente,
       this.form.value.deposito,
       1
@@ -63,7 +61,7 @@ export class ClienteDepositarComponent implements OnInit {
 
     this.clienteService.postTransacao(transacao).subscribe(() => {
       this.clienteService
-        .atualizarSaldoCliente(clienteAlterar)
+        .atualizarContaCliente(clienteAlterar)
         .subscribe(() => {
           this.router.navigate(['/cliente/home']);
         });

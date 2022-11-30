@@ -87,7 +87,6 @@ export class RegisterComponent implements OnInit {
   }
 
   async register(): Promise<void> {
-    // checar se email ou cpf já existem no banco
     let invalidUser: boolean = false;
     await lastValueFrom(
       this.userService.getUserByCPF(this.form.get('cpf')?.value).pipe(
@@ -156,21 +155,26 @@ export class RegisterComponent implements OnInit {
         $getMenorGerenteObservable
       );
 
-      tasks$.pipe(concatAll(), last()).subscribe(() => {
-        const conta = new Conta();
-        conta.idUsuario = user.id;
-        conta.data = new Date();
-        conta.salario = +this.form.get('salary')?.value;
-        if (conta.salario > 2000)
-          conta.limite = +this.form.get('salary')?.value / 2;
-        conta.ativo = false;
-        conta.saldo = 0;
-        conta.idGerente = menorGerente.id;
+      tasks$.pipe(concatAll(), last()).subscribe({
+        next: () => {
+          const conta = new Conta();
+          conta.idUsuario = user.id;
+          conta.data = new Date();
+          conta.salario = +this.form.get('salary')?.value;
+          if (conta.salario > 2000)
+            conta.limite = +this.form.get('salary')?.value / 2;
+          conta.ativo = false;
+          conta.saldo = 0;
+          conta.idGerente = menorGerente.id;
 
-        this.clienteService.inserir(conta).subscribe(() => {
-          confirm('Conta criada com sucesso!');
-          this.router.navigate(['/login']);
-        });
+          this.clienteService.inserir(conta).subscribe(() => {
+            confirm('Conta criada com sucesso!');
+            this.router.navigate(['/login']);
+          });
+        },
+        error: () => {
+          // send email to user
+        },
       });
     });
   }

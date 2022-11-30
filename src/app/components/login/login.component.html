@@ -3,16 +3,55 @@
     <mat-card-header>
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
-    <form class="login-form">
+    <form class="login-form" #formLogin="ngForm">
       <mat-card-content>
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="E-mail" />
+          <input
+            matInput
+            id="usuario"
+            name="usuario"
+            placeholder="E-mail"
+            [(ngModel)]="login.login"
+            #usuario="ngModel"
+            required
+          />
         </mat-form-field>
+        <div
+          *ngIf="usuario.errors && (usuario.dirty || usuario.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!usuario.errors?.['required']">
+            Digite o email do usuário
+          </div>
+        </div>
+
         <mat-form-field class="login-full-width">
-          <input matInput type="password" placeholder="Senha" />
+          <input
+            matInput
+            type="password"
+            placeholder="Senha"
+            id="senha"
+            name="senha"
+            [(ngModel)]="login.senha"
+            #senha="ngModel"
+            required
+          />
         </mat-form-field>
+        <div
+          *ngIf="senha.errors && (senha.dirty || senha.touched)"
+          class="alert alert-danger"
+        >
+          <div [hidden]="!senha.errors?.['required']">Digite a senha</div>
+        </div>
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block">
+
+      <button
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        (click)="logar()"
+        [disabled]="!formLogin.form.valid"
+      >
         Log in
       </button>
     </form>

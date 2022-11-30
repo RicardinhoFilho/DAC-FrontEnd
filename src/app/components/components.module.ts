@@ -1,33 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxMaskModule } from 'ngx-mask';
-import { AngularMaterialModule } from './../angular-material.module';
 import { AppRoutingModule } from './../app-routing.module';
 import { SharedModule } from './../shared/shared.module';
 import { AdminModule } from './admin';
+import { AuthModule } from './auth/auth.module';
 import { ClienteModule } from './cliente';
 import { GerenteModule } from './gerente/gerente.module';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [],
   imports: [
     AppRoutingModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     ClienteModule,
     GerenteModule,
     AdminModule,
-    AngularMaterialModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    NgxMaskModule.forRoot(),
     SharedModule,
+    AuthModule,
   ],
   exports: [ClienteModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

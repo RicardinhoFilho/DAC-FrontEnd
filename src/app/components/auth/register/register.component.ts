@@ -7,16 +7,16 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClienteService } from '@components/cliente/services/cliente.service';
+import { ValidateCPF } from '@shared/cpf-validator';
 import { Conta } from '@shared/models/conta.model';
 import { User } from '@shared/models/user.model';
 import { lastValueFrom, map, of } from 'rxjs';
 import { concatAll, last } from 'rxjs/operators';
-import { ValidateCPF } from '../..//shared/cpf-validator';
-import { City } from './../../shared/models/city.model';
-import { State } from './../../shared/models/state.model';
-import { CityService } from './../../shared/services/city.service';
-import { StateService } from './../../shared/services/state.service';
-import { UserService } from './../../shared/services/user.service';
+import { City } from './../../../shared/models/city.model';
+import { State } from './../../../shared/models/state.model';
+import { CityService } from './../../../shared/services/city.service';
+import { StateService } from './../../../shared/services/state.service';
+import { UserService } from './../../../shared/services/user.service';
 
 @Component({
   selector: 'app-register',

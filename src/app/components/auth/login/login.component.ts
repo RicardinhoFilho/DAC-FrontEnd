@@ -9,7 +9,7 @@ import { Login } from '@shared/models/login.model';
 })
 export class LoginComponent implements OnInit {
   @ViewChild('formLogin') formLogin!: NgForm;
-  login!: Login;
+  login: Login = new Login();
 
   constructor() {}
 

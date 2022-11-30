@@ -1,3 +1,97 @@
-<div fxLayout="column" fxLayoutAlign="center start" class="container-admin-home">
-    <div class="informacao admin-nome">Bem-Vindo Admin</div>
+<div class="mat-elevation-z8">
+  <div class="d-flex justify-content-around">
+    <h1 class="pt-2">Gerentes</h1>
+  </div>
+  <div class="mb-4 text-center">
+    <button mat-raised-button color="primary">Novo</button>
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="id">
+        {{ row.gerente.id }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nome">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Nome
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="nome">
+        {{ row.gerente.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cpf">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> CPF </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="cpf">
+        {{ row.gerente.cpf }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        E-mail
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="email">
+        {{ row.gerente.email }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Telefone
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="phone">
+        {{ row.gerente.telefone }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="clientesCount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Clientes
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="clientesCount">
+        {{ row.clientesCount }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="negativos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Saldo negativo
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="negativos">
+        {{ row.negativos }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="positivos">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Saldo positivo
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="positivos">
+        {{ row.positivos }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="d-flex justify-content-around"
+        >Ações</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
+        <button mat-raised-button color="accent">
+          <i class="fa fa-edit"></i> Editar
+        </button>
+        <button mat-raised-button color="warn">
+          <i class="fa fa-trash"></i> Remover
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

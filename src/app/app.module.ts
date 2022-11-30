@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -5,8 +6,6 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
 import { UtilsModule } from './utils/utils.module';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     ComponentsModule,
     UtilsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

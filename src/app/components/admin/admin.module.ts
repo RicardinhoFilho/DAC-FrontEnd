@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { AngularMaterialModule } from './../../angular-material.module';
 import { AdminAdicionarGerenteComponent } from './admin-adicionar-gerente/admin-adicionar-gerente.component';
 import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar-gerente.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
@@ -21,6 +22,12 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     AdminListarGerenteComponent,
     AdminEditarGerenteComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterModule, NgxMaskModule.forRoot()],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    NgxMaskModule.forRoot(),
+    AngularMaterialModule,
+  ],
 })
 export class AdminModule {}

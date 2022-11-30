@@ -74,4 +74,11 @@ export class ClienteService {
       this.httpOptions
     );
   }
+
+  getClientesByGerente(idGerente: number): Observable<Conta[]> {
+    return this.http.get<Conta[]>(
+      this.apiUrl + '?idGerente=' + idGerente,
+      this.httpOptions
+    );
+  }
 }

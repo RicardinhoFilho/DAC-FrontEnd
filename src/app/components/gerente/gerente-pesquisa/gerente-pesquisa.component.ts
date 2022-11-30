@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '@components/cliente/services/cliente.service';
-import { Cliente } from '@components/cliente/Utils/Cliente';
+import { Conta } from './../../../shared/models/conta.model';
 
 @Component({
   selector: 'app-gerente-pesquisa',
@@ -8,7 +8,7 @@ import { Cliente } from '@components/cliente/Utils/Cliente';
   styleUrls: ['./gerente-pesquisa.component.scss'],
 })
 export class GerentePesquisaComponent implements OnInit {
-  clientes: Cliente[] = [];
+  clientes: Conta[] = [];
 
   clientes_string: string = '';
   constructor(private clienteService: ClienteService) {}
@@ -19,7 +19,8 @@ export class GerentePesquisaComponent implements OnInit {
     this.clienteService
       .search(cpf)
       .subscribe(
-        (clientes) => (this.clientes = clientes.filter((item) => item.ativo))
+        (clientes: Conta[]) =>
+          (this.clientes = clientes.filter((item: Conta) => item.ativo))
       );
   }
 

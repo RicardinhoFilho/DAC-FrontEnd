@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/
         ),
       ]),
-      role: new FormControl('Cliente', Validators.required),
+      role: new FormControl('User', Validators.required),
       cpf: new FormControl('', [
         Validators.required,
         Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/),

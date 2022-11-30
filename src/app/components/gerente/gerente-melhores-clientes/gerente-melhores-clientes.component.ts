@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '@components/cliente/services/cliente.service';
-import { Cliente } from '@components/cliente/Utils/Cliente';
+import { Conta } from './../../../shared/models/conta.model';
 
 @Component({
   selector: 'app-gerente-melhores-clientes',
@@ -8,7 +8,7 @@ import { Cliente } from '@components/cliente/Utils/Cliente';
   styleUrls: ['./gerente-melhores-clientes.component.scss'],
 })
 export class GerenteMelhoresClientesComponent implements OnInit {
-  clientes: Cliente[] = [];
+  clientes: Conta[] = [];
 
   clientes_string: string = '';
   constructor(private clienteService: ClienteService) {
@@ -21,11 +21,12 @@ export class GerenteMelhoresClientesComponent implements OnInit {
     this.clienteService
       .getMelhores()
       .subscribe(
-        (clientes) => (this.clientes = clientes.filter((item) => item.ativo))
+        (clientes: Conta[]) =>
+          (this.clientes = clientes.filter((item: Conta) => item.ativo))
       );
   }
 
-  getClientesString(){
+  getClientesString() {
     return JSON.stringify(this.clientes);
   }
 }

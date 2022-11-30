@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '@components/cliente/services/cliente.service';
-import { Cliente } from '@components/cliente/Utils/Cliente';
+import { Conta } from './../../../shared/models/conta.model';
 
 @Component({
   selector: 'app-gerente-home',
@@ -8,7 +8,7 @@ import { Cliente } from '@components/cliente/Utils/Cliente';
   styleUrls: ['./gerente-home.component.scss'],
 })
 export class GerenteHomeComponent implements OnInit {
-  clientes: Cliente[] = [];
+  clientes: Conta[] = [];
 
   constructor(private clienteService: ClienteService) {
     this.getClientes();
@@ -20,8 +20,8 @@ export class GerenteHomeComponent implements OnInit {
     this.clienteService
       .getPendentes()
       .subscribe(
-        (clientes: Cliente[]) =>
-          (this.clientes = clientes.filter((item: Cliente) => !item.ativo))
+        (clientes: Conta[]) =>
+          (this.clientes = clientes.filter((item: Conta) => !item.ativo))
       );
   }
 

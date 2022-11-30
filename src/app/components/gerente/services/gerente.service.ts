@@ -1,50 +1,47 @@
 import { Injectable } from '@angular/core';
-import { Gerente } from '@shared/models/gerente.model';
+import { User } from './../../../shared/models/user.model';
 
 const LS_CHAVE: string = 'gerentes';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GerenteService {
+  constructor() {}
 
-  constructor() { }
-
-  listarTodos(): Gerente[] {
+  listarTodos(): User[] {
     const gerentes = localStorage[LS_CHAVE];
     return gerentes ? JSON.parse(gerentes) : [];
   }
 
-  inserir(gerente: Gerente): void {
+  inserir(gerente: User): void {
     const gerentes = this.listarTodos();
     gerente.id = new Date().getTime();
     gerentes.push(gerente);
     localStorage[LS_CHAVE] = JSON.stringify(gerentes);
   }
 
-  buscarPorID(id : number): Gerente | undefined {
-    const gerentes: Gerente[] = this.listarTodos();
+  buscarPorID(id: number): User | undefined {
+    const gerentes: User[] = this.listarTodos();
 
-    return gerentes.find( gerente => gerente.id === id );
+    return gerentes.find((gerente) => gerente.id === id);
   }
 
-  atualizar(gerente: Gerente): void {
-    const gerentes: Gerente[] = this.listarTodos();
+  atualizar(gerente: User): void {
+    const gerentes: User[] = this.listarTodos();
 
-    gerentes.forEach(
-      (obj, index, objs) => {
-        if (gerente.id === obj.id) {
-          objs[index] = gerente;
-        }
+    gerentes.forEach((obj, index, objs) => {
+      if (gerente.id === obj.id) {
+        objs[index] = gerente;
       }
-    );
+    });
     localStorage[LS_CHAVE] = JSON.stringify(gerentes);
   }
 
   remover(id: number): void {
-    let gerentes: Gerente[] = this.listarTodos();
+    let gerentes: User[] = this.listarTodos();
 
-    gerentes = gerentes.filter( gerente => gerente.id !== id );
+    gerentes = gerentes.filter((gerente) => gerente.id !== id);
     localStorage[LS_CHAVE] = JSON.stringify(gerentes);
   }
 }

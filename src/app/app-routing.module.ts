@@ -7,6 +7,7 @@ import { AdminEditarGerenteComponent } from '@components/admin/admin-editar-gere
 import { AdminListarGerenteComponent } from '@components/admin/admin-listar-gerente/admin-listar-gerente.component';
 import { AdminRemoverGerenteComponent } from '@components/admin/admin-remover-gerente/admin-remover-gerente.component';
 import { AdminHomeComponent } from './components/admin';
+import { AuthGuard } from './components/auth/auth.guard';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { ClienteHomeComponent } from './components/cliente';
@@ -23,27 +24,71 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   // rotas cliente
-  { path: 'cliente/home', component: ClienteHomeComponent },
+  {
+    path: 'cliente/home',
+    component: ClienteHomeComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'cliente' },
+  },
 
   // rotas admin
-  { path: 'admin/home', component: AdminHomeComponent },
   { path: 'admin', redirectTo: 'admin/listar-gerente' },
-  { path: 'admin/listar-gerente', component: AdminListarGerenteComponent },
+  {
+    path: 'admin/home',
+    component: AdminHomeComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
+  },
+  {
+    path: 'admin/listar-gerente',
+    component: AdminListarGerenteComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
+  },
   {
     path: 'admin/adicionar-gerente',
     component: AdminAdicionarGerenteComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
   },
-  { path: 'admin/remover-gerente', component: AdminRemoverGerenteComponent },
-  { path: 'admin/editar-gerente/:id', component: AdminEditarGerenteComponent },
+  {
+    path: 'admin/remover-gerente',
+    component: AdminRemoverGerenteComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
+  },
+  {
+    path: 'admin/editar-gerente/:id',
+    component: AdminEditarGerenteComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
+  },
 
   // rotas gerente
-  { path: 'gerente/home', component: GerenteHomeComponent },
+  {
+    path: 'gerente/home',
+    component: GerenteHomeComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'gerente' },
+  },
   {
     path: 'gerente/melhores-clientes',
     component: GerenteMelhoresClientesComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'gerente' },
   },
-  { path: 'gerente/clientes', component: GerenteClientesComponent },
-  { path: 'gerente/pesquisa', component: GerentePesquisaComponent },
+  {
+    path: 'gerente/clientes',
+    component: GerenteClientesComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'gerente' },
+  },
+  {
+    path: 'gerente/pesquisa',
+    component: GerentePesquisaComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'gerente' },
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes), CommonModule, BrowserModule],

@@ -4,9 +4,9 @@ export class Conta {
     public idUsuario?: number,
     public data?: Date,
     public limite?: number,
-    public ativo?: number,
+    public ativo?: boolean,
     public saldo?: number,
     public idGerente?: number,
-    public salario?: string
+    public salario?: number
   ) {}
 }

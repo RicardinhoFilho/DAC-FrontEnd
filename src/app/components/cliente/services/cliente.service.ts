@@ -1,14 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transacao } from '@shared/models';
+import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
 import { User } from './../../../shared/models/user.model';
 @Injectable({
   providedIn: 'root',
 })
 export class ClienteService {
-  private apiUrl = 'http://localhost:3000/clientes';
-  private apiUrlTransacaos = 'http://localhost:3000/transacaos';
+  private apiUrl = 'http://localhost:3000/contas/';
+  private apiUrlTransacaos = 'http://localhost:3000/transacaos/';
 
   constructor(private http: HttpClient) {}
 
@@ -18,23 +19,32 @@ export class ClienteService {
     }),
   };
 
-  getAll(): Observable<User[]> {
-    const list = this.http.get<User[]>(this.apiUrl);
+  inserir(conta: Conta): Observable<Conta> {
+    return this.http.post<Conta>(
+      this.apiUrl,
+      JSON.stringify(conta),
+      this.httpOptions
+    );
+  }
+
+  getAll(): Observable<Conta[]> {
+    const list = this.http.get<Conta[]>(this.apiUrl);
 
     return list;
   }
 
-  getPendentes(): Observable<User[]> {
+  getPendentes(): Observable<Conta[]> {
     //pagaria a rota especifica dos pendentes como nao temos usaremos logica no componente
-    return this.http.get<User[]>(this.apiUrl);
+    return this.http.get<Conta[]>(this.apiUrl);
   }
   //Rota especifica já irá filtrar para nós
-  getMelhores(): Observable<User[]> {
-    const list = this.http.get<User[]>(this.apiUrl);
+  getMelhores(): Observable<Conta[]> {
+    const list = this.http.get<Conta[]>(this.apiUrl);
 
     return list;
   }
 
+  // substituir por userService.getUserByCPF()
   search(cpf: string): Observable<User[]> {
     const list = this.http.get<User[]>(this.apiUrl + '?cpf=' + cpf);
 
@@ -54,12 +64,12 @@ export class ClienteService {
     );
   }
 
-  buscarSaldoPorId(id: number): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl + '?id=' + id, this.httpOptions);
+  buscarSaldoPorId(id: number): Observable<Conta[]> {
+    return this.http.get<Conta[]>(this.apiUrl + '?id=' + id, this.httpOptions);
   }
 
-  atualizarSaldoCliente(cliente: User): Observable<User> {
-    return this.http.put<User>(
+  atualizarSaldoCliente(cliente: Conta): Observable<Conta> {
+    return this.http.put<Conta>(
       this.apiUrl + '/' + cliente.id,
       JSON.stringify(cliente),
       this.httpOptions

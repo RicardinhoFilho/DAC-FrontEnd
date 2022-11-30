@@ -1,33 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './../../components/auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  menuCliente: boolean = false;
-  menuAdmin: boolean = false;
+  ngOnInit(): void {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get cargo(): string | undefined {
+    return this.authService.usuarioLogado?.cargo;
   }
 
-  menu(usuario: string) {
-    switch (usuario) {
-      case 'cliente':
-        this.menuCliente = true;
-        break;
-      case 'admin':
-        this.menuAdmin = true;
-        break;
-      default:
-        this.menuCliente = false;
-        this.menuAdmin = false;
-        break;
-    }
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
-
 }

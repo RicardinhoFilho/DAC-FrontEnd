@@ -18,7 +18,7 @@ import { GerenteModule } from './gerente/gerente.module';
     SharedModule,
     AuthModule,
   ],
-  exports: [ClienteModule],
+  exports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ComponentsModule {}

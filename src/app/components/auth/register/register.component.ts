@@ -16,7 +16,7 @@ import { City } from './../../../shared/models/city.model';
 import { State } from './../../../shared/models/state.model';
 import { CityService } from './../../../shared/services/city.service';
 import { StateService } from './../../../shared/services/state.service';
-import { UserService } from './../../../shared/services/user.service';
+import { UserService } from './../services/user.service';
 
 @Component({
   selector: 'app-register',

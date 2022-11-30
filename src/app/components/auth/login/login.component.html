@@ -3,6 +3,13 @@
     <mat-card-header>
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
+    <div
+      *ngIf="message"
+      class="alert alert-danger alert-dismissible fade show mt-3"
+      role="alert"
+    >
+      {{ message }}
+    </div>
     <form class="login-form" #formLogin="ngForm">
       <mat-card-content>
         <mat-form-field class="login-full-width">
@@ -20,7 +27,7 @@
           *ngIf="usuario.errors && (usuario.dirty || usuario.touched)"
           class="alert alert-danger"
         >
-          <div [hidden]="!usuario.errors?.['required']">
+          <div [hidden]="!usuario.errors['required']">
             Digite o email do usuário
           </div>
         </div>
@@ -41,7 +48,7 @@
           *ngIf="senha.errors && (senha.dirty || senha.touched)"
           class="alert alert-danger"
         >
-          <div [hidden]="!senha.errors?.['required']">Digite a senha</div>
+          <div [hidden]="!senha.errors['required']">Digite a senha</div>
         </div>
       </mat-card-content>
 

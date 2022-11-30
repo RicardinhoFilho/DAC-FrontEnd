@@ -8,6 +8,7 @@ import { AngularMaterialModule } from './../../angular-material.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -20,6 +21,7 @@ import { AuthService } from './services/auth.service';
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService],
+  exports: [LoginComponent, RegisterComponent],
 })
 export class AuthModule {}

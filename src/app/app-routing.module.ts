@@ -17,8 +17,12 @@ import { GerentePesquisaComponent } from './components/gerente/gerente-pesquisa'
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
+
+  // rotas auth
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+
+  // rotas cliente
   { path: 'cliente/home', component: ClienteHomeComponent },
 
   // rotas admin

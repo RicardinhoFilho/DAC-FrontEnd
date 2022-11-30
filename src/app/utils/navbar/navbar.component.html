@@ -1,7 +1,15 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" class="app-header">
-  <a href="#" class="btn btn-primary btn-lg active" style="background-color:transparent"  role="button" aria-pressed="true" [routerLink]='[this.menuAdmin ? "/admin/home" : this.menuCliente ? "/cliente/home" : "/login" ]'  >BANTADS</a>
-  <div class="nav-tool-items" *ngIf="!this.menuCliente && !this.menuAdmin">
+  <a
+    href="#"
+    class="btn btn-primary btn-lg active"
+    style="background-color: transparent"
+    role="button"
+    aria-pressed="true"
+    [routerLink]="[this.cargo ? '/' + this.cargo + '/home' : '/login']"
+    >BANTADS</a
+  >
+  <div class="nav-tool-items" *ngIf="!this.cargo">
     <button
       mat-button
       mat-raised-button
@@ -13,43 +21,83 @@
     <button
       mat-button
       mat-raised-button
-      routerLink="/cliente/home"
-      routerLinkActive="active"
-      (click)="this.menu('cliente')"
-    >
-      Log in cliente
-    </button>
-    <button
-      mat-button
-      mat-raised-button
-      routerLink="/admin/home"
-      routerLinkActive="active"
-      (click)="this.menu('admin')"
-    >
-      Log in admin
-    </button>
-    <button
-      mat-button
-      mat-raised-button
       routerLink="register"
       routerLinkActive="active"
     >
       Register
     </button>
-    <button mat-button mat-raised-button class="logout-btn" (click)="this.menu('')">Log out</button>
   </div>
-  <div class="nav-tool-items" *ngIf="this.menuCliente">
-    <button mat-button mat-raised-button routerLink="/cliente/alterar"> Alterar Perfil</button>
-    <button mat-button mat-raised-button routerLink="/cliente/depositar"> Depositar</button>
-    <button mat-button mat-raised-button routerLink="/cliente/extrato"> Extrato</button>
-    <button mat-button mat-raised-button routerLink="/cliente/saque"> Saque</button>
-    <button mat-button mat-raised-button routerLink="/cliente/transferencia"> Transferencia</button>
-    <button mat-button mat-raised-button class="logout-btn" routerLink="" (click)="this.menu('')">Log out</button>
+
+  <div class="nav-tool-items" *ngIf="this.cargo === 'cliente'">
+    <button mat-button mat-raised-button routerLink="/cliente/alterar">
+      Alterar Perfil
+    </button>
+    <button mat-button mat-raised-button routerLink="/cliente/depositar">
+      Depositar
+    </button>
+    <button mat-button mat-raised-button routerLink="/cliente/extrato">
+      Extrato
+    </button>
+    <button mat-button mat-raised-button routerLink="/cliente/saque">
+      Saque
+    </button>
+    <button mat-button mat-raised-button routerLink="/cliente/transferencia">
+      Transferencia
+    </button>
+    <button
+      mat-button
+      mat-raised-button
+      class="logout-btn"
+      routerLink=""
+      (click)="logout()"
+    >
+      Log out
+    </button>
   </div>
-  <div class="nav-tool-items" *ngIf="this.menuAdmin">
-    <button mat-button mat-raised-button routerLink="/admin/relatorio"> Relatório de clientes</button>
-    <button mat-button mat-raised-button routerLink="/admin/adicionar-gerente"> Inserir Gerente</button>
-    <button mat-button mat-raised-button routerLink="/admin/listar-gerente"> Listar Gerentes</button>
-    <button mat-button mat-raised-button class="logout-btn" routerLink="" (click)="this.menu('')">Log out</button>
+
+  <div class="nav-tool-items" *ngIf="this.cargo === 'gerente'">
+    <button
+      mat-button
+      mat-raised-button
+      routerLink="/gerente/melhores-clientes"
+    >
+      Melhores clientes
+    </button>
+    <button mat-button mat-raised-button routerLink="/gerente/clientes">
+      Clientes
+    </button>
+    <button mat-button mat-raised-button routerLink="/gerente/pesquisa">
+      Pesquisa
+    </button>
+    <button
+      mat-button
+      mat-raised-button
+      class="logout-btn"
+      routerLink=""
+      (click)="logout()"
+    >
+      Log out
+    </button>
+  </div>
+
+  <div class="nav-tool-items" *ngIf="this.cargo === 'admin'">
+    <button mat-button mat-raised-button routerLink="/admin/relatorio">
+      Relatório de clientes
+    </button>
+    <button mat-button mat-raised-button routerLink="/admin/adicionar-gerente">
+      Inserir Gerente
+    </button>
+    <button mat-button mat-raised-button routerLink="/admin/listar-gerente">
+      Listar Gerentes
+    </button>
+    <button
+      mat-button
+      mat-raised-button
+      class="logout-btn"
+      routerLink=""
+      (click)="logout()"
+    >
+      Log out
+    </button>
   </div>
 </mat-toolbar>

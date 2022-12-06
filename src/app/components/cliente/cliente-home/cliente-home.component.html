@@ -6,19 +6,19 @@
   <div class="informacao cliente-nome">Bem vindo {{ usuarioLogado.nome }}</div>
   <div class="informacao" fxLayout="row">
     Saldo Atual:
-    <div class="informacao-saldo" *ngIf="this.cliente.saldo! >= 0">
-      R$ {{ this.cliente.saldo }}
+    <div class="informacao-saldo" *ngIf="this.contaCliente.saldo! >= 0">
+      R$ {{ this.contaCliente.saldo | number:'1.2-2' }}
     </div>
-    <div class="informacao-saldo-negativo" *ngIf="!(this.cliente.saldo! >= 0)">
-      R$ {{ this.cliente.saldo }}
+    <div class="informacao-saldo-negativo" *ngIf="!(this.contaCliente.saldo! >= 0)">
+      R$ {{ this.contaCliente.saldo | number:'1.2-2'}}
     </div>
   </div>
   <div class="informacao" fxLayout="row">
     Limite:
-    <div class="informacao-limite">R$ {{ this.cliente.limite }}</div>
+    <div class="informacao-limite">R$ {{ this.contaCliente.limite }}</div>
   </div>
   <div class="informacao" fxLayout="row">
     Gerente:
-    <div class="informacao-gerente">Darth Vader</div>
+    <div class="informacao-gerente"> {{ this.gerente.nome }}</div>
   </div>
 </div>

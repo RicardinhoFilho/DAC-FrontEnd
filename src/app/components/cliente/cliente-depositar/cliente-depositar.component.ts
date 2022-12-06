@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '@components/auth/services/user.service';
 import { Transacao } from '@shared/models';
 import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
@@ -21,7 +22,11 @@ import { AuthService } from './../../auth/services/auth.service';
 export class ClienteDepositarComponent implements OnInit {
   form: FormGroup;
 
+  mensagem: string = '';
   cliente!: Conta;
+
+  contaCliente$: Observable<Conta> = new Observable<Conta>();
+  contaCliente : Conta = new Conta();
 
   transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
   transacaos: Transacao[] = [];
@@ -44,27 +49,36 @@ export class ClienteDepositarComponent implements OnInit {
     });
 
     this.cliente = this.authService.contaCliente;
+
+    this.contaCliente$ = this.clienteService.buscarContaPorId(this.cliente.id!);
+    this.contaCliente$.subscribe(cliente => {
+      this.contaCliente = cliente;
+    });
   }
 
   depositar() {
-    var transacao: Transacao = clienteHelper.formatarTransacao(
-      this.transacaos.length + 2,
-      this.cliente,
-      this.form.value.deposito,
-      1
-    );
-    let clienteAlterar: Conta = clienteHelper.formatarAlterarSaldoCliente(
-      this.cliente,
-      this.form.value.deposito,
-      1
-    );
+    if (this.form.value.deposito > 0) {
+      var transacao: Transacao = clienteHelper.formatarTransacao(
+        this.transacaos.length + 2,
+        this.contaCliente,
+        this.form.value.deposito,
+        1
+      );
+      let clienteAlterar: Conta = clienteHelper.formatarAlterarSaldoCliente(
+        this.contaCliente,
+        this.form.value.deposito,
+        1
+      );
 
-    this.clienteService.postTransacao(transacao).subscribe(() => {
-      this.clienteService
-        .atualizarContaCliente(clienteAlterar)
-        .subscribe(() => {
-          this.router.navigate(['/cliente/home']);
-        });
-    });
+      this.clienteService.postTransacao(transacao).subscribe(() => {
+        this.clienteService
+          .atualizarContaCliente(clienteAlterar)
+          .subscribe(() => {
+            this.router.navigate(['/cliente/home']);
+          });
+      });
+    } else {
+      this.mensagem = `O valor de deposito deve ser maior que zero!!!`;
+    }
   }
 }

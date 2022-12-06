@@ -3,52 +3,266 @@
         <div class="titulo">Atualizar Perfil</div>
         <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
     </div>
-    <!-- TODO, formatar campos -->
     <div xLayout="row" fxLayoutAlign="center center" class="container-formulario">
-        <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center">
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-                <mat-form-field fxFlex="45%">
-                    <input matInput placeholder="Nome" />
-                </mat-form-field>
-                <mat-form-field fxFlex="45%">
-                    <input matInput type="email" placeholder="E-mail" />
-                </mat-form-field>
+        <form class="register-form" [formGroup]="form" (ngSubmit)="register()" fxFlex="100%" fxLayout="column" fxLayoutAlign="center center">
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+            <mat-form-field fxFlex="45%">
+              <input
+                matInput
+                placeholder="Nome"
+                name="name"
+                formControlName="name" [value]="this.dadosUsuario.nome!"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['name'].invalid &&
+                (form.controls['name'].dirty || form.controls['name'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div [hidden]="!form.controls['name'].errors?.['required']">
+                Insira o nome do usuário
+              </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-                <mat-form-field fxFlex="45%">
-                    <input matInput placeholder="Telefone" />
-                </mat-form-field>
+    
+            <mat-form-field fxFlex="45%">
+              <input
+                matInput
+                type="email"
+                placeholder="E-mail"
+                name="email"
+                formControlName="email" [value]="this.dadosUsuario.email!"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['email'].invalid &&
+                (form.controls['email'].dirty || form.controls['email'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div [hidden]="!form.controls['email'].errors?.['required']">
+                Insira o email do usuário
+              </div>
+              <div [hidden]="!form.controls['email'].errors?.['email']">
+                Insira um email válido
+              </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-                <mat-form-field fxFlex="45%">
-                    <input matInput placeholder="Salário" />
-                </mat-form-field>
-                <mat-form-field fxFlex="45%">
-                    <input matInput placeholder="Estado" />
-                </mat-form-field>
+          </div>
+          
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+            <mat-form-field fxFlex="23%">
+              <input
+                matInput
+                type="password"
+                placeholder="Senha"
+                name="password"
+                formControlName="password"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['password'].invalid &&
+                (form.controls['password'].dirty ||
+                  form.controls['password'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div
+                [hidden]="!form.controls['password'].errors?.['required'] && !form.controls['password'].errors?.['pattern']"
+              >
+                Insira uma senha com mais de 7 caracteres que tenha pelo menos uma
+                letra minúscula, uma letra maiúscula, um número e um símbolo
+                especial
+              </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-                <mat-form-field fxFlex="45%">
-                    <input matInput placeholder="Cidade" />
-                </mat-form-field>
-                <mat-form-field fxFlex="45%">
-                    <input matInput placeholder="CEP" />
-                </mat-form-field>
+    
+            <mat-form-field fxFlex="23%">
+              <input
+                matInput
+                type="password"
+                placeholder="Confirme a senha"
+                name="passwordConfirmation"
+                formControlName="passwordConfirmation"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['passwordConfirmation'].invalid &&
+                (form.controls['passwordConfirmation'].dirty ||
+                  form.controls['passwordConfirmation'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div
+                [hidden]="!form.controls['passwordConfirmation'].errors?.['required'] && passwordsMatch"
+              >
+                As senhas não coincidem
+              </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
-                <mat-form-field fxFlex="60%">
-                    <input matInput placeholder="Rua" />
-                </mat-form-field>
-                <mat-form-field fxFlex="15%">
-                    <input matInput placeholder="Número" />
-                </mat-form-field>
-                <mat-form-field fxFlex="15%">
-                    <input matInput placeholder="Complemento" />
-                </mat-form-field>
+    
+            <mat-form-field fxFlex="23%">
+              <input
+                matInput
+                placeholder="Telefone"
+                mask="(00) 00000-0000"
+                [showMaskTyped]="true"
+                type="text"
+                name="phone"
+                (input)="phoneChange()"
+                formControlName="phone" [value]="this.dadosUsuario.telefone!"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['phone'].invalid &&
+                (form.controls['phone'].dirty || form.controls['phone'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div
+                [hidden]="!form.controls['phone'].errors?.['required'] && !form.controls['phone'].errors?.['pattern'] && !form.controls['phone'].errors?.['mask']"
+              >
+                Insira um telefone válido
+              </div>
             </div>
-            <button mat-raised-button color="primary">
-                Atualizar
-            </button>
+    
+            <mat-form-field fxFlex="23%">
+              <input
+                matInput
+                placeholder="Salário (R$)"
+                name="salary"
+                numerico
+                formControlName="salary" [value]="this.contaCliente.salario!"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['salary'].invalid &&
+                (form.controls['salary'].dirty || form.controls['salary'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div [hidden]="!form.controls['salary'].errors?.['required']">
+                Insira o salário do usuário
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+            <mat-form-field appearance="fill" fxFlex="30%">
+              <mat-label>Estado</mat-label>
+              <mat-select
+                name="state"
+                formControlName="state"
+                (selectionChange)="fillCities($event)" [value]="this.dadosUsuario.estado!"
+              >
+                <mat-option *ngFor="let state of states" [value]="state.id">
+                  {{ state.nome }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill" fxFlex="30%">
+              <mat-label>Cidade</mat-label>
+              <mat-select name="city" formControlName="city" [value]="this.dadosUsuario.cidade!">
+                <mat-option *ngFor="let city of cities" [value]="city.id">
+                  {{ city.nome }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field fxFlex="30%">
+              <input
+                matInput
+                placeholder="CEP"
+                name="cep"
+                mask="00.000-000"
+                (input)="cepChange()"
+                formControlName="cep" [value]="this.dadosUsuario.cep!"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['cep'].invalid &&
+                (form.controls['cep'].dirty || form.controls['cep'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div
+                [hidden]="!form.controls['cep'].errors?.['required'] && !form.controls['cep'].errors?.['pattern'] && !form.controls['cep'].errors?.['mask']"
+              >
+                Insira um CEP válido
+              </div>
+            </div>
+          </div>
+  
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+            <mat-form-field fxFlex="60%">
+              <input
+                matInput
+                placeholder="Rua"
+                name="street"
+                formControlName="street" [value]="this.dadosUsuario.rua!"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['street'].invalid &&
+                (form.controls['street'].dirty || form.controls['street'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div [hidden]="!form.controls['street'].errors?.['required']">
+                Insira a rua do usuário
+              </div>
+            </div>
+    
+            <mat-form-field fxFlex="15%">
+              <input
+                matInput
+                type="text"
+                placeholder="Número"
+                numerico
+                name="number"
+                formControlName="number" [value]="this.dadosUsuario.numero!"
+              />
+            </mat-form-field>
+            <div
+              *ngIf="
+                form.controls['number'].invalid &&
+                (form.controls['number'].dirty || form.controls['number'].touched)
+              "
+              class="alert alert-danger"
+            >
+              <div [hidden]="!form.controls['number'].errors?.['required']">
+                Insira o número do usuário
+              </div>
+            </div>
+    
+            <mat-form-field fxFlex="15%">
+              <input
+                matInput
+                placeholder="Complemento"
+                name="complement"
+                formControlName="complement" [value]="this.dadosUsuario.complemento!"
+              />
+            </mat-form-field>
+          </div>
+  
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="container-inputs">
+            <button
+            mat-stroked-button
+            color="accent"
+            class="btn-block"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            Cadastrar
+          </button>
+          </div>
+          
         </form>
     </div>
           

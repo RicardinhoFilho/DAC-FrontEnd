@@ -30,17 +30,9 @@ export default class clienteHelper {
     valorDeposito: number,
     tipoTransacao: number
   ) {
-    let clienteAlterar: Conta = new Conta();
-    //   clienteAlterar.id = cliente.id;
-    //   clienteAlterar.cpf = cliente.cpf;
-    //   clienteAlterar.ativo = cliente.ativo;
-    //   clienteAlterar.limite = cliente.limite;
-    //   clienteAlterar.nome = cliente.nome;
-    //   clienteAlterar.salario = cliente.salario;
-    //   clienteAlterar.saldo =
-    //     tipoTransacao == 1
-    //       ? cliente.saldo + valorDeposito
-    //       : cliente.saldo - valorDeposito;
+    let clienteAlterar: Conta = {...cliente, 
+      saldo: tipoTransacao == 1 ? cliente.saldo! + valorDeposito : cliente.saldo! - valorDeposito
+    }
     return clienteAlterar;
   }
 }

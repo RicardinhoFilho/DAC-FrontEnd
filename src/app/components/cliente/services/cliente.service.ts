@@ -86,6 +86,7 @@ export class ClienteService {
     );
   }
 
+ 
   getClienteById(id: number|undefined): Observable<Conta[]> {
     return this.http.get<Conta[]>(
       this.apiUrlClientes + '&id=' + id,
@@ -95,7 +96,7 @@ export class ClienteService {
 
   getClientesPendenteByGerente(idGerente: number): Observable<Conta[]> {
     return this.http.get<Conta[]>(
-      this.apiUrl + '?idGerente=' + idGerente,
+      this.apiUrl + '?idGerente=' + idGerente+"&ativo=false",
       this.httpOptions
     );
   }

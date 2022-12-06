@@ -81,7 +81,7 @@ export class ClienteService {
 
   getClientesByGerente(idGerente: number): Observable<Conta[]> {
     return this.http.get<Conta[]>(
-      this.apiUrl + 'contas?idGerente=' + idGerente+"&ativo=false",
+      this.apiUrl + '?idGerente=' + idGerente,
       this.httpOptions
     );
   }

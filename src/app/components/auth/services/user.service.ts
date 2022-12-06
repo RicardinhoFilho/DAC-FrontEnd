@@ -36,6 +36,14 @@ export class UserService {
     );
   }
 
+  atualizarUser(usuario: User): Observable<User> {
+    return this.http.put<User>(
+      this.apiUrl,
+      JSON.stringify(usuario),
+      this.httpOptions
+    );
+  }
+
   getUserByEmail(email: string): Observable<User[]> {
     return this.http.get<User[]>(
       this.apiUrl + '?email=' + email,

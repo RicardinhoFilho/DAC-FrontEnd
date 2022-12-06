@@ -9,7 +9,7 @@
       voltar
     </button>
   </div>
-
+  <div class="mensagem-erro">{{ this.mensagem }}</div>
   <div
     fxLayout="row"
     fxLayoutAlign="center center"
@@ -58,7 +58,6 @@
               matInput
               [matDatepicker]="pickerFinal"
               [formControl]="dateFinal"
-              readonly
             />
             <mat-hint>DD/MM/YYYY</mat-hint>
             <mat-datepicker-toggle
@@ -113,14 +112,14 @@
         <td mat-cell *matCellDef="let element" class="alinhar-text">
           <div
             *ngIf="
-              element.idCliente == this.clienteId &&
+              element.idCliente == this.contaCliente.id &&
               element.destinatario != null
             "
           >
-            Nome -> {{ element.destinatario }}
+            {{ usuarioLogado.nome }} -> {{ this.nomeDestinatario(element.destinatario) }}
           </div>
-          <div *ngIf="element.destinatario == this.clienteId">
-            {{ element.idCliente }} -> Nome
+          <div *ngIf="element.destinatario == this.contaCliente.id">
+            {{ this.nomeDestinatario(element.idCliente) }} -> {{ usuarioLogado.nome }}
           </div>
         </td>
       </ng-container>
@@ -147,7 +146,7 @@
           Saldo após operação
         </th>
         <td mat-cell *matCellDef="let element" class="alinhar-text">
-          {{ element.saldo }}
+          {{ element.saldo | number:'1.2-2' }}
         </td>
       </ng-container>
 

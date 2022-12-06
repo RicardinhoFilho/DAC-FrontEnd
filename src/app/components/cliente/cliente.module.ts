@@ -7,7 +7,9 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { AngularMaterialModule } from 'app/angular-material.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { AppRoutingModuleCliente } from './app-routing-cliente';
 import { ClienteAlterarComponent } from './cliente-alterar/cliente-alterar.component';
 import { ClienteDepositarComponent } from './cliente-depositar/cliente-depositar.component';
@@ -37,6 +39,8 @@ import { ClienteTransferenciaComponent } from './cliente-transferencia/cliente-t
     MatNativeDateModule,
     CurrencyMaskModule,
     MatTableModule,
+    AngularMaterialModule,
+    NgxMaskModule.forRoot(),
   ],
   exports: [
     ClienteHomeComponent,

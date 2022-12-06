@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '@components/auth/services/user.service';
+import { GerenteService } from '@components/gerente/services/gerente.service';
 import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
+import { ClienteService } from '../services';
 import { User } from './../../../shared/models/user.model';
 import { AuthService } from './../../auth/services/auth.service';
 
@@ -10,14 +13,29 @@ import { AuthService } from './../../auth/services/auth.service';
   styleUrls: ['./cliente-home.component.scss'],
 })
 export class ClienteHomeComponent implements OnInit {
-  cliente$: Observable<Conta[]> = new Observable<Conta[]>();
-  cliente: Conta = new Conta();
+  contaCliente$: Observable<Conta> = new Observable<Conta>();
+  contaCliente : Conta = new Conta();
 
-  constructor(private authService: AuthService) {
+  cliente: Conta = new Conta();
+  gerente: User = new User();
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private clienteService: ClienteService,
+    ) {
     this.cliente = this.authService.contaCliente;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getGerentes().subscribe(gerentes => {
+      this.gerente = gerentes.find(gerente => gerente.id == this.cliente.idGerente)!;
+    });
+    this.contaCliente$ = this.clienteService.buscarContaPorId(this.cliente.id!);
+    this.contaCliente$.subscribe(cliente => {
+      this.contaCliente = cliente;
+    });
+  }
 
   get usuarioLogado(): User {
     return this.authService.usuarioLogado;

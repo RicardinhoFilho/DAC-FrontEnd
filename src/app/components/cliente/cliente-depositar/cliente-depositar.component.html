@@ -3,7 +3,7 @@
         <div class="titulo">Realizar Deposito</div>
         <button mat-stroked-button class="voltar" routerLink="/cliente/home">voltar</button>
     </div>
-
+    <div class="mensagem-erro">{{ this.mensagem }}</div>
     <div fxLayout="row" fxLayoutAlign="center center" class="container-formulario">
         <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center" [formGroup]="form">
             <div fxLayout="row" fxLayoutAlign="start center" class="container-inputs">

@@ -171,7 +171,7 @@
       "id": 1,
       "salario": 3000,
       "ativo": true,
-      "saldo": -500.45,
+      "saldo": 750,
       "limite": 1500,
       "idUsuario": 4,
       "idGerente": 2,
@@ -349,6 +349,123 @@
       "destinatario": null,
       "saldo": 1000,
       "data": 1669679909439
+    },
+    {
+      "id": 14,
+      "idCliente": 1,
+      "tipoTransacao": 1,
+      "valorTransacao": 1000.45,
+      "destinatario": null,
+      "saldo": 500.00000000000006,
+      "data": 1670159905160
+    },
+    {
+      "id": 15,
+      "idCliente": 1,
+      "tipoTransacao": 1,
+      "valorTransacao": 100,
+      "destinatario": null,
+      "saldo": 600,
+      "data": 1670160317328
+    },
+    {
+      "id": 16,
+      "idCliente": 1,
+      "tipoTransacao": 2,
+      "valorTransacao": 100,
+      "destinatario": null,
+      "saldo": 400.00000000000006,
+      "data": 1670160887204
+    },
+    {
+      "id": 17,
+      "idCliente": 1,
+      "tipoTransacao": 2,
+      "valorTransacao": 800,
+      "destinatario": null,
+      "saldo": -299.99999999999994,
+      "data": 1670160910521
+    },
+    {
+      "id": 18,
+      "idCliente": 1,
+      "tipoTransacao": 2,
+      "valorTransacao": 1200,
+      "destinatario": null,
+      "saldo": -700,
+      "data": 1670161937962
+    },
+    {
+      "id": 19,
+      "idCliente": 1,
+      "tipoTransacao": 2,
+      "valorTransacao": 80,
+      "destinatario": null,
+      "saldo": -780,
+      "data": 1670161988310
+    },
+    {
+      "id": 20,
+      "idCliente": 1,
+      "tipoTransacao": 2,
+      "valorTransacao": 720,
+      "destinatario": null,
+      "saldo": -1500,
+      "data": 1670161996837
+    },
+    {
+      "id": 21,
+      "idCliente": 1,
+      "tipoTransacao": 1,
+      "valorTransacao": 1500,
+      "destinatario": null,
+      "saldo": 2000,
+      "data": 1670162009729
+    },
+    {
+      "id": 22,
+      "idCliente": 1,
+      "tipoTransacao": 2,
+      "valorTransacao": 2000,
+      "destinatario": null,
+      "saldo": 0,
+      "data": 1670162061159
+    },
+    {
+      "id": 23,
+      "idCliente": 1,
+      "tipoTransacao": 2,
+      "valorTransacao": 1500,
+      "destinatario": null,
+      "saldo": -1500,
+      "data": 1670162074711
+    },
+    {
+      "id": 24,
+      "idCliente": 1,
+      "tipoTransacao": 1,
+      "valorTransacao": 2000,
+      "destinatario": null,
+      "saldo": 500,
+      "data": 1670162086841
+    },
+    {
+      "id": 25,
+      "idCliente": 1,
+      "tipoTransacao": 3,
+      "valorTransacao": 250,
+      "destinatario": 3,
+      "saldo": 250,
+      "data": 1670164012192
+    },
+    {
+      "id": 26,
+      "idCliente": 3,
+      "tipoTransacao": 3,
+      "valorTransacao": 500,
+      "destinatario": 1,
+      "saldo": 750,
+      "data": 1670164012192
     }
   ],
   "estados": [

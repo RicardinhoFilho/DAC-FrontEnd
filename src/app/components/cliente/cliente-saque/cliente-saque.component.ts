@@ -23,6 +23,9 @@ export class ClienteSaqueComponent implements OnInit {
   transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
   transacaos: Transacao[] = [];
 
+  contaCliente$: Observable<Conta> = new Observable<Conta>();
+  contaCliente : Conta = new Conta();
+
   cliente!: Conta;
 
   mensagem: string = '';
@@ -45,25 +48,34 @@ export class ClienteSaqueComponent implements OnInit {
     });
 
     this.cliente = this.authService.contaCliente;
+
+    this.contaCliente$ = this.clienteService.buscarContaPorId(this.cliente.id!);
+    this.contaCliente$.subscribe(cliente => {
+      this.contaCliente = cliente;
+    });
+    
   }
 
   sacar() {
     if (
-      this.formSaque.value.saque >
-      this.cliente.saldo! + this.cliente.limite!
+      this.formSaque.value.saque > this.contaCliente.saldo! + this.contaCliente.limite! && 
+      this.formSaque.value.saque > 0
     ) {
-      this.mensagem = `Não pode realizar o saque. Seu saldo mais o limite é de : ${
-        this.cliente.saldo! + this.cliente.limite!
-      }`;
+      if(this.formSaque.value.saque <= 0)
+        this.mensagem = `Informe um valor maior que zero para realizar saque!!!`;
+      else
+        this.mensagem = `Não pode realizar o saque. Seu saldo mais o limite é de : ${
+          this.contaCliente.saldo! + this.contaCliente.limite!
+        }`;
     } else {
       const transacao: Transacao = clienteHelper.formatarTransacao(
         this.transacaos.length + 2,
-        this.cliente,
+        this.contaCliente,
         this.formSaque.value.saque,
         2
       );
       const clienteAlterar: Conta = clienteHelper.formatarAlterarSaldoCliente(
-        this.cliente,
+        this.contaCliente,
         this.formSaque.value.saque,
         2
       );

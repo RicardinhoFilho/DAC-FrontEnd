@@ -9,7 +9,8 @@ import { UserService } from './../../auth/services/user.service';
   styleUrls: ['./gerente-pesquisa.component.scss'],
 })
 export class GerentePesquisaComponent implements OnInit {
-  cliente!: Conta;
+  conta!: Conta;
+  cliente!: User;
 
   clientes_string: string = '';
   constructor(
@@ -21,17 +22,18 @@ export class GerentePesquisaComponent implements OnInit {
 
   getClientes(cpf: string) {
     this.userService.getUserByCPF(cpf).subscribe((users: User[]) => {
+      this.cliente = users[0]
       if (users.length === 0) {
         confirm('Nenhum usuário encontrado!');
         return;
       }
       this.clienteService
         .buscarContaPorId(users[0].id!)
-        .subscribe((cliente: Conta) => (this.cliente = cliente));
+        .subscribe((cliente: Conta) => (this.conta = cliente));
     });
   }
 
   getClientesString() {
-    return JSON.stringify(this.cliente);
+    return JSON.stringify(this.conta);
   }
 }

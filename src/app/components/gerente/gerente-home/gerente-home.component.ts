@@ -1,31 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '@components/cliente/services/cliente.service';
+import { User } from '@shared/models/user.model';
 import { Conta } from './../../../shared/models/conta.model';
-
+interface IClienteCompleto {
+  conta: Conta;
+  cliente: User;
+}
 @Component({
   selector: 'app-gerente-home',
   templateUrl: './gerente-home.component.html',
   styleUrls: ['./gerente-home.component.scss'],
 })
 export class GerenteHomeComponent implements OnInit {
-  clientes: Conta[] = [];
+  clientes: IClienteCompleto[] = [];
 
-  constructor(private clienteService: ClienteService) {
-    this.getClientes();
+  constructor(private contaservice: ClienteService) {
+    this.getContas();
   }
 
   ngOnInit(): void {}
 
-  getClientes() {
-    this.clienteService
-      .getPendentes()
-      .subscribe(
-        (clientes: Conta[]) =>
-          (this.clientes = clientes.filter((item: Conta) => !item.ativo))
+  getContas() {
+    this.contaservice
+      .getClientesPendenteByGerente(2)
+      .subscribe((contas: Conta[]) =>
+        contas.forEach((item) => {
+          this.contaservice
+            .getClienteById(item.idUsuario)
+            .subscribe((user: User[]) => {
+              this.clientes.push({ conta: item, cliente: user[0] });
+            });
+        })
       );
+  
   }
 
-  getClientesString() {
+  getContasString() {
     return JSON.stringify(this.clientes);
   }
 }

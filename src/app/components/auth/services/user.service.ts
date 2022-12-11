@@ -28,6 +28,10 @@ export class UserService {
     );
   }
 
+  getGerenteById(id: number): Observable<User> {
+    return this.http.get<User>(this.apiUrl + '/' + id, this.httpOptions);
+  }
+
   inserir(usuario: User): Observable<User> {
     return this.http.post<User>(
       this.apiUrl,
@@ -38,7 +42,7 @@ export class UserService {
 
   atualizarUser(usuario: User): Observable<User> {
     return this.http.put<User>(
-      this.apiUrl  + '/' + usuario.id,
+      this.apiUrl + '/' + usuario.id,
       JSON.stringify(usuario),
       this.httpOptions
     );

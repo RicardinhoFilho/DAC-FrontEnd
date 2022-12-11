@@ -29,6 +29,9 @@
   </div>
 
   <div class="nav-tool-items" *ngIf="this.cargo === 'cliente'">
+    <button mat-button mat-raised-button routerLink="/cliente/home">
+      Home
+    </button>
     <button mat-button mat-raised-button routerLink="/cliente/alterar">
       Alterar Perfil
     </button>
@@ -56,6 +59,9 @@
   </div>
 
   <div class="nav-tool-items" *ngIf="this.cargo === 'gerente'">
+    <button mat-button mat-raised-button routerLink="/gerente/home">
+      Home
+    </button>
     <button
       mat-button
       mat-raised-button
@@ -81,6 +87,7 @@
   </div>
 
   <div class="nav-tool-items" *ngIf="this.cargo === 'admin'">
+    <button mat-button mat-raised-button routerLink="/admin/home">Home</button>
     <button mat-button mat-raised-button routerLink="/admin/relatorio">
       Relatório de clientes
     </button>

@@ -10,9 +10,9 @@ import { AuthService } from './../../auth/services/auth.service';
   styleUrls: ['./cliente-home.component.scss'],
 })
 export class ClienteHomeComponent implements OnInit {
-  dadosUsuario: User = new User();
-  contaCliente: Conta = new Conta();
-  gerente: User = new User();
+  dadosUsuario!: User;
+  contaCliente!: Conta;
+  gerente!: User;
 
   constructor(
     private authService: AuthService,
@@ -23,18 +23,16 @@ export class ClienteHomeComponent implements OnInit {
     this.contaCliente = this.authService.contaCliente;
 
     this.userService
-      .getGerenteById(this.contaCliente.idGerente!)
+      .getUserById(this.contaCliente.idGerente!)
       .subscribe((gerente) => {
         this.gerente = gerente;
       });
 
-    this.userService.getAllUsers().subscribe((usuarios) => {
-      if (usuarios && this.contaCliente) {
-        this.dadosUsuario = usuarios.find(
-          (usuario) => usuario.id == this.contaCliente.idUsuario
-        )!;
-      }
-    });
+    this.userService
+      .getUserById(this.contaCliente.idUsuario!)
+      .subscribe((usuario: User) => {
+        this.dadosUsuario = usuario;
+      });
   }
 
   get usuarioLogado(): User {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@components/auth/services/auth.service';
+import { UserService } from '@components/auth/services/user.service';
 import { ClienteService } from '@components/cliente/services/cliente.service';
 import { User } from '@shared/models/user.model';
 import { Conta } from './../../../shared/models/conta.model';
@@ -14,25 +16,28 @@ interface IClienteCompleto {
 export class GerenteHomeComponent implements OnInit {
   clientes: IClienteCompleto[] = [];
 
-  constructor(private contaservice: ClienteService) {
+  constructor(
+    private contaService: ClienteService,
+    private userService: UserService,
+    private authService: AuthService
+  ) {
     this.getContas();
   }
 
   ngOnInit(): void {}
 
   getContas() {
-    this.contaservice
-      .getClientesPendenteByGerente(2)
+    this.contaService
+      .getClientesByGerente(this.authService.usuarioLogado.id!)
       .subscribe((contas: Conta[]) =>
-        contas.forEach((item) => {
-          this.contaservice
-            .getClienteById(item.idUsuario)
-            .subscribe((user: User[]) => {
-              this.clientes.push({ conta: item, cliente: user[0] });
+        contas.map((item) => {
+          this.userService
+            .getUserById(item.idUsuario!)
+            .subscribe((user: User) => {
+              this.clientes.push({ conta: item, cliente: user });
             });
         })
       );
-  
   }
 
   getContasString() {

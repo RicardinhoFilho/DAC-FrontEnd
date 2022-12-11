@@ -28,7 +28,7 @@ export class UserService {
     );
   }
 
-  getGerenteById(id: number): Observable<User> {
+  getUserById(id: number): Observable<User> {
     return this.http.get<User>(this.apiUrl + '/' + id, this.httpOptions);
   }
 
@@ -46,6 +46,10 @@ export class UserService {
       JSON.stringify(usuario),
       this.httpOptions
     );
+  }
+
+  remover(id: number): Observable<User> {
+    return this.http.delete<User>(this.apiUrl + '/' + id, this.httpOptions);
   }
 
   getUserByEmail(email: string): Observable<User[]> {

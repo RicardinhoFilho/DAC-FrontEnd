@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GerenteService } from '@components/gerente/services/gerente.service';
+import { UserService } from '@components/auth/services/user.service';
 import { User } from './../../../shared/models/user.model';
 
 @Component({
@@ -13,7 +13,7 @@ export class AdminAdicionarGerenteComponent implements OnInit {
   @ViewChild('formGerente') formGerente!: NgForm;
   gerente!: User;
 
-  constructor(private gerenteService: GerenteService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.gerente = new User();
@@ -21,8 +21,9 @@ export class AdminAdicionarGerenteComponent implements OnInit {
 
   inserir(): void {
     if (this.formGerente.form.valid) {
-      this.gerenteService.inserir(this.gerente);
-      this.router.navigate(['/admin/listar-gerente']);
+      this.userService.inserir(this.gerente).subscribe(() => {
+        this.router.navigate(['/admin/listar-gerente']);
+      });
     }
   }
 }

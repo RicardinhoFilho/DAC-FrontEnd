@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 })
 export class ClienteService {
   private apiUrl = 'http://localhost:3000/contas';
-  private apiUrlClientes = 'http://localhost:3000/usuarios?cargo=cliente';
   private apiUrlTransacaos = 'http://localhost:3000/transacaos';
 
   constructor(private http: HttpClient) {}
@@ -28,28 +27,16 @@ export class ClienteService {
   }
 
   getAll(): Observable<Conta[]> {
-    const list = this.http.get<Conta[]>(this.apiUrl);
-
-    return list;
+    return this.http.get<Conta[]>(this.apiUrl);
   }
-
-
-
 
   getPendentes(): Observable<Conta[]> {
     //pagaria a rota especifica dos pendentes como nao temos usaremos logica no componente
-    return this.http.get<Conta[]>(this.apiUrl+"?");
-  }
-  //Rota especifica já irá filtrar para nós
-  getMelhores(): Observable<Conta[]> {
-    const list = this.http.get<Conta[]>(this.apiUrlClientes);
-
-    return list;
+    return this.http.get<Conta[]>(this.apiUrl + '?');
   }
 
   getAllTransacaos(): Observable<Transacao[]> {
-    const lista = this.http.get<Transacao[]>(this.apiUrlTransacaos);
-    return lista;
+    return this.http.get<Transacao[]>(this.apiUrlTransacaos);
   }
 
   postTransacao(transacao: Transacao): Observable<Transacao> {
@@ -86,17 +73,9 @@ export class ClienteService {
     );
   }
 
- 
-  getClienteById(id: number|undefined): Observable<Conta[]> {
-    return this.http.get<Conta[]>(
-      this.apiUrlClientes + '&id=' + id,
-      this.httpOptions
-    );
-  }
-
   getClientesPendenteByGerente(idGerente: number): Observable<Conta[]> {
     return this.http.get<Conta[]>(
-      this.apiUrl + '?idGerente=' + idGerente+"&ativo=false",
+      this.apiUrl + '?idGerente=' + idGerente + '&ativo=false',
       this.httpOptions
     );
   }

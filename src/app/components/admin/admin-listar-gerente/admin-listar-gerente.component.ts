@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GerenteService } from '@components/gerente/services/gerente.service';
+import { UserService } from '@components/auth/services/user.service';
 import { User } from './../../../shared/models/user.model';
 
 @Component({
@@ -10,21 +10,24 @@ import { User } from './../../../shared/models/user.model';
 export class AdminListarGerenteComponent implements OnInit {
   gerentes: User[] = [];
 
-  constructor(private gerenteService: GerenteService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.gerentes = this.listarTodos();
+    this.listarTodos();
   }
 
-  listarTodos(): User[] {
-    return this.gerenteService.listarTodos();
+  private listarTodos(): void {
+    this.userService.getGerentes().subscribe((users: User[]) => {
+      this.gerentes = users;
+    });
   }
 
   remover($event: any, gerente: User): void {
     $event.preventDefault();
     if (confirm(`Remover ${gerente.nome}?`)) {
-      this.gerenteService.remover(gerente.id!);
-      this.gerentes = this.listarTodos();
+      this.userService.remover(gerente.id!).subscribe(() => {
+        this.listarTodos();
+      });
     }
   }
 }

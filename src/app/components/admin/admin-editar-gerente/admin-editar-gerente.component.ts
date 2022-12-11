@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GerenteService } from '@components/gerente/services/gerente.service';
+import { UserService } from '@components/auth/services/user.service';
 import { User } from './../../../shared/models/user.model';
 
 @Component({
@@ -14,25 +14,23 @@ export class AdminEditarGerenteComponent implements OnInit {
   gerente!: User;
 
   constructor(
-    private gerenteService: GerenteService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    let id = +this.route.snapshot.params['id'];
-    const res = this.gerenteService.buscarPorID(id);
-    if (res !== undefined) {
-      this.gerente = res;
-    } else {
-      throw new Error('Gerente não encontrado: id = ' + id);
-    }
+    const id = +this.route.snapshot.params['id'];
+    this.userService.getUserById(id).subscribe((user: User) => {
+      this.gerente = user;
+    });
   }
 
   atualizar(): void {
     if (this.formGerente.form.valid) {
-      this.gerenteService.atualizar(this.gerente);
-      this.router.navigate(['/admin/listar-gerente']);
+      this.userService.atualizarUser(this.gerente).subscribe(() => {
+        this.router.navigate(['/admin/listar-gerente']);
+      });
     }
   }
 }

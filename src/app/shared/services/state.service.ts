@@ -21,7 +21,7 @@ export class StateService {
     return this.http.get<State[]>(this.apiUrl, this.httpOptions);
   }
 
-  getStateById(id: number): Observable<State | undefined> {
+  getStateById(id: number): Observable<State> {
     return this.http.get<State>(this.apiUrl + id, this.httpOptions);
   }
 }

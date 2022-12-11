@@ -164,6 +164,21 @@
       "numero": "69",
       "complemento": "",
       "id": 11
+    },
+    {
+      "nome": "Leonardo 3",
+      "email": "leo2@gmail.com",
+      "senha": "Leo123..",
+      "cargo": "cliente",
+      "cpf": "449.670.610-51",
+      "telefone": "(44) 94444-4444",
+      "estado": 16,
+      "cidade": 4006,
+      "cep": "78.978-977",
+      "rua": "Rua aqui mesmo",
+      "numero": "69",
+      "complemento": "",
+      "id": 12
     }
   ],
   "contas": [
@@ -239,10 +254,19 @@
     },
     {
       "idUsuario": 11,
-      "data": "2022-11-30T12:05:47.901Z",
+      "data": "2022-01-30T12:05:47.901Z",
       "ativo": false,
       "saldo": 0,
       "idGerente": 3,
+      "salario": 1009,
+      "id": 9
+    },
+    {
+      "idUsuario": 12,
+      "data": "2022-11-30T12:05:47.901Z",
+      "ativo": false,
+      "saldo": 0,
+      "idGerente": 2,
       "salario": 1009,
       "id": 9
     }

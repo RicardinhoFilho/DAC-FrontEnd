@@ -1,39 +1,79 @@
-<div
-  fxLayout="column"
-  fxLayoutAlign="center start"
-  class="container-admin-home"
->
-  <div class="informacao admin-nome">Pesquisar Clientes</div>
-  
-    <!-- <form fxFlex="100%" fxLayout="column" fxLayoutAlign="center center"> -->
-      <div
-        fxLayout="row"
-        fxLayoutAlign="space-between center"
-        class="container-inputs"
+<div class="mat-elevation-z8">
+  <div class="p-2">
+    <h1 class="pt-2">Pesquisar Cliente</h1>
+    <div class="d-flex">
+      <form
+        class="register-form"
+        [formGroup]="form"
+        (ngSubmit)="getCliente(cpf.value)"
       >
-      CPF <input #cpf type="text" placeholder="Cpf"/><br/>
+        <input
+          #cpf
+          placeholder="CPF"
+          name="cpf"
+          (input)="cpfChange()"
+          type="text"
+          formControlName="cpf"
+        />
+        <button
+          mat-raised-button
+          [disabled]="form.invalid"
+          color="primary"
+          type="submit"
+        >
+          Buscar
+        </button>
+      </form>
+    </div>
+    <div
+      *ngIf="
+        form.controls['cpf'].invalid &&
+        (form.controls['cpf'].dirty || form.controls['cpf'].touched)
+      "
+      class="alert alert-danger"
+    >
+      <div
+        [hidden]="!form.controls['cpf'].errors?.['required'] && !form.controls['cpf'].errors?.['invalidCPF']"
+      >
+        Insira um CPF válido
       </div>
-      <button mat-raised-button color="primary"
-      
-      (click)="getClientes(cpf.value)"
-      >Buscar</button>
-    <!-- </form> -->
-   
-    <table class="table table-striped table-bordered table-hover">
-      <tr>
-        <th>Id</th>
-        <th>Nome</th>
-        <th>CPF</th>
-        <th>Salário</th>
-      </tr>
-    
-      <tr>
-        <td>{{ cliente.id }}</td>
-        <td>{{ cliente.nome }}</td>
-        <td>{{ cliente.cpf }}</td>
-        <td>{{ conta.salario }}</td>
-      </tr>
-    </table>  
-<!-- <span> {{getClientesString()}}</span> -->
- 
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="p-3">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="user && conta && gerente && city && state">
+    <div class="p-2">
+      <h1 class="pt-2">Dados do Cliente</h1>
+      <div class="d-flex">
+        <div class="p-2">
+          <h3>Usuário:</h3>
+          <p>ID: {{ user.id }}</p>
+          <p>Nome: {{ user.nome }}</p>
+          <p>CPF: {{ user.cpf }}</p>
+          <p>Telefone: {{ user.telefone }}</p>
+          <p>E-mail: {{ user.email }}</p>
+          <p>Cargo: {{ user.cargo }}</p>
+          <p>Estado: {{ state.nome }}</p>
+          <p>Cidade: {{ city.nome }}</p>
+          <p>CEP: {{ user.cep }}</p>
+          <p>Rua: {{ user.rua }}</p>
+          <p>Número: {{ user.numero }}</p>
+          <p>Complemento: {{ user.complemento }}</p>
+        </div>
+        <div class="p-2">
+          <h3>Conta:</h3>
+          <p>Data de abertura: {{ conta.data | date : "dd/MM/yyyy HH:mm" }}</p>
+          <p>
+            Limite: {{ conta.limite ? "R$ " + conta.limite : "Não possui" }}
+          </p>
+          <p>Saldo: R$ {{ conta.saldo }}</p>
+          <p>Salário: R$ {{ conta.salario }}</p>
+          <p>Nome do gerente: {{ gerente.nome }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

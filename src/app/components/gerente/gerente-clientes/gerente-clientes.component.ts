@@ -68,8 +68,6 @@ export class GerenteClientesComponent implements OnInit {
               return (item as any)[property];
           }
         };
-
-        console.log(this.clientes);
       });
   }
 }

@@ -21,6 +21,10 @@ export class CityService {
     return this.http.get<City[]>(this.apiUrl, this.httpOptions);
   }
 
+  getCityById(id: number): Observable<City> {
+    return this.http.get<City>(this.apiUrl + '/' + id, this.httpOptions);
+  }
+
   getCitiesByStateId(id: number): Observable<City[]> {
     return this.http.get<City[]>(
       this.apiUrl + '?estado=' + id,

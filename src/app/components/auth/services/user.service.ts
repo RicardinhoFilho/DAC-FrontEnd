@@ -38,7 +38,7 @@ export class UserService {
 
   atualizarUser(usuario: User): Observable<User> {
     return this.http.put<User>(
-      this.apiUrl,
+      this.apiUrl  + '/' + usuario.id,
       JSON.stringify(usuario),
       this.httpOptions
     );

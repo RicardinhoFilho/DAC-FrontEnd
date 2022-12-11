@@ -29,6 +29,9 @@ export class ClienteAlterarComponent implements OnInit {
   states!: State[];
   cities!: City[];
 
+  cidade: number = 0;
+  estado: number = 0;
+
   constructor(
     private formBuilder: FormBuilder,
     private cityService: CityService,
@@ -62,7 +65,7 @@ export class ClienteAlterarComponent implements OnInit {
       ]),
       salary: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
-      city: new FormControl({ value: '', disabled: true }, Validators.required),
+      city: new FormControl({ value: '', disabled: false }, Validators.required),
       cep: new FormControl('', [
         Validators.required,
         Validators.pattern(/^(\d{2}\.)\d{3}\-\d{3}$/),
@@ -86,7 +89,9 @@ export class ClienteAlterarComponent implements OnInit {
     this.userService.getAllUsers().subscribe(usuarios => {
       if(usuarios && this.contaCliente) {
         this.dadosUsuario = usuarios.find(usuario => usuario.id == this.contaCliente.idUsuario)!;
-        console.log("dados usuario = ", this.dadosUsuario);
+        this.cidade = this.dadosUsuario.cidade!;
+        this.estado = this.dadosUsuario.estado!;
+        this.preencherCampos();
       }
     });
 
@@ -100,7 +105,7 @@ export class ClienteAlterarComponent implements OnInit {
     await lastValueFrom(
       this.userService.getUserByEmail(this.form.get('email')?.value).pipe(
         map((users: User[]) => {
-          if (users.length > 0) {
+          if (users.length > 0 && this.form.get('email')?.value != this.dadosUsuario.email) {
             invalidUser = true;
             confirm('Email já foi utilizado!');
           }
@@ -109,11 +114,26 @@ export class ClienteAlterarComponent implements OnInit {
     );
     if (invalidUser) return;
 
+    if(this.contaCliente.saldo! < 0) {
+      let saldo = this.contaCliente.saldo! * -1;
+      let limite = +this.form.get('salary')?.value/2;
+      if(saldo > limite)
+        this.contaCliente.limite = saldo;
+      else
+        this.contaCliente.limite = +this.form.get('salary')?.value/2;
+    } 
+    else
+      this.contaCliente.limite = +this.form.get('salary')?.value/2;
+    
+    this.contaCliente.salario = +this.form.get('salary')?.value;
+
     const atualizarUser = new User();
+    atualizarUser.id = this.contaCliente.idUsuario;
     atualizarUser.nome = this.form.get('name')?.value;
     atualizarUser.senha = this.form.get('password')?.value;
     atualizarUser.email = this.form.get('email')?.value;
     atualizarUser.cargo = 'cliente';
+    atualizarUser.cpf = this.dadosUsuario.cpf;
     atualizarUser.telefone = this.form.get('phone')?.value;
     atualizarUser.estado = this.form.get('state')?.value;
     atualizarUser.cidade = this.form.get('city')?.value;
@@ -122,7 +142,13 @@ export class ClienteAlterarComponent implements OnInit {
     atualizarUser.numero = this.form.get('number')?.value;
     atualizarUser.complemento = this.form.get('complement')?.value;
 
-    this.userService.atualizarUser(atualizarUser);
+    this.clienteService.atualizarContaCliente(this.contaCliente).subscribe(() => {
+      this.userService.atualizarUser(atualizarUser).subscribe(() => {
+        console.log("passou");
+        this.router.navigate(['/cliente/home']);
+      });
+    });
+    //this.userService.atualizarUser(atualizarUser);
   }
 
   cepChange(): void {
@@ -163,13 +189,34 @@ export class ClienteAlterarComponent implements OnInit {
     }
   }
 
-  fillCities($event: any): void {
+  fillCities($event?: any): void {
     this.cityService
       .getCitiesByStateId(+this.form.get('state')?.value)
       .subscribe((cities: City[]) => {
         this.form.get('city')?.enable();
         this.cities = cities;
+        this.form.get('city')?.setValue(this.cidade);
       });
+  }
+
+  preencherCampos() {
+    this.cityService
+      .getCitiesByStateId(this.dadosUsuario.estado!)
+      .subscribe((cities: City[]) => {
+        this.form.get('city')?.enable();
+        this.cities = cities;
+        this.form.get('city')?.setValue(this.dadosUsuario.cidade!);
+      });
+    this.form.get('name')?.setValue(this.dadosUsuario.nome);
+    this.form.get('email')?.setValue(this.dadosUsuario.email);
+    this.form.get('password')?.setValue(this.dadosUsuario.senha);
+    this.form.get('passwordConfirmation')?.setValue(this.dadosUsuario.senha);
+    this.form.get('phone')?.setValue(this.dadosUsuario.telefone);
+    this.form.get('salary')?.setValue(this.contaCliente.salario);
+    this.form.get('cep')?.setValue(this.dadosUsuario.cep);
+    this.form.get('street')?.setValue(this.dadosUsuario.rua);
+    this.form.get('number')?.setValue(this.dadosUsuario.numero);
+    this.form.get('complement')?.setValue(this.dadosUsuario.complemento);
   }
 
   get passwordsMatch(): boolean {

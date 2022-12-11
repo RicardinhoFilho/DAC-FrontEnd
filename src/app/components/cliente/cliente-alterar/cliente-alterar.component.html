@@ -19,7 +19,7 @@
                 form.controls['name'].invalid &&
                 (form.controls['name'].dirty || form.controls['name'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div [hidden]="!form.controls['name'].errors?.['required']">
                 Insira o nome do usuário
@@ -40,7 +40,7 @@
                 form.controls['email'].invalid &&
                 (form.controls['email'].dirty || form.controls['email'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div [hidden]="!form.controls['email'].errors?.['required']">
                 Insira o email do usuário
@@ -67,7 +67,7 @@
                 (form.controls['password'].dirty ||
                   form.controls['password'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div
                 [hidden]="!form.controls['password'].errors?.['required'] && !form.controls['password'].errors?.['pattern']"
@@ -93,7 +93,7 @@
                 (form.controls['passwordConfirmation'].dirty ||
                   form.controls['passwordConfirmation'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div
                 [hidden]="!form.controls['passwordConfirmation'].errors?.['required'] && passwordsMatch"
@@ -119,7 +119,7 @@
                 form.controls['phone'].invalid &&
                 (form.controls['phone'].dirty || form.controls['phone'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div
                 [hidden]="!form.controls['phone'].errors?.['required'] && !form.controls['phone'].errors?.['pattern'] && !form.controls['phone'].errors?.['mask']"
@@ -142,7 +142,7 @@
                 form.controls['salary'].invalid &&
                 (form.controls['salary'].dirty || form.controls['salary'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div [hidden]="!form.controls['salary'].errors?.['required']">
                 Insira o salário do usuário
@@ -156,7 +156,7 @@
               <mat-select
                 name="state"
                 formControlName="state"
-                (selectionChange)="fillCities($event)" [value]="this.dadosUsuario.estado!"
+                (selectionChange)="fillCities($event)" [value]="this.estado"
               >
                 <mat-option *ngFor="let state of states" [value]="state.id">
                   {{ state.nome }}
@@ -166,7 +166,7 @@
     
             <mat-form-field appearance="fill" fxFlex="30%">
               <mat-label>Cidade</mat-label>
-              <mat-select name="city" formControlName="city" [value]="this.dadosUsuario.cidade!">
+              <mat-select name="city" formControlName="city" [value]="this.cidade">
                 <mat-option *ngFor="let city of cities" [value]="city.id">
                   {{ city.nome }}
                 </mat-option>
@@ -188,7 +188,7 @@
                 form.controls['cep'].invalid &&
                 (form.controls['cep'].dirty || form.controls['cep'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div
                 [hidden]="!form.controls['cep'].errors?.['required'] && !form.controls['cep'].errors?.['pattern'] && !form.controls['cep'].errors?.['mask']"
@@ -212,7 +212,7 @@
                 form.controls['street'].invalid &&
                 (form.controls['street'].dirty || form.controls['street'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div [hidden]="!form.controls['street'].errors?.['required']">
                 Insira a rua do usuário
@@ -234,7 +234,7 @@
                 form.controls['number'].invalid &&
                 (form.controls['number'].dirty || form.controls['number'].touched)
               "
-              class="alert alert-danger"
+              class="alert alert-danger error-position"
             >
               <div [hidden]="!form.controls['number'].errors?.['required']">
                 Insira o número do usuário
@@ -259,7 +259,7 @@
             type="submit"
             [disabled]="form.invalid"
           >
-            Cadastrar
+            Alterar
           </button>
           </div>
           

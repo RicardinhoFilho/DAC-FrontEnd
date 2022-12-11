@@ -47,7 +47,7 @@
     },
     {
       "id": 4,
-      "nome": "Cliente 1",
+      "nome": "Fernando Carvalho Birznek",
       "email": "cliente1@gmail.com",
       "senha": "Cliente1.",
       "cargo": "cliente",
@@ -169,10 +169,10 @@
   "contas": [
     {
       "id": 1,
-      "salario": 3000,
+      "salario": 6000,
       "ativo": true,
       "saldo": 750,
-      "limite": 1500,
+      "limite": 3000,
       "idUsuario": 4,
       "idGerente": 2,
       "data": "2022-11-29"

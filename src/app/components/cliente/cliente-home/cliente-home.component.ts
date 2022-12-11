@@ -16,6 +16,7 @@ export class ClienteHomeComponent implements OnInit {
   contaCliente$: Observable<Conta> = new Observable<Conta>();
   contaCliente : Conta = new Conta();
 
+  dadosUsuario: User = new User();
   cliente: Conta = new Conta();
   gerente: User = new User();
 
@@ -34,6 +35,12 @@ export class ClienteHomeComponent implements OnInit {
     this.contaCliente$ = this.clienteService.buscarContaPorId(this.cliente.id!);
     this.contaCliente$.subscribe(cliente => {
       this.contaCliente = cliente;
+    });
+
+    this.userService.getAllUsers().subscribe(usuarios => {
+      if(usuarios && this.contaCliente) {
+        this.dadosUsuario = usuarios.find(usuario => usuario.id == this.contaCliente.idUsuario)!;
+      }
     });
   }
 

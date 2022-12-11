@@ -1,5 +1,6 @@
 .container-alterar {
     padding: 30px;
+    position: relative;
 }
 
 .container-cabecalho {
@@ -28,4 +29,11 @@
 
 .container-inputs {
     width: 100%;
+}
+
+.error-position {
+    position: absolute;
+    width: 500px;
+    margin-top: 430px;
+    top: 0;
 }

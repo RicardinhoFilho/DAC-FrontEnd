@@ -12,6 +12,7 @@ import { AppRoutingModuleCliente } from './app-routing-gerente';
 import { GerenteClientesComponent } from './gerente-clientes/gerente-clientes.component';
 import { GerenteHomeComponent } from './gerente-home/gerente-home.component';
 import { GerenteMelhoresClientesComponent } from './gerente-melhores-clientes/gerente-melhores-clientes.component';
+import { GerenteModalComponent } from './gerente-modal/gerente-modal.component';
 import { GerentePesquisaComponent } from './gerente-pesquisa/gerente-pesquisa.component';
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { GerentePesquisaComponent } from './gerente-pesquisa/gerente-pesquisa.co
     GerenteHomeComponent,
     GerenteMelhoresClientesComponent,
     GerentePesquisaComponent,
+    GerenteModalComponent,
   ],
   imports: [
     CommonModule,

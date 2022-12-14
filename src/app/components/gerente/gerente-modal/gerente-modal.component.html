@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h2 class="modal-title" id="modalLabel">Rejeitar usuário</h2>
+</div>
+<div class="modal-body text-center">
+  <form #form="ngForm">
+    <div class="form-group">
+      <label for="motivo">Motivo</label>
+      <textarea
+        required
+        class="form-control"
+        id="motivo"
+        rows="3"
+        [(ngModel)]="motivo"
+        placeholder="Informe o motivo da rejeição."
+        name="motivo"
+        #moti="ngModel"
+      ></textarea>
+      <div
+        *ngIf="moti.errors && (moti.dirty || moti.touched)"
+        class="alert alert-danger"
+      >
+        <div [hidden]="!moti.errors['required']">
+          Informe o motivo da rejeição.
+        </div>
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="form.invalid"
+      (click)="submit()"
+    >
+      Rejeitar
+    </button>
+  </form>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close()"
+  >
+    Fechar
+  </button>
+</div>

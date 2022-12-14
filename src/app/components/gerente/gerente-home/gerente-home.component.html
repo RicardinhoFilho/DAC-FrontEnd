@@ -3,7 +3,13 @@
     <h1 class="pt-2">Lista de Clientes Pendentes ({{ clientes.length }})</h1>
   </div>
 
-  <mat-table [dataSource]="dataSource" matSort>
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    matSortActive="id"
+    matSortDirection="desc"
+    matSortDisableClear
+  >
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="id">
@@ -33,6 +39,29 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="salario">
         {{ row.conta.salario }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="d-flex justify-content-around">
+        Ações
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
+        <ng-container [ngSwitch]="row.conta.rejeitadoMotivo ? 1 : 2">
+          <ng-container *ngSwitchDefault>
+            Usuário rejeitado em
+            {{ row.conta.rejeitadoData | date : "dd/MM/yyyy" }} pelo motivo:
+            {{ row.conta.rejeitadoMotivo }}
+          </ng-container>
+          <ng-container *ngSwitchCase="2">
+            <button mat-raised-button (click)="acceptUser(row)" color="success">
+              <i class="fa fa-check"></i> Aceitar
+            </button>
+            <button mat-raised-button (click)="rejectUser(row)" color="warn">
+              <i class="fa fa-times"></i> Rejeitar
+            </button>
+          </ng-container>
+        </ng-container>
       </mat-cell>
     </ng-container>
 

@@ -94,7 +94,7 @@
           Data/Hora
         </th>
         <td mat-cell *matCellDef="let element" class="alinhar-text">
-          {{ element.data | date: "dd-MM-yyyy hh:mm" }}
+          {{ element.data | date : "dd/MM/yyyy hh:mm" }}
         </td>
       </ng-container>
 
@@ -116,10 +116,12 @@
               element.destinatario != null
             "
           >
-            {{ usuarioLogado.nome }} -> {{ this.nomeDestinatario(element.destinatario) }}
+            {{ usuarioLogado.nome }} ->
+            {{ this.nomeDestinatario(element.destinatario) }}
           </div>
           <div *ngIf="element.destinatario == this.contaCliente.id">
-            {{ this.nomeDestinatario(element.idCliente) }} -> {{ usuarioLogado.nome }}
+            {{ this.nomeDestinatario(element.idCliente) }} ->
+            {{ usuarioLogado.nome }}
           </div>
         </td>
       </ng-container>
@@ -146,7 +148,7 @@
           Saldo após operação
         </th>
         <td mat-cell *matCellDef="let element" class="alinhar-text">
-          {{ element.saldo | number:'1.2-2' }}
+          {{ element.saldo | number : "1.2-2" }}
         </td>
       </ng-container>
 

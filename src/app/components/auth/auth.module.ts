@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule } from 'ngx-mask';
 import { AngularMaterialModule } from './../../angular-material.module';
+import { SharedModule } from './../../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth.service';
@@ -19,6 +20,7 @@ import { UserService } from './services/user.service';
     BrowserAnimationsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
+    SharedModule,
     NgxMaskModule.forRoot(),
   ],
   providers: [AuthService, UserService],

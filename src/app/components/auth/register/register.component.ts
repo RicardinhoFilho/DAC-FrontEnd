@@ -39,18 +39,18 @@ export class RegisterComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/
-        ),
-      ]),
-      passwordConfirmation: new FormControl('', [
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/
-        ),
-      ]),
+      // password: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern(
+      //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/
+      //   ),
+      // ]),
+      // passwordConfirmation: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern(
+      //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/
+      //   ),
+      // ]),
       role: new FormControl('User', Validators.required),
       cpf: new FormControl('', [
         Validators.required,
@@ -112,7 +112,7 @@ export class RegisterComponent implements OnInit {
 
     const user = new User();
     user.nome = this.form.get('name')?.value;
-    user.senha = this.form.get('password')?.value;
+    user.senha = null || this.form.get('password')?.value;
     user.email = this.form.get('email')?.value;
     user.cargo = 'cliente';
     user.cpf = this.form.get('cpf')?.value;
@@ -252,10 +252,10 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  get passwordsMatch(): boolean {
-    return (
-      this.form.get('password')?.value ===
-      this.form.get('passwordConfirmation')?.value
-    );
-  }
+  // get passwordsMatch(): boolean {
+  //   return (
+  //     this.form.get('password')?.value ===
+  //     this.form.get('passwordConfirmation')?.value
+  //   );
+  // }
 }

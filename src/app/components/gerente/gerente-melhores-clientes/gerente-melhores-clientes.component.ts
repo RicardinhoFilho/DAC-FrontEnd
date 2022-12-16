@@ -73,6 +73,29 @@ export class GerenteMelhoresClientesComponent implements OnInit {
                           this.dataSource = new MatTableDataSource(
                             this.clientes
                           );
+                          this.dataSource.paginator = this.paginator;
+                          this.dataSource.sort = this.sort;
+                          this.dataSource.sortingDataAccessor = (
+                            item: IClienteCompleto,
+                            property: string
+                          ) => {
+                            switch (property) {
+                              case 'id':
+                                return item.cliente.id;
+                              case 'nome':
+                                return item.cliente.nome;
+                              case 'cpf':
+                                return item.cliente.cpf;
+                              case 'saldo':
+                                return item.conta.saldo;
+                              case 'cidade':
+                                return item.city.nome;
+                              case 'estado':
+                                return item.city.estado;
+                              default:
+                                return (item as any)[property];
+                            }
+                          };
                         });
                     });
                 })
@@ -81,29 +104,7 @@ export class GerenteMelhoresClientesComponent implements OnInit {
           })
         );
 
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.dataSource.sortingDataAccessor = (
-          item: IClienteCompleto,
-          property: string
-        ) => {
-          switch (property) {
-            case 'id':
-              return item.cliente.id;
-            case 'nome':
-              return item.cliente.nome;
-            case 'cpf':
-              return item.cliente.cpf;
-            case 'saldo':
-              return item.conta.saldo;
-            case 'cidade':
-              return item.city.nome;
-            case 'estado':
-              return item.city.estado;
-            default:
-              return (item as any)[property];
-          }
-        };
+      
       });
   }
 }

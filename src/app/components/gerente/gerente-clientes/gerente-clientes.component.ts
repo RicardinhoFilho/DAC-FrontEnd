@@ -2,12 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { AuthService } from '@components/auth/services/auth.service';
 import { UserService } from '@components/auth/services/user.service';
 import { ClienteService } from '@components/cliente/services/cliente.service';
 import { Conta } from '@shared/models/conta.model';
 import { lastValueFrom, map } from 'rxjs';
 import { User } from './../../../shared/models/user.model';
+
 interface IClienteCompleto {
   conta: Conta;
   cliente: User;
@@ -29,8 +31,13 @@ export class GerenteClientesComponent implements OnInit {
   constructor(
     private contaService: ClienteService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
+
+  navigate(id: number) {
+    this.router.navigate(['gerente/cliente/detalhes/' + id]);
+  }
 
   async ngOnInit(): Promise<void> {
     this.contaService

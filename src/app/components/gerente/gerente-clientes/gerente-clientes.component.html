@@ -3,10 +3,10 @@
     <h1 class="pt-2">Lista de Clientes ({{ clientes.length }})</h1>
   </div>
 
-  <mat-table [dataSource]="dataSource" matSort>
+  <mat-table [dataSource]="dataSource" matSort >
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-      <mat-cell *matCellDef="let row" data-label="id">
+      <mat-cell *matCellDef="let row" data-label="id" (click)="navigate(row.cliente.cpf)" style="font-weight: bold;cursor:pointer;color:#3f51b5;">
         {{ row.cliente.id }}
       </mat-cell>
     </ng-container>

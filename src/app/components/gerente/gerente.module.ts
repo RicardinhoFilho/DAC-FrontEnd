@@ -14,6 +14,7 @@ import { GerenteHomeComponent } from './gerente-home/gerente-home.component';
 import { GerenteMelhoresClientesComponent } from './gerente-melhores-clientes/gerente-melhores-clientes.component';
 import { GerenteModalComponent } from './gerente-modal/gerente-modal.component';
 import { GerentePesquisaComponent } from './gerente-pesquisa/gerente-pesquisa.component';
+import { GerenteClienteDetalhesComponent } from './gerente-cliente-detalhes/gerente-cliente-detalhes.component';
 @NgModule({
   declarations: [
     GerenteClientesComponent,
@@ -21,6 +22,7 @@ import { GerentePesquisaComponent } from './gerente-pesquisa/gerente-pesquisa.co
     GerenteMelhoresClientesComponent,
     GerentePesquisaComponent,
     GerenteModalComponent,
+    GerenteClienteDetalhesComponent,
   ],
   imports: [
     CommonModule,

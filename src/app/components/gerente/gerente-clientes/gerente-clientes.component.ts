@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -21,7 +22,8 @@ interface IClienteCompleto {
 })
 export class GerenteClientesComponent implements OnInit {
   clientes: IClienteCompleto[] = [];
-
+  clientesFiltrados: IClienteCompleto[] = [];
+  filtroFocus: string = '';
   displayedColumns = ['id', 'nome', 'cpf', 'salario'];
   dataSource!: MatTableDataSource<IClienteCompleto>;
 
@@ -54,8 +56,8 @@ export class GerenteClientesComponent implements OnInit {
             );
           })
         );
-
-        this.dataSource = new MatTableDataSource(this.clientes);
+        this.checkFiltro();
+        this.dataSource = new MatTableDataSource(this.clientesFiltrados);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.dataSource.sortingDataAccessor = (
@@ -76,5 +78,26 @@ export class GerenteClientesComponent implements OnInit {
           }
         };
       });
+  }
+  
+
+  filtroChange(cpfValue: string): void {
+    this.filtroFocus = cpfValue;
+    this.checkFiltro();
+  }
+
+   checkFiltro(): void {
+    var expression = new RegExp(this.filtroFocus, "i");
+    if(this.filtroFocus.length == 0){
+      this.clientesFiltrados = this.clientes;
+    }else{
+      this.clientesFiltrados = this.clientes.filter(item=>
+        (item.cliente.nome && item.cliente.cpf  &&( expression.test(item.cliente.nome) ||
+        expression.test(item.cliente.cpf)))
+      );
+    }
+      
+    this.dataSource = new MatTableDataSource(this.clientesFiltrados);
+   
   }
 }

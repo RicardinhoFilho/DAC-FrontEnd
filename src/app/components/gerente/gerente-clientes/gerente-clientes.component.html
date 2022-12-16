@@ -5,11 +5,14 @@
   <div class="d-flex">
     <form
       class="register-form"
-      style="width:100%; display: flex;align-items: center;justify-content: center; "
-      
+      style="
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
     >
       <input
-       
         placeholder="Filtro(CPF | NOME)"
         name="Filtro(CPF | NOME)"
         #filtro
@@ -17,15 +20,18 @@
         type="text"
         formControlName="Filtro(CPF | NOME)"
       />
-
-    
     </form>
   </div>
 
-  <mat-table [dataSource]="dataSource" matSort >
+  <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-      <mat-cell *matCellDef="let row" data-label="id" (click)="navigate(row.cliente.cpf)" style="font-weight: bold;cursor:pointer;color:#3f51b5; ">
+      <mat-cell
+        *matCellDef="let row"
+        data-label="id"
+  
+       
+      >
         {{ row.cliente.id }}
       </mat-cell>
     </ng-container>
@@ -46,12 +52,47 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="salario">
+   
+    <ng-container matColumnDef="cidade">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Salário (R$)
+        Cidade
       </mat-header-cell>
-      <mat-cell *matCellDef="let row" data-label="salario">
-        {{ row.conta.salario.toLocaleString('pt-br', {minimumFractionDigits: 2}) }}
+      <mat-cell *matCellDef="let row" data-label="cidade">
+        {{ row.city.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Estado
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="estado">
+        {{ row.state.nome }}
+      </mat-cell>
+    </ng-container>
+
+
+   
+    <ng-container matColumnDef="saldo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Saldo (R$)
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="saldo">
+     
+        {{
+          row.conta.saldo.toLocaleString("pt-br", {
+            minimumFractionDigits: 2
+          })
+        }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="_">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="ver"  style="cursor:pointer;"      (click)="navigate(row.cliente.cpf)">
+     
+        <img src="../../../../assets/search.svg" alt="Ir" />
       </mat-cell>
     </ng-container>
 

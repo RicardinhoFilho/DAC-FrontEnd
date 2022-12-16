@@ -7,13 +7,19 @@ import { Router } from '@angular/router';
 import { AuthService } from '@components/auth/services/auth.service';
 import { UserService } from '@components/auth/services/user.service';
 import { ClienteService } from '@components/cliente/services/cliente.service';
+import { City } from '@shared/models/city.model';
 import { Conta } from '@shared/models/conta.model';
+import { State } from '@shared/models/state.model';
+import { CityService } from '@shared/services/city.service';
+import { StateService } from '@shared/services/state.service';
 import { lastValueFrom, map } from 'rxjs';
 import { User } from './../../../shared/models/user.model';
 
 interface IClienteCompleto {
   conta: Conta;
   cliente: User;
+  city: City;
+  state: State;
 }
 @Component({
   selector: 'app-gerente-clientes',
@@ -24,7 +30,7 @@ export class GerenteClientesComponent implements OnInit {
   clientes: IClienteCompleto[] = [];
   clientesFiltrados: IClienteCompleto[] = [];
   filtroFocus: string = '';
-  displayedColumns = ['id', 'nome', 'cpf', 'salario'];
+  displayedColumns = ['id', 'nome', 'cpf','cidade','estado', 'saldo','_']; //CPF, Nome, Cidade, Estado e Saldo
   dataSource!: MatTableDataSource<IClienteCompleto>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -34,7 +40,9 @@ export class GerenteClientesComponent implements OnInit {
     private contaService: ClienteService,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private stateService: StateService,
+    private cityService: CityService
   ) {}
 
   navigate(id: number) {
@@ -50,13 +58,32 @@ export class GerenteClientesComponent implements OnInit {
             await lastValueFrom(
               this.userService.getUserById(item.idUsuario!).pipe(
                 map((user: User) => {
-                  this.clientes.push({ conta: item, cliente: user });
+                  let cidade: City;
+                  let estado: State;
+                  this.stateService
+                    .getStateById(user.estado!)
+                    .subscribe((state: State) => {
+                      estado = state;
+                      this.cityService
+                        .getCityById(user.cidade!)
+                        .subscribe((city: City) => {
+                    
+                          cidade = city;
+                          this.clientes.push({
+                            conta: item,
+                            cliente: user,
+                            city: cidade,
+                            state: estado,
+                          });
+                          this.checkFiltro();
+                        });
+                    });
                 })
               )
             );
           })
         );
-        this.checkFiltro();
+
         this.dataSource = new MatTableDataSource(this.clientesFiltrados);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -71,33 +98,39 @@ export class GerenteClientesComponent implements OnInit {
               return item.cliente.nome;
             case 'cpf':
               return item.cliente.cpf;
-            case 'salario':
-              return item.conta.salario;
+            case 'saldo':
+              return item.conta.saldo;
+            case 'cidade':
+              return item.city.nome;
+              case 'estado':
+                return item.city.estado;
+              
             default:
               return (item as any)[property];
           }
         };
       });
   }
-  
 
   filtroChange(cpfValue: string): void {
     this.filtroFocus = cpfValue;
     this.checkFiltro();
   }
 
-   checkFiltro(): void {
-    var expression = new RegExp(this.filtroFocus, "i");
-    if(this.filtroFocus.length == 0){
+  checkFiltro(): void {
+    var expression = new RegExp(this.filtroFocus, 'i');
+    if (this.filtroFocus.length == 0) {
       this.clientesFiltrados = this.clientes;
-    }else{
-      this.clientesFiltrados = this.clientes.filter(item=>
-        (item.cliente.nome && item.cliente.cpf  &&( expression.test(item.cliente.nome) ||
-        expression.test(item.cliente.cpf)))
+    } else {
+      this.clientesFiltrados = this.clientes.filter(
+        (item) =>
+          item.cliente.nome &&
+          item.cliente.cpf &&
+          (expression.test(item.cliente.nome) ||
+            expression.test(item.cliente.cpf))
       );
     }
-      
+
     this.dataSource = new MatTableDataSource(this.clientesFiltrados);
-   
   }
 }

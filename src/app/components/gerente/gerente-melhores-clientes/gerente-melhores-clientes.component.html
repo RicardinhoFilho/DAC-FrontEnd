@@ -27,12 +27,32 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="salario">
+    <ng-container matColumnDef="cidade">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Salário (R$)
+        Cidade
       </mat-header-cell>
-      <mat-cell *matCellDef="let row" data-label="salario">
-        {{ row.conta.salario.toLocaleString('pt-br', {minimumFractionDigits: 2}) }}
+      <mat-cell *matCellDef="let row" data-label="cidade">
+        {{ row.city.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Estado
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="estado">
+        {{ row.state.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="saldo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Saldo (R$)
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="saldo">
+        {{ row.conta.saldo.toLocaleString("pt-br", {
+          minimumFractionDigits: 2
+        }) }}
       </mat-cell>
     </ng-container>
 

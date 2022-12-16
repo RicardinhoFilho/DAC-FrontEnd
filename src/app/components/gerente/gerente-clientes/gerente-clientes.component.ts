@@ -30,7 +30,7 @@ export class GerenteClientesComponent implements OnInit {
   clientes: IClienteCompleto[] = [];
   clientesFiltrados: IClienteCompleto[] = [];
   filtroFocus: string = '';
-  displayedColumns = ['id', 'nome', 'cpf','cidade','estado', 'saldo','_']; //CPF, Nome, Cidade, Estado e Saldo
+  displayedColumns = ['id', 'nome', 'cpf', 'cidade', 'estado', 'saldo', '_']; //CPF, Nome, Cidade, Estado e Saldo
   dataSource!: MatTableDataSource<IClienteCompleto>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -40,9 +40,10 @@ export class GerenteClientesComponent implements OnInit {
     private contaService: ClienteService,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router,
     private stateService: StateService,
-    private cityService: CityService
+    private cityService: CityService,
+    private router: Router,
+   
   ) {}
 
   navigate(id: number) {
@@ -67,7 +68,6 @@ export class GerenteClientesComponent implements OnInit {
                       this.cityService
                         .getCityById(user.cidade!)
                         .subscribe((city: City) => {
-                    
                           cidade = city;
                           this.clientes.push({
                             conta: item,
@@ -102,9 +102,9 @@ export class GerenteClientesComponent implements OnInit {
               return item.conta.saldo;
             case 'cidade':
               return item.city.nome;
-              case 'estado':
-                return item.city.estado;
-              
+            case 'estado':
+              return item.city.estado;
+
             default:
               return (item as any)[property];
           }

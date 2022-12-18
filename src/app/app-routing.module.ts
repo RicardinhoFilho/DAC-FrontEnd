@@ -5,8 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminAdicionarGerenteComponent } from '@components/admin/admin-adicionar-gerente/admin-adicionar-gerente.component';
 import { AdminEditarGerenteComponent } from '@components/admin/admin-editar-gerente/admin-editar-gerente.component';
 import { AdminListarGerenteComponent } from '@components/admin/admin-listar-gerente/admin-listar-gerente.component';
-import { AdminRemoverGerenteComponent } from '@components/admin/admin-remover-gerente/admin-remover-gerente.component';
 import { AdminHomeComponent } from './components/admin';
+import { AdminRelatorioComponent } from './components/admin/admin-relatorio/admin-relatorio.component';
 import { AuthGuard } from './components/auth/auth.guard';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -46,14 +46,14 @@ const routes: Routes = [
     data: { role: 'admin' },
   },
   {
-    path: 'admin/adicionar-gerente',
-    component: AdminAdicionarGerenteComponent,
+    path: 'admin/relatorio',
+    component: AdminRelatorioComponent,
     canActivate: [AuthGuard],
     data: { role: 'admin' },
   },
   {
-    path: 'admin/remover-gerente',
-    component: AdminRemoverGerenteComponent,
+    path: 'admin/adicionar-gerente',
+    component: AdminAdicionarGerenteComponent,
     canActivate: [AuthGuard],
     data: { role: 'admin' },
   },

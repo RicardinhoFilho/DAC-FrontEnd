@@ -15,6 +15,9 @@ interface AdminGerentesTable {
   styleUrls: ['./admin-listar-gerente.component.scss'],
 })
 export class AdminListarGerenteComponent implements OnInit {
+
+  isDisabled = false;
+
   adminGerentesTable: AdminGerentesTable[] = [];
 
   displayedColumns = [
@@ -34,12 +37,16 @@ export class AdminListarGerenteComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    
     this.userService.getGerentes().subscribe(async (users: User[]) => {
       await Promise.all(
         users.map(async (user: User): Promise<void> => {
           this.adminGerentesTable.push({
             user: user,
           });
+          if(users.length <= 1) {
+            this.isDisabled = true;
+          }
         })
       );
 
@@ -67,5 +74,6 @@ export class AdminListarGerenteComponent implements OnInit {
       this.sort.direction = sortState.direction;
       this.sort.sortChange.emit(sortState);
     });
+    
   }
 }

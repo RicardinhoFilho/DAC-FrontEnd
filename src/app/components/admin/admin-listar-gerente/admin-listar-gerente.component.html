@@ -16,55 +16,55 @@
       matSortDisableClear
     >
 
-      <ng-container matColumnDef="nomeGerente">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Nome do gerente
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="nomeGerente">
-          {{ row.user.nome }}
-        </mat-cell>
-      </ng-container>
- 
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Email do gerente
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="email">
-          {{ row.user.email }}
-        </mat-cell>
-      </ng-container>      
+    <ng-container matColumnDef="nomeGerente">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Nome do gerente
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" data-label="nomeGerente">
+        {{ row.user.nome }}
+    </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="cpf">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          CPF do gerente
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="cpf">
-          {{ row.user.cpf }}
-        </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="telefone">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          Telefone do gerente
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="telefone">
-          {{ row.user.telefone }}
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Email do gerente
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" data-label="email">
+        {{ row.user.email }}
+    </mat-cell>
+    </ng-container>      
 
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef class="d-flex justify-content-around"
-          >Ações</mat-header-cell
-        >
-        <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
-          <button mat-raised-button color="accent">
-            <i class="fa fa-edit"></i> Editar
-          </button>
-          <button mat-raised-button color="warn">
-            <i class="fa fa-trash"></i> Remover
-          </button>
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="cpf">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+        CPF do gerente
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" data-label="cpf">
+        {{ row.user.cpf }}
+    </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="telefone">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Telefone do gerente
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" data-label="telefone">
+        {{ row.user.telefone }}
+    </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="d-flex justify-content-around"
+        >Ações</mat-header-cell
+    >
+    <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
+        <button mat-raised-button color="accent" routerLink="/admin/editar-gerente/:id">
+        <i class="fa fa-edit"></i> Editar
+        </button>
+        <button [disabled]="isDisabled" mat-raised-button color="warn">
+        <i class="fa fa-trash"></i> Remover
+        </button>
+    </mat-cell>
+    </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>

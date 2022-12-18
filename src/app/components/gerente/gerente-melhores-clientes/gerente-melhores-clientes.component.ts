@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '@components/auth/services/auth.service';
 import { UserService } from '@components/auth/services/user.service';
@@ -96,6 +96,12 @@ export class GerenteMelhoresClientesComponent implements OnInit {
                                 return (item as any)[property];
                             }
                           };
+                          const sortState: Sort = {
+                            active: 'saldo',
+                            direction: 'desc',
+                          };
+                          this.sort.direction = sortState.direction;
+                          this.sort.sortChange.emit(sortState);
                         });
                     });
                 })
@@ -103,8 +109,6 @@ export class GerenteMelhoresClientesComponent implements OnInit {
             );
           })
         );
-
-      
       });
   }
 }

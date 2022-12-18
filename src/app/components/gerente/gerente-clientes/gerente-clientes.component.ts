@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AuthService } from '@components/auth/services/auth.service';
@@ -42,8 +41,7 @@ export class GerenteClientesComponent implements OnInit {
     private userService: UserService,
     private stateService: StateService,
     private cityService: CityService,
-    private router: Router,
-   
+    private router: Router
   ) {}
 
   navigate(id: number) {
@@ -83,8 +81,6 @@ export class GerenteClientesComponent implements OnInit {
             );
           })
         );
-
-       
       });
   }
 
@@ -132,5 +128,8 @@ export class GerenteClientesComponent implements OnInit {
           return (item as any)[property];
       }
     };
+    const sortState: Sort = { active: 'nome', direction: 'asc' };
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
 }

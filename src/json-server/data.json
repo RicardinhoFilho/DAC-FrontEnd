@@ -187,6 +187,7 @@
       "saldo": 0,
       "idGerente": 8,
       "salario": 6615,
+      "limite": 3307,
       "id": 3
     },
     {
@@ -194,6 +195,7 @@
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
       "saldo": -60,
+      "limite": 8758,
       "idGerente": 8,
       "salario": 17515,
       "id": 4

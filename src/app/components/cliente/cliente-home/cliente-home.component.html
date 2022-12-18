@@ -2,15 +2,21 @@
   fxLayout="column"
   fxLayoutAlign="center start"
   class="container-cliente-home"
+  *ngIf="this.dadosUsuario && this.contaCliente && this.gerente"
 >
-  <div class="informacao cliente-nome">Bem vindo {{ this.dadosUsuario.nome }}</div>
+  <div class="informacao cliente-nome">
+    Bem vindo {{ this.dadosUsuario.nome }}
+  </div>
   <div class="informacao" fxLayout="row">
     Saldo Atual:
     <div class="informacao-saldo" *ngIf="this.contaCliente.saldo! >= 0">
-      R$ {{ this.contaCliente.saldo | number:'1.2-2' }}
+      R$ {{ this.contaCliente.saldo | number : "1.2-2" }}
     </div>
-    <div class="informacao-saldo-negativo" *ngIf="!(this.contaCliente.saldo! >= 0)">
-      R$ {{ this.contaCliente.saldo | number:'1.2-2'}}
+    <div
+      class="informacao-saldo-negativo"
+      *ngIf="!(this.contaCliente.saldo! >= 0)"
+    >
+      R$ {{ this.contaCliente.saldo | number : "1.2-2" }}
     </div>
   </div>
   <div class="informacao" fxLayout="row">
@@ -19,6 +25,6 @@
   </div>
   <div class="informacao" fxLayout="row">
     Gerente:
-    <div class="informacao-gerente"> {{ this.gerente.nome }}</div>
+    <div class="informacao-gerente">{{ this.gerente.nome }}</div>
   </div>
 </div>

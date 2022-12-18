@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@components/auth/services/user.service';
-import { User } from './../../../shared/models/user.model';
+import { User } from '@shared/models/user.model';
 
 @Component({
-  selector: 'app-admin-adicionar-gerente',
-  templateUrl: './admin-adicionar-gerente.component.html',
-  styleUrls: ['./admin-adicionar-gerente.component.scss'],
+  selector: 'app-admin-add-edit-gerente',
+  templateUrl: './admin-add-edit-gerente.component.html',
+  styleUrls: ['./admin-add-edit-gerente.component.scss'],
 })
-export class AdminAdicionarGerenteComponent implements OnInit {
+export class AdminAddEditGerenteComponent implements OnInit {
   @ViewChild('formGerente') formGerente!: NgForm;
   gerente!: User;
 

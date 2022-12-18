@@ -3,7 +3,13 @@
     <h1 class="pt-2">Lista de Melhores Clientes ({{ clientes.length }})</h1>
   </div>
 
-  <mat-table [dataSource]="dataSource" matSort>
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    matSortActive="saldo"
+    matSortDirection="desc"
+    matSortDisableClear
+  >
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="id">
@@ -27,12 +33,34 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="salario">
+    <ng-container matColumnDef="cidade">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Salário (R$)
+        Cidade
       </mat-header-cell>
-      <mat-cell *matCellDef="let row" data-label="salario">
-        {{ row.conta.salario }}
+      <mat-cell *matCellDef="let row" data-label="cidade">
+        {{ row.city.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Estado
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="estado">
+        {{ row.state.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="saldo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Saldo (R$)
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="saldo">
+        {{
+          row.conta.saldo.toLocaleString("pt-br", {
+            minimumFractionDigits: 2
+          })
+        }}
       </mat-cell>
     </ng-container>
 

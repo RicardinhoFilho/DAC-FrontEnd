@@ -9,7 +9,6 @@ import { AdminEditarGerenteComponent } from './admin-editar-gerente/admin-editar
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminListarGerenteComponent } from './admin-listar-gerente/admin-listar-gerente.component';
 import { AdminRelatorioComponent } from './admin-relatorio/admin-relatorio.component';
-import { AdminRemoverGerenteComponent } from './admin-remover-gerente/admin-remover-gerente.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -18,7 +17,6 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     AdminHomeComponent,
     AdminRelatorioComponent,
     AdminAdicionarGerenteComponent,
-    AdminRemoverGerenteComponent,
     AdminListarGerenteComponent,
     AdminEditarGerenteComponent,
   ],

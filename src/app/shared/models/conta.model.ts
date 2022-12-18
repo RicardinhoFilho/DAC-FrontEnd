@@ -9,6 +9,6 @@ export class Conta {
     public rejeitadoData?: Date,
     public saldo?: number,
     public idGerente?: number,
-    public salario?: number
+    public salario?: number|string
   ) {}
 }

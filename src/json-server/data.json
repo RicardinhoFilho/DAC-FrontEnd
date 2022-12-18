@@ -166,7 +166,7 @@
       "idUsuario": 1,
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
-      "saldo": 0,
+      "saldo": 750,
       "idGerente": 8,
       "salario": 15,
       "id": 1
@@ -175,7 +175,7 @@
       "idUsuario": 2,
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
-      "saldo": 0,
+      "saldo": 1510,
       "idGerente": 8,
       "salario": 1500,
       "id": 2
@@ -187,13 +187,15 @@
       "saldo": 0,
       "idGerente": 8,
       "salario": 6615,
+      "limite": 3307,
       "id": 3
     },
     {
       "idUsuario": 4,
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
-      "saldo": 0,
+      "saldo": -60,
+      "limite": 8758,
       "idGerente": 8,
       "salario": 17515,
       "id": 4

@@ -47,35 +47,33 @@ export class AdminHomeComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getGerentes().subscribe(async (gerentes: User[]) => {
       await Promise.all(
-        gerentes.map(
-          async (gerente: User): Promise<void> => {
-            await lastValueFrom(
-              this.clienteService.getClientesByGerente(gerente.id!).pipe(
-                map((clientes: Conta[]) => {
-                  const negativos: number = clientes.reduce(
-                    (accumulator, currentValue) =>
-                      accumulator +
-                      (currentValue.saldo! < 0 ? currentValue.saldo! : 0),
-                    0
-                  );
-                  const positivos: number = clientes.reduce(
-                    (accumulator, currentValue) =>
-                      accumulator +
-                      (currentValue.saldo! > 0 ? currentValue.saldo! : 0),
-                    0
-                  );
+        gerentes.map(async (gerente: User): Promise<void> => {
+          await lastValueFrom(
+            this.clienteService.getClientesByGerente(gerente.id!).pipe(
+              map((clientes: Conta[]) => {
+                const negativos: number = clientes.reduce(
+                  (accumulator, currentValue) =>
+                    accumulator +
+                    (currentValue.saldo! < 0 ? currentValue.saldo! : 0),
+                  0
+                );
+                const positivos: number = clientes.reduce(
+                  (accumulator, currentValue) =>
+                    accumulator +
+                    (currentValue.saldo! > 0 ? currentValue.saldo! : 0),
+                  0
+                );
 
-                  this.adminHomeTable.push({
-                    gerente: gerente,
-                    clientesCount: clientes.length,
-                    negativos: negativos.toFixed(2),
-                    positivos: positivos.toFixed(2),
-                  });
-                })
-              )
-            );
-          }
-        )
+                this.adminHomeTable.push({
+                  gerente: gerente,
+                  clientesCount: clientes.length,
+                  negativos: negativos.toFixed(2),
+                  positivos: positivos.toFixed(2),
+                });
+              })
+            )
+          );
+        })
       );
       this.dataSource = new MatTableDataSource(this.adminHomeTable);
       this.dataSource.paginator = this.paginator;

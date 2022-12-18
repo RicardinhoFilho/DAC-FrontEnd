@@ -1,50 +1,5 @@
-<div class="mat-elevation-z8">
-  <div class="p-2">
-    <h1 class="pt-2">Pesquisar Cliente</h1>
-    <div class="d-flex">
-      <form
-        class="register-form"
-        [formGroup]="form"
-        (ngSubmit)="getCliente(cpf.value)"
-      >
-        <input
-          #cpf
-          placeholder="CPF"
-          name="cpf"
-          (input)="cpfChange()"
-          type="text"
-          formControlName="cpf"
-        />
-        <button
-          mat-raised-button
-          [disabled]="form.invalid"
-          color="primary"
-          type="submit"
-        >
-          Buscar
-        </button>
-      </form>
-    </div>
-    <div
-      *ngIf="
-        form.controls['cpf'].invalid &&
-        (form.controls['cpf'].dirty || form.controls['cpf'].touched)
-      "
-      class="alert alert-danger"
-    >
-      <div
-        [hidden]="!form.controls['cpf'].errors?.['required'] && !form.controls['cpf'].errors?.['invalidCPF']"
-      >
-        Insira um CPF válido
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="errorMessage" class="p-3">
-    {{ errorMessage }}
-  </div>
-
-  <div *ngIf="user && conta && gerente && city && state">
+ 
+ <div *ngIf="user && conta && gerente && city && state">
     <div class="p-2">
       <h1 class="pt-2">Dados do Cliente</h1>
       <div class="d-flex">
@@ -76,4 +31,3 @@
       </div>
     </div>
   </div>
-</div>

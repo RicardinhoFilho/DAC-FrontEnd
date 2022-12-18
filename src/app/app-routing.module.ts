@@ -63,6 +63,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: 'admin' },
   },
+  {
+    path: 'admin/relatorio',
+    component: AdminRelatorioComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
+  },
 
   // rotas gerente
   {

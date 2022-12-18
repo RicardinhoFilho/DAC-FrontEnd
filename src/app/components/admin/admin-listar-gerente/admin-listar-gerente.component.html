@@ -16,6 +16,15 @@
       matSortDisableClear
     >
 
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+          ID
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="id">
+          {{ row.user.id }}
+      </mat-cell>
+      </ng-container>
+
     <ng-container matColumnDef="nomeGerente">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
         Nome do gerente

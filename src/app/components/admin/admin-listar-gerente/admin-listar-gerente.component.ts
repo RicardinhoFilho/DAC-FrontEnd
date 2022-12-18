@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '@components/auth/services/user.service';
-import { lastValueFrom } from 'rxjs';
 import { User } from './../../../shared/models/user.model';
 
 interface AdminGerentesTable {
@@ -21,6 +20,7 @@ export class AdminListarGerenteComponent implements OnInit {
   adminGerentesTable: AdminGerentesTable[] = [];
 
   displayedColumns = [
+    'id',
     'nomeGerente',
     'email',
     'cpf',
@@ -58,6 +58,8 @@ export class AdminListarGerenteComponent implements OnInit {
         property: string
       ) => {
         switch (property) {
+          case 'id':
+            return item.user.id;
           case 'nomeGerente':
             return item.user.nome;
           case 'email':
@@ -74,6 +76,5 @@ export class AdminListarGerenteComponent implements OnInit {
       this.sort.direction = sortState.direction;
       this.sort.sortChange.emit(sortState);
     });
-    
   }
 }

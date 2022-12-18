@@ -16,13 +16,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="cpf">CPF:</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" [(ngModel)]="gerente.cpf" #cpf="ngModel" mask="CPF_CNPJ" required>
-            <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
-                <div [hidden]="!cpf.errors['required']"> CPF do gerente obrigatório. </div>
-            </div>
-        </div>
-        <div class="form-group">
             <label for="telefone">Telefone:</label>
             <input type="text" class="form-control" id="telefone" name="telefone" [(ngModel)]="gerente.telefone" #telefone="ngModel" mask="(00) 00000-0000" required>
             <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert alert-danger">

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '@shared/shared.module';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { AngularMaterialModule } from './../../angular-material.module';
 import { AdminAddEditGerenteComponent } from './admin-add-edit-gerente/admin-add-edit-gerente.component';
@@ -24,6 +25,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     RouterModule,
     NgxMaskModule.forRoot(),
     AngularMaterialModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
 })
 export class AdminModule {}

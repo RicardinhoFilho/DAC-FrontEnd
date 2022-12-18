@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClienteService } from '@components/cliente/services/cliente.service';
-import { ValidateCPF } from '@shared/cpf-validator';
 import { Conta } from '@shared/models/conta.model';
 import { User } from '@shared/models/user.model';
 import { lastValueFrom, map, of } from 'rxjs';
@@ -57,7 +56,6 @@ export class RegisterComponent implements OnInit {
         Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/),
         Validators.minLength(14),
         Validators.maxLength(14),
-        ValidateCPF,
       ]),
       phone: new FormControl('', [
         Validators.required,

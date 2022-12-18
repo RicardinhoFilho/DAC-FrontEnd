@@ -1,6 +1,7 @@
-<h1>Adicionar Gerente</h1>
+<div class="well p-2" *ngIf="gerente">
+  <h1 *ngIf="id">Editar Gerente</h1>
+  <h1 *ngIf="!id">Adicionar Gerente</h1>
 
-<div class="well">
   <form #formGerente="ngForm">
     <div class="form-group">
       <label for="nome">Nome:</label>
@@ -25,11 +26,12 @@
     <div class="form-group">
       <label for="email">Email:</label>
       <input
-        type="text"
+        type="email"
         class="form-control"
         id="email"
         name="email"
         [(ngModel)]="gerente.email"
+        email
         #email="ngModel"
         required
       />
@@ -37,8 +39,8 @@
         *ngIf="email.errors && (email.dirty || email.touched)"
         class="alert alert-danger"
       >
-        <div [hidden]="!email.errors['required']">
-          Email do gerente obrigatório.
+        <div [hidden]="!email.errors['required'] && !email.errors['email']">
+          Insira um email válido
         </div>
       </div>
     </div>
@@ -50,16 +52,24 @@
         id="cpf"
         name="cpf"
         [(ngModel)]="gerente.cpf"
+        [disabled]="!!id"
         #cpf="ngModel"
-        mask="CPF_CNPJ"
+        mask="000.000.000-99"
         required
+        CpfValidator
       />
       <div
         *ngIf="cpf.errors && (cpf.dirty || cpf.touched)"
         class="alert alert-danger"
       >
-        <div [hidden]="!cpf.errors['required']">
-          CPF do gerente obrigatório.
+        <div
+          [hidden]="
+            !cpf.errors['required'] &&
+            !cpf.errors['invalidCPF'] &&
+            !cpf.errors['mask']
+          "
+        >
+          Insira um CPF válido
         </div>
       </div>
     </div>
@@ -73,29 +83,36 @@
         [(ngModel)]="gerente.telefone"
         #telefone="ngModel"
         mask="(00) 00000-0000"
+        [showMaskTyped]="true"
         required
       />
       <div
         *ngIf="telefone.errors && (telefone.dirty || telefone.touched)"
         class="alert alert-danger"
       >
-        <div [hidden]="!telefone.errors['required']">
-          Telefone do gerente obrigatório.
+        <div
+          [hidden]="
+            !telefone.errors['required'] &&
+            !telefone.errors['pattern'] &&
+            !telefone.errors['mask']
+          "
+        >
+          Insira um telefone válido
         </div>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-2 d-flex justify-content-between">
+      <a class="btn btn-secondary" [routerLink]="['/admin/listar-gerente']">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+      </a>
       <button
         type="button"
         class="btn btn-primary"
-        (click)="inserir()"
+        (click)="submit()"
         [disabled]="!formGerente.form.valid"
       >
         <i class="fa fa-save" aria-hidden="true"></i> Salvar
       </button>
-      <a class="btn btn-secondary" [routerLink]="['/admin/listar-gerente']">
-        <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
-      </a>
     </div>
   </form>
 </div>

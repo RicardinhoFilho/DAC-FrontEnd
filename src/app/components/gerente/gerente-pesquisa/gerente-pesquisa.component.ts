@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ClienteService } from '@components/cliente/services/cliente.service';
-import { ValidateCPF } from '@shared/cpf-validator';
 import { City } from '@shared/models/city.model';
 import { State } from '@shared/models/state.model';
 import { CityService } from '@shared/services/city.service';
@@ -43,7 +42,6 @@ export class GerentePesquisaComponent implements OnInit {
         Validators.pattern(/^(\d{3}\.){2}\d{3}\-\d{2}$/),
         Validators.minLength(14),
         Validators.maxLength(14),
-        ValidateCPF,
       ]),
     });
   }

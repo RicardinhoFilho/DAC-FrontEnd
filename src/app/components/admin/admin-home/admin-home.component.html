@@ -61,19 +61,19 @@
 
     <ng-container matColumnDef="negativos">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Saldo negativo (R$)
+        Saldo negativo
       </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="negativos">
-        {{ row.negativos }}
+        {{ row.negativos | currency }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="positivos">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Saldo positivo (R$)
+        Saldo positivo
       </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="positivos">
-        {{ row.positivos }}
+        {{ row.positivos | currency }}
       </mat-cell>
     </ng-container>
 

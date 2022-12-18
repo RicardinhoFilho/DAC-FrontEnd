@@ -1,1 +1,72 @@
-<p>admin-relatorio works!</p>
+<div class="mat-elevation-z8">
+  <div class="d-flex justify-content-around">
+    <h1 class="pt-2">Clientes</h1>
+  </div>
+
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    matSortActive="nomeCliente"
+    matSortDirection="asc"
+    matSortDisableClear
+  >
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        ID do cliente
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="id">
+        {{ row.user.id }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomeCliente">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Nome do cliente
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="nomeCliente">
+        {{ row.user.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cpf">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        CPF do cliente
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="cpf">
+        {{ row.user.cpf }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="saldo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Saldo do cliente
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="saldo">
+        {{ row.conta.saldo | currency }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="limite">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Limite do cliente
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="limite">
+        {{ row.conta.limite ? (row.conta.limite | currency) : "Sem limite" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nomeGerente">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Nome do gerente
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="nomeGerente">
+        {{ row.gerente.nome }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

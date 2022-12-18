@@ -1,28 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@components/auth/services/auth.service';
 import { UserService } from '@components/auth/services/user.service';
-import { ValidateCPF } from '@shared/cpf-validator';
 import { City } from '@shared/models/city.model';
 import { Conta } from '@shared/models/conta.model';
 import { State } from '@shared/models/state.model';
 import { User } from '@shared/models/user.model';
 import { CityService } from '@shared/services/city.service';
 import { StateService } from '@shared/services/state.service';
-import { lastValueFrom, map, of, concatAll, last, Observable } from 'rxjs';
+import { lastValueFrom, map, Observable } from 'rxjs';
 import { ClienteService } from '../services';
 
 @Component({
   selector: 'app-cliente-alterar',
   templateUrl: './cliente-alterar.component.html',
-  styleUrls: ['./cliente-alterar.component.scss']
+  styleUrls: ['./cliente-alterar.component.scss'],
 })
 export class ClienteAlterarComponent implements OnInit {
-
   cliente!: Conta;
   contaCliente$: Observable<Conta> = new Observable<Conta>();
-  contaCliente : Conta = new Conta();
+  contaCliente: Conta = new Conta();
   dadosUsuario: User = new User();
 
   form: FormGroup;
@@ -39,7 +42,7 @@ export class ClienteAlterarComponent implements OnInit {
     private userService: UserService,
     private clienteService: ClienteService,
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.form = this.formBuilder.group({
       name: new FormControl('', Validators.required),
@@ -65,7 +68,10 @@ export class ClienteAlterarComponent implements OnInit {
       ]),
       salary: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
-      city: new FormControl({ value: '', disabled: false }, Validators.required),
+      city: new FormControl(
+        { value: '', disabled: false },
+        Validators.required
+      ),
       cep: new FormControl('', [
         Validators.required,
         Validators.pattern(/^(\d{2}\.)\d{3}\-\d{3}$/),
@@ -82,13 +88,15 @@ export class ClienteAlterarComponent implements OnInit {
     this.cliente = this.authService.contaCliente;
 
     this.contaCliente$ = this.clienteService.buscarContaPorId(this.cliente.id!);
-    this.contaCliente$.subscribe(cliente => {
+    this.contaCliente$.subscribe((cliente) => {
       this.contaCliente = cliente;
     });
 
-    this.userService.getAllUsers().subscribe(usuarios => {
-      if(usuarios && this.contaCliente) {
-        this.dadosUsuario = usuarios.find(usuario => usuario.id == this.contaCliente.idUsuario)!;
+    this.userService.getAllUsers().subscribe((usuarios) => {
+      if (usuarios && this.contaCliente) {
+        this.dadosUsuario = usuarios.find(
+          (usuario) => usuario.id == this.contaCliente.idUsuario
+        )!;
         this.cidade = this.dadosUsuario.cidade!;
         this.estado = this.dadosUsuario.estado!;
         this.preencherCampos();
@@ -105,7 +113,10 @@ export class ClienteAlterarComponent implements OnInit {
     await lastValueFrom(
       this.userService.getUserByEmail(this.form.get('email')?.value).pipe(
         map((users: User[]) => {
-          if (users.length > 0 && this.form.get('email')?.value != this.dadosUsuario.email) {
+          if (
+            users.length > 0 &&
+            this.form.get('email')?.value != this.dadosUsuario.email
+          ) {
             invalidUser = true;
             confirm('Email já foi utilizado!');
           }
@@ -114,17 +125,13 @@ export class ClienteAlterarComponent implements OnInit {
     );
     if (invalidUser) return;
 
-    if(this.contaCliente.saldo! < 0) {
+    if (this.contaCliente.saldo! < 0) {
       let saldo = this.contaCliente.saldo! * -1;
-      let limite = +this.form.get('salary')?.value/2;
-      if(saldo > limite)
-        this.contaCliente.limite = saldo;
-      else
-        this.contaCliente.limite = +this.form.get('salary')?.value/2;
-    } 
-    else
-      this.contaCliente.limite = +this.form.get('salary')?.value/2;
-    
+      let limite = +this.form.get('salary')?.value / 2;
+      if (saldo > limite) this.contaCliente.limite = saldo;
+      else this.contaCliente.limite = +this.form.get('salary')?.value / 2;
+    } else this.contaCliente.limite = +this.form.get('salary')?.value / 2;
+
     this.contaCliente.salario = +this.form.get('salary')?.value;
 
     const atualizarUser = new User();
@@ -142,13 +149,14 @@ export class ClienteAlterarComponent implements OnInit {
     atualizarUser.numero = this.form.get('number')?.value;
     atualizarUser.complemento = this.form.get('complement')?.value;
 
-    this.clienteService.atualizarContaCliente(this.contaCliente).subscribe(() => {
-      this.userService.atualizarUser(atualizarUser).subscribe(() => {
-        console.log("passou");
-        this.router.navigate(['/cliente/home']);
+    this.clienteService
+      .atualizarContaCliente(this.contaCliente)
+      .subscribe(() => {
+        this.userService.atualizarUser(atualizarUser).subscribe(() => {
+          console.log('passou');
+          this.router.navigate(['/cliente/home']);
+        });
       });
-    });
-    //this.userService.atualizarUser(atualizarUser);
   }
 
   cepChange(): void {
@@ -229,5 +237,4 @@ export class ClienteAlterarComponent implements OnInit {
   get usuarioLogado(): User {
     return this.authService.usuarioLogado;
   }
-
 }

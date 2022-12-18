@@ -67,10 +67,11 @@
           <h3>Conta:</h3>
           <p>Data de abertura: {{ conta.data | date : "dd/MM/yyyy HH:mm" }}</p>
           <p>
-            Limite: {{ conta.limite ? "R$ " + conta.limite.toLocaleString('pt-br', {minimumFractionDigits: 2}) : "Não possui" }}
+            Limite:
+            {{ conta.limite ? (conta.limite | currency) : "Não possui" }}
           </p>
-          <p>Saldo: R$ {{ conta.saldo?conta.saldo.toLocaleString('pt-br', {minimumFractionDigits: 2}) :0}}</p>
-          <p>Salário: R$ {{ conta.salario?conta.salario.toLocaleString('pt-br', {minimumFractionDigits: 2}) :0}}</p>
+          <p>Saldo: {{ conta.saldo | currency }}</p>
+          <p>Salário: {{ conta.salario | currency }}</p>
           <p>Nome do gerente: {{ gerente.nome }}</p>
         </div>
       </div>

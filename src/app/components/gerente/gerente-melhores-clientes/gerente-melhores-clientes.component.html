@@ -53,14 +53,10 @@
 
     <ng-container matColumnDef="saldo">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Saldo (R$)
+        Saldo
       </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="saldo">
-        {{
-          row.conta.saldo.toLocaleString("pt-br", {
-            minimumFractionDigits: 2
-          })
-        }}
+        {{ row.conta.saldo | currency }}
       </mat-cell>
     </ng-container>
 

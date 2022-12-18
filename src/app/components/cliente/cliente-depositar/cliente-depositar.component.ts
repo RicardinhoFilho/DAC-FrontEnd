@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '@components/auth/services/user.service';
 import { Transacao } from '@shared/models';
 import { Conta } from '@shared/models/conta.model';
 import { Observable } from 'rxjs';
@@ -26,7 +25,7 @@ export class ClienteDepositarComponent implements OnInit {
   cliente!: Conta;
 
   contaCliente$: Observable<Conta> = new Observable<Conta>();
-  contaCliente : Conta = new Conta();
+  contaCliente: Conta = new Conta();
 
   transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
   transacaos: Transacao[] = [];
@@ -51,7 +50,7 @@ export class ClienteDepositarComponent implements OnInit {
     this.cliente = this.authService.contaCliente;
 
     this.contaCliente$ = this.clienteService.buscarContaPorId(this.cliente.id!);
-    this.contaCliente$.subscribe(cliente => {
+    this.contaCliente$.subscribe((cliente) => {
       this.contaCliente = cliente;
     });
   }

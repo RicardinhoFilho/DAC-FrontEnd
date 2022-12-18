@@ -48,7 +48,7 @@ export class GerentePesquisaComponent implements OnInit {
     });
   }
 
-  async ngOnInit(): Promise<void> {}
+  ngOnInit(): void {}
 
   getCliente(cpf: string): void {
     this.user =

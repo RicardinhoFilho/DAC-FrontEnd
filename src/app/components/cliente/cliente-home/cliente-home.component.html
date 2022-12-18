@@ -10,18 +10,24 @@
   <div class="informacao" fxLayout="row">
     Saldo Atual:
     <div class="informacao-saldo" *ngIf="this.contaCliente.saldo! >= 0">
-      R$ {{ this.contaCliente.saldo | number : "1.2-2" }}
+      {{ this.contaCliente.saldo | currency }}
     </div>
     <div
       class="informacao-saldo-negativo"
       *ngIf="!(this.contaCliente.saldo! >= 0)"
     >
-      R$ {{ this.contaCliente.saldo | number : "1.2-2" }}
+      {{ this.contaCliente.saldo | currency }}
     </div>
   </div>
   <div class="informacao" fxLayout="row">
     Limite:
-    <div class="informacao-limite">R$ {{ this.contaCliente.limite }}</div>
+    <div class="informacao-limite">
+      {{
+        this.contaCliente.limite
+          ? (this.contaCliente.limite | currency)
+          : "Sem limite"
+      }}
+    </div>
   </div>
   <div class="informacao" fxLayout="row">
     Gerente:

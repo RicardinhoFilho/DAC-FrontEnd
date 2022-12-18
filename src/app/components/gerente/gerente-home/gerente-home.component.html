@@ -35,10 +35,10 @@
 
     <ng-container matColumnDef="salario">
       <mat-header-cell *matHeaderCellDef mat-sort-header>
-        Salário (R$)
+        Salário
       </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="salario">
-        {{ row.conta.salario.toLocaleString('pt-br', {minimumFractionDigits: 2}) }}
+        {{ row.conta.salario | currency }}
       </mat-cell>
     </ng-container>
 

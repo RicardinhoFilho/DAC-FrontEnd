@@ -2,11 +2,6 @@
   <div class="d-flex justify-content-around">
     <h1 class="pt-2">Gerentes</h1>
   </div>
-  <div class="mb-4 text-center">
-    <button mat-raised-button color="primary">
-      <i class="fa fa-plus"></i> Novo
-    </button>
-  </div>
 
   <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">
@@ -74,20 +69,6 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="positivos">
         {{ row.positivos | currency }}
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef class="d-flex justify-content-around"
-        >Ações</mat-header-cell
-      >
-      <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
-        <button mat-raised-button color="accent">
-          <i class="fa fa-edit"></i> Editar
-        </button>
-        <button mat-raised-button color="warn">
-          <i class="fa fa-trash"></i> Remover
-        </button>
       </mat-cell>
     </ng-container>
 

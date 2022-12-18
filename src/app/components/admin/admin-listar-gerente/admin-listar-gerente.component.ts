@@ -22,6 +22,7 @@ export class AdminListarGerenteComponent implements OnInit {
     'email',
     'cpf',
     'telefone',
+    'actions',
   ];
   dataSource!: MatTableDataSource<AdminGerentesTable>;
 

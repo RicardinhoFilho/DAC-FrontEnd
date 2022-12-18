@@ -32,7 +32,6 @@ export class AdminHomeComponent implements OnInit {
     'clientesCount',
     'negativos',
     'positivos',
-    'actions',
   ];
   dataSource!: MatTableDataSource<AdminHomeTable>;
 

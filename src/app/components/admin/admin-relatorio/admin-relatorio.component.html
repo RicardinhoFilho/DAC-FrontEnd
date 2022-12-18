@@ -1,1 +1,20 @@
-<p>admin-relatorio works!</p>
+<h1>Clientes do Sistema - Relatório</h1>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Limite</th>
+            <th>Gerente</th>
+            <th>Saldo</th>
+        </tr>
+        <tr *ngFor="let cliente of clientes; index as i">
+            <td>{{cliente.nome}}</td>
+            <td>{{cliente.cpf}}</td>
+            <td>{{contas[i]?.limite}}</td>
+            <td>{{gerentes[i]?.nome}}</td>
+            <td>{{contas[i]?.saldo}}</td>
+        </tr>
+    </tbody>
+</table>

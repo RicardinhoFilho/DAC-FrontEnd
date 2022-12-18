@@ -28,6 +28,20 @@ export class UserService {
     );
   }
 
+  buscarGerentePorId(id: number): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.apiUrl + '?id=' + id,
+      this.httpOptions
+    );
+  }
+
+  getClientes(): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.apiUrl + '?cargo=cliente',
+      this.httpOptions
+    )
+  }
+
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(this.apiUrl + '/' + id, this.httpOptions);
   }

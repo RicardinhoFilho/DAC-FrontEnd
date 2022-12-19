@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@components/auth/services/user.service';
 import { Conta } from '@shared/models/conta.model';
+import { Observable } from 'rxjs';
+import { ClienteService } from '../services';
 import { User } from './../../../shared/models/user.model';
 import { AuthService } from './../../auth/services/auth.service';
 
@@ -13,10 +15,14 @@ export class ClienteHomeComponent implements OnInit {
   dadosUsuario!: User;
   contaCliente!: Conta;
   gerente!: User;
+  
+  contaCliente$: Observable<Conta> = new Observable<Conta>();
+  cliente: Conta = new Conta();
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private clienteService: ClienteService,
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +39,11 @@ export class ClienteHomeComponent implements OnInit {
       .subscribe((usuario: User) => {
         this.dadosUsuario = usuario;
       });
+
+    this.contaCliente$ = this.clienteService.buscarContaPorId(this.contaCliente.id!);
+    this.contaCliente$.subscribe(cliente => {
+      this.contaCliente = cliente;
+    });
   }
 
   get usuarioLogado(): User {

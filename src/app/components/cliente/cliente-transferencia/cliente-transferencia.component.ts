@@ -82,11 +82,19 @@ export class ClienteTransferenciaComponent implements OnInit {
         this.formTransferencia.value.valorTransferencia,
         3
       );
+
+      let valorTransferidoContaCliente: Conta = this.contas.find(conta => conta.id == this.formTransferencia.value.contaTransferencia)!;
+      let alterarSalcoTrnsferidoCliente = {...valorTransferidoContaCliente, 
+        saldo: valorTransferidoContaCliente.saldo! + this.formTransferencia.value.valorTransferencia
+      };
+
       this.clienteService.postTransacao(transacao).subscribe(() => {
         this.clienteService
           .atualizarContaCliente(clienteAlterar)
           .subscribe(() => {
-            this.router.navigate(['/cliente/home']);
+            this.clienteService.atualizarContaCliente(alterarSalcoTrnsferidoCliente).subscribe(() => {
+              this.router.navigate(['/cliente/home']);
+            });
           });
       });
     } else {

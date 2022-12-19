@@ -99,30 +99,34 @@ export class AdminAddEditGerenteComponent implements OnInit {
 
   async submit(): Promise<void> {
     let invalidUser: boolean = false;
-    await lastValueFrom(
-      this.userService
-        .getUserByCPF(this.formGerente.form.get('cpf')?.value)
-        .pipe(
-          map((users: User[]) => {
-            if (users.length > 0) {
-              invalidUser = true;
-              confirm('CPF já foi utilizado!');
-            }
-          })
-        )
-    );
+
+    if (!this.id)
+      await lastValueFrom(
+        this.userService
+          .getUserByCPF(this.formGerente.form.get('cpf')?.value)
+          .pipe(
+            map((users: User[]) => {
+              if (users.length > 0) {
+                invalidUser = true;
+                confirm('CPF já foi utilizado!');
+              }
+            })
+          )
+      );
+
     await lastValueFrom(
       this.userService
         .getUserByEmail(this.formGerente.form.get('email')?.value)
         .pipe(
           map((users: User[]) => {
-            if (users.length > 0) {
+            if (users.length > 0 && users[0].id != this.id) {
               invalidUser = true;
               confirm('Email já foi utilizado!');
             }
           })
         )
     );
+
     if (invalidUser) return;
 
     this.id ? this.atualizar() : this.inserir();

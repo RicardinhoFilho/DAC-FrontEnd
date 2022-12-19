@@ -45,8 +45,10 @@
       "id": 3
     },
     {
-      "nome": "usuário4",
+      "id": 4,
+      "nome": "Fernando Carvalho Birznek",
       "email": "usuario4@gmail.com",
+      "senha": "wK7$n5wzjpybC",
       "cargo": "cliente",
       "cpf": "229.418.420-39",
       "telefone": "(99) 91554-9879",
@@ -55,9 +57,7 @@
       "cep": "81.346-795",
       "rua": "Rua boa",
       "numero": "45",
-      "complemento": "",
-      "id": 4,
-      "senha": "wK7$n5wzjpybC"
+      "complemento": ""
     },
     {
       "nome": "usuário5",
@@ -159,6 +159,15 @@
       "numero": "13",
       "complemento": "",
       "id": 11
+    },
+    {
+      "nome": "Leonardo",
+      "email": "leonardo@hotmail.com",
+      "senha": "asd!@#$ASDF123",
+      "cargo": "gerente",
+      "cpf": "116.614.210-83",
+      "telefone": "(78) 94632-1654",
+      "id": 12
     }
   ],
   "contas": [
@@ -167,7 +176,7 @@
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
       "saldo": 750,
-      "idGerente": 8,
+      "idGerente": 12,
       "salario": 15,
       "id": 1
     },
@@ -184,7 +193,7 @@
       "idUsuario": 3,
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": false,
-      "saldo": 0,
+      "saldo": 200,
       "idGerente": 8,
       "salario": 6615,
       "limite": 3307,
@@ -194,8 +203,8 @@
       "idUsuario": 4,
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
-      "saldo": -60,
-      "limite": 8758,
+      "saldo": 600,
+      "limite": 8757.5,
       "idGerente": 8,
       "salario": 17515,
       "id": 4
@@ -460,6 +469,51 @@
       "destinatario": 1,
       "saldo": 750,
       "data": 1670164012192
+    },
+    {
+      "id": 27,
+      "idCliente": 1,
+      "tipoTransacao": 3,
+      "valorTransacao": 200,
+      "destinatario": 3,
+      "saldo": 550,
+      "data": 1671398418199
+    },
+    {
+      "id": 28,
+      "idCliente": 1,
+      "tipoTransacao": 1,
+      "valorTransacao": 500,
+      "destinatario": null,
+      "saldo": 1050,
+      "data": 1671398530010
+    },
+    {
+      "id": 29,
+      "idCliente": 4,
+      "tipoTransacao": 1,
+      "valorTransacao": 500,
+      "destinatario": null,
+      "saldo": 440,
+      "data": 1671398656327
+    },
+    {
+      "id": 30,
+      "idCliente": 4,
+      "tipoTransacao": 1,
+      "valorTransacao": 50,
+      "destinatario": null,
+      "saldo": 490,
+      "data": 1671398802124
+    },
+    {
+      "id": 31,
+      "idCliente": 4,
+      "tipoTransacao": 1,
+      "valorTransacao": 110,
+      "destinatario": null,
+      "saldo": 600,
+      "data": 1671399231837
     }
   ],
   "estados": [

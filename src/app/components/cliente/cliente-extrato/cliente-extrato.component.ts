@@ -22,6 +22,8 @@ export class ClienteExtratoComponent implements OnInit {
   transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
   allTransacao: Transacao[] = [];
   transacaos: Transacao[] = [];
+  diaTransacaoAnterior: number = 0;
+  saldoDia: number[] = [];
 
   formExtrato: FormGroup;
   dateInicio = new FormControl(new Date());
@@ -92,9 +94,22 @@ export class ClienteExtratoComponent implements OnInit {
           (item.idCliente == this.contaCliente.id ||
             +item.destinatario! == this.contaCliente.id)
         ) {
+          // let data: Date = new Date(item.data!);
+          // if(this.diaTransacaoAnterior = 0) {
+          //   this.saldoDia.push(item.saldo!);
+          //   this.diaTransacaoAnterior = +data.toISOString().split("-")[2].split("T")[0];
+          // } else {
+          //   if(this.diaTransacaoAnterior != +data.toISOString().split("-")[2].split("T")[0]) {
+          //     this.diaTransacaoAnterior = +data.toISOString().split("-")[2].split("T")[0];
+          //     this.saldoDia.push(item.saldo!);
+          //   } else {
+          //     this.saldoDia.push(-9999);
+          //   } 
+          // }
           this.transacaos.push(item);
         }
       });
+      //console.log("this.saldoDia = ", this.saldoDia);
     }
   }
 

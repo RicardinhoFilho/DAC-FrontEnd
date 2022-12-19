@@ -2,7 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { UserService } from '@components/auth/services/user.service';
+import { ClienteService } from '@components/cliente/services';
+import { Conta } from '@shared/models/conta.model';
+import { lastValueFrom, map } from 'rxjs';
 import { User } from './../../../shared/models/user.model';
 
 interface AdminGerentesTable {
@@ -14,9 +18,6 @@ interface AdminGerentesTable {
   styleUrls: ['./admin-listar-gerente.component.scss'],
 })
 export class AdminListarGerenteComponent implements OnInit {
-
-  isDisabled = false;
-
   adminGerentesTable: AdminGerentesTable[] = [];
 
   displayedColumns = [
@@ -34,19 +35,17 @@ export class AdminListarGerenteComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private clienteService: ClienteService,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
-    
     this.userService.getGerentes().subscribe(async (users: User[]) => {
       await Promise.all(
         users.map(async (user: User): Promise<void> => {
           this.adminGerentesTable.push({
             user: user,
           });
-          if(users.length <= 1) {
-            this.isDisabled = true;
-          }
         })
       );
 
@@ -76,5 +75,56 @@ export class AdminListarGerenteComponent implements OnInit {
       this.sort.direction = sortState.direction;
       this.sort.sortChange.emit(sortState);
     });
+  }
+
+  async getGerenteComMenosContas(id: number): Promise<User> {
+    let gerenteOutput!: User;
+    let clientesCount: number = +Infinity;
+    const gerentes: User[] = await lastValueFrom(
+      this.userService.getGerentes()
+    );
+    await Promise.all(
+      gerentes.map(async (gerente: User): Promise<void> => {
+        await lastValueFrom(
+          this.clienteService.getClientesByGerente(gerente.id!).pipe(
+            map((clientes: Conta[]) => {
+              if (clientesCount > clientes.length && gerente.id !== id) {
+                gerenteOutput = gerente;
+                clientesCount = clientes.length;
+              }
+            })
+          )
+        );
+      })
+    );
+    return gerenteOutput;
+  }
+
+  remover(id: number): void {
+    if (confirm('Deseja realmente remover este gerente?')) {
+      this.getGerenteComMenosContas(id).then((gerente) => {
+        this.clienteService
+          .getClientesByGerente(id!)
+          .subscribe(async (clientes) => {
+            await Promise.all(
+              clientes.map(async (cliente: Conta): Promise<void> => {
+                cliente.idGerente = gerente.id;
+                await lastValueFrom(
+                  this.clienteService.atualizarContaCliente(cliente)
+                );
+              })
+            );
+
+            this.userService.remover(id).subscribe(() => {
+              const currentUrl = this.router.url;
+              this.router
+                .navigateByUrl('/', { skipLocationChange: true })
+                .then(() => {
+                  this.router.navigate([currentUrl]);
+                });
+            });
+          });
+      });
+    }
   }
 }

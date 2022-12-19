@@ -7,14 +7,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { SharedModule } from '@shared/shared.module';
 import { AngularMaterialModule } from '../../angular-material.module';
 import { AppRoutingModuleCliente } from './app-routing-gerente';
+import { GerenteClienteDetalhesComponent } from './gerente-cliente-detalhes/gerente-cliente-detalhes.component';
 import { GerenteClientesComponent } from './gerente-clientes/gerente-clientes.component';
 import { GerenteHomeComponent } from './gerente-home/gerente-home.component';
 import { GerenteMelhoresClientesComponent } from './gerente-melhores-clientes/gerente-melhores-clientes.component';
 import { GerenteModalComponent } from './gerente-modal/gerente-modal.component';
 import { GerentePesquisaComponent } from './gerente-pesquisa/gerente-pesquisa.component';
-import { GerenteClienteDetalhesComponent } from './gerente-cliente-detalhes/gerente-cliente-detalhes.component';
 @NgModule({
   declarations: [
     GerenteClientesComponent,
@@ -36,6 +37,7 @@ import { GerenteClienteDetalhesComponent } from './gerente-cliente-detalhes/gere
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
+    SharedModule,
   ],
 })
 export class GerenteModule {}

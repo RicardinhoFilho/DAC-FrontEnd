@@ -161,10 +161,12 @@
       "id": 11
     },
     {
-      "nome": "teste",
-      "email": "teste@teste.com",
-      "cpf": "02276298170",
-      "telefone": "43988265112",
+      "nome": "Leonardo",
+      "email": "leonardo@hotmail.com",
+      "senha": "asd!@#$ASDF123",
+      "cargo": "gerente",
+      "cpf": "116.614.210-83",
+      "telefone": "(78) 94632-1654",
       "id": 12
     }
   ],
@@ -173,8 +175,8 @@
       "idUsuario": 1,
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
-      "saldo": 1050,
-      "idGerente": 8,
+      "saldo": 750,
+      "idGerente": 12,
       "salario": 15,
       "id": 1
     },

@@ -1,84 +1,93 @@
 <div class="mat-elevation-z8">
-    <div class="d-flex justify-content-around">
-      <h1 class="pt-2">Gerentes</h1>
-    </div>
-    <div class="mb-4 text-center">
-      <button mat-raised-button color="primary">
-        <i class="fa fa-plus"></i> Novo
-      </button>
-    </div>
-  
-    <mat-table
-      [dataSource]="dataSource"
-      matSort
-      matSortActive="nomeGerente"
-      matSortDirection="asc"
-      matSortDisableClear
+  <div class="d-flex justify-content-around">
+    <h1 class="pt-2">Gerentes</h1>
+  </div>
+  <div class="mb-4 text-center">
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/admin/adicionar-gerente"
     >
+      <i class="fa fa-plus"></i> Novo
+    </button>
+  </div>
 
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    matSortActive="nomeGerente"
+    matSortDirection="asc"
+    matSortDisableClear
+  >
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
-          ID
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="id">
-          {{ row.user.id }}
+        {{ row.user.id }}
       </mat-cell>
-      </ng-container>
+    </ng-container>
 
     <ng-container matColumnDef="nomeGerente">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         Nome do gerente
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row" data-label="nomeGerente">
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="nomeGerente">
         {{ row.user.nome }}
-    </mat-cell>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         Email do gerente
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row" data-label="email">
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="email">
         {{ row.user.email }}
-    </mat-cell>
-    </ng-container>      
+      </mat-cell>
+    </ng-container>
 
     <ng-container matColumnDef="cpf">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         CPF do gerente
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row" data-label="cpf">
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="cpf">
         {{ row.user.cpf }}
-    </mat-cell>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="telefone">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         Telefone do gerente
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row" data-label="telefone">
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="telefone">
         {{ row.user.telefone }}
-    </mat-cell>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="d-flex justify-content-around"
+      <mat-header-cell *matHeaderCellDef class="d-flex justify-content-around"
         >Ações</mat-header-cell
-    >
-    <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
-        <button mat-raised-button color="accent" routerLink="/admin/editar-gerente/:id">
-        <i class="fa fa-edit"></i> Editar
+      >
+      <mat-cell *matCellDef="let row" class="d-flex justify-content-around">
+        <button
+          mat-raised-button
+          color="accent"
+          routerLink="/admin/editar-gerente/{{ row.user.id }}"
+        >
+          <i class="fa fa-edit"></i> Editar
         </button>
-        <button [disabled]="isDisabled" mat-raised-button color="warn">
-        <i class="fa fa-trash"></i> Remover
+        <button
+          [disabled]="adminGerentesTable.length <= 1"
+          mat-raised-button
+          color="warn"
+          (click)="remover(row.user.id)"
+        >
+          <i class="fa fa-trash"></i> Remover
         </button>
-    </mat-cell>
+      </mat-cell>
     </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
-    </mat-table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-  </div>
-  
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

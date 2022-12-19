@@ -159,13 +159,6 @@
       "numero": "13",
       "complemento": "",
       "id": 11
-    },
-    {
-      "nome": "teste",
-      "email": "teste@teste.com",
-      "cpf": "02276298170",
-      "telefone": "43988265112",
-      "id": 12
     }
   ],
   "contas": [

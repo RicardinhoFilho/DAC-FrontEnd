@@ -54,6 +54,7 @@
         [(ngModel)]="gerente.cpf"
         [disabled]="!!id"
         #cpf="ngModel"
+        (input)="cpfChange()"
         mask="000.000.000-99"
         required
         CpfValidator
@@ -84,6 +85,7 @@
         #telefone="ngModel"
         mask="(00) 00000-0000"
         [showMaskTyped]="true"
+        (input)="phoneChange()"
         required
       />
       <div
@@ -101,6 +103,32 @@
         </div>
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="senha">Senha:</label>
+      <input
+        class="form-control"
+        id="telefone"
+        [(ngModel)]="gerente.senha"
+        #senha="ngModel"
+        type="password"
+        required
+        placeholder="Senha"
+        [disabled]="!!id"
+        name="password"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$"
+      />
+    </div>
+    <div
+      *ngIf="senha.errors && (senha.dirty || senha.touched)"
+      class="alert alert-danger"
+    >
+      <div [hidden]="!senha.errors['required'] && !senha.errors['pattern']">
+        Insira uma senha com mais de 7 caracteres que tenha pelo menos uma letra
+        minúscula, uma letra maiúscula, um número e um símbolo especial
+      </div>
+    </div>
+
     <div class="form-group mt-2 d-flex justify-content-between">
       <a class="btn btn-secondary" [routerLink]="['/admin/listar-gerente']">
         <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar

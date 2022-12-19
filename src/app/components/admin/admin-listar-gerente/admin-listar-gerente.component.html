@@ -78,7 +78,7 @@
           [disabled]="adminGerentesTable.length <= 1"
           mat-raised-button
           color="warn"
-          (click)="removerGerente(row)"
+          (click)="remover(row.user.id)"
         >
           <i class="fa fa-trash"></i> Remover
         </button>

@@ -86,7 +86,7 @@
   >
     <table
       mat-table
-      [dataSource]="transacaos"
+      [dataSource]="this.tabelaTransacaos"
       class="mat-elevation-z8 tabela-extrato"
     >
       <ng-container matColumnDef="dataHora">
@@ -94,7 +94,8 @@
           Data/Hora
         </th>
         <td mat-cell *matCellDef="let element" class="alinhar-text">
-          {{ element.data | date : "dd/MM/yyyy hh:mm" }}
+          <div *ngIf="element.id == undefined"> Saldo do dia {{ element.data }} foi de </div>
+          <div *ngIf="element.id != undefined"> {{ element.data | date : "dd/MM/yyyy hh:mm" }} </div>   
         </td>
       </ng-container>
 

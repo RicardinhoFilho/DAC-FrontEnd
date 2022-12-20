@@ -203,7 +203,7 @@
       "idUsuario": 4,
       "data": "2022-12-13T19:07:09.071Z",
       "ativo": true,
-      "saldo": 600,
+      "saldo": 700,
       "limite": 8757.5,
       "idGerente": 8,
       "salario": 17515,
@@ -514,6 +514,15 @@
       "destinatario": null,
       "saldo": 600,
       "data": 1671399231837
+    },
+    {
+      "id": 32,
+      "idCliente": 4,
+      "tipoTransacao": 1,
+      "valorTransacao": 100,
+      "destinatario": null,
+      "saldo": 700,
+      "data": 1671491115077
     }
   ],
   "estados": [

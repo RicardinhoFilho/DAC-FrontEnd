@@ -22,8 +22,8 @@ export class ClienteExtratoComponent implements OnInit {
   transacaos$: Observable<Transacao[]> = new Observable<Transacao[]>();
   allTransacao: Transacao[] = [];
   transacaos: Transacao[] = [];
-  diaTransacaoAnterior: number = 0;
-  saldoDia: number[] = [];
+  diaTransacaoAnterior: boolean = false;
+  tabelaTransacaos: Transacao[] = [];
 
   formExtrato: FormGroup;
   dateInicio = new FormControl(new Date());
@@ -81,6 +81,7 @@ export class ClienteExtratoComponent implements OnInit {
   trocarTela(dataInicio?: any, dataFinal?: any) {
     this.telaExtrato = !this.telaExtrato;
     this.transacaos = [];
+    this.tabelaTransacaos = [];
 
     if(dataInicio.value == null || dataFinal.value == null) {
       this.mensagem = `A data início e/ou data final não podem estar vazios!!!`;
@@ -94,22 +95,35 @@ export class ClienteExtratoComponent implements OnInit {
           (item.idCliente == this.contaCliente.id ||
             +item.destinatario! == this.contaCliente.id)
         ) {
-          // let data: Date = new Date(item.data!);
-          // if(this.diaTransacaoAnterior = 0) {
-          //   this.saldoDia.push(item.saldo!);
-          //   this.diaTransacaoAnterior = +data.toISOString().split("-")[2].split("T")[0];
-          // } else {
-          //   if(this.diaTransacaoAnterior != +data.toISOString().split("-")[2].split("T")[0]) {
-          //     this.diaTransacaoAnterior = +data.toISOString().split("-")[2].split("T")[0];
-          //     this.saldoDia.push(item.saldo!);
-          //   } else {
-          //     this.saldoDia.push(-9999);
-          //   } 
-          // }
           this.transacaos.push(item);
         }
       });
-      //console.log("this.saldoDia = ", this.saldoDia);
+
+      for(let i = dataInicio.value.valueOf(); i <= dataFinal.value.valueOf(); i = i + 86400000) {
+        let data: Date = new Date(i);
+
+        let lista: Transacao[] = this.transacaos.filter(item => (new Date(item.data!)).toISOString().split("-")[2].split("T")[0] == data.toISOString().split("-")[2].split("T")[0]);
+
+        if(lista.length == 0) {
+          if(i < this.transacaos[0].data!) {
+            let valor: number = this.transacaos[0].saldo! - this.transacaos[0].valorTransacao!;
+            let t = new Transacao(undefined,undefined,undefined,undefined,undefined, valor, +data.toISOString().split("-")[2].split("T")[0])
+            this.tabelaTransacaos.push(t);
+          } else {
+            let valor: number = this.transacaos[this.transacaos.length - 1].saldo!;
+            let t = new Transacao(undefined,undefined,undefined,undefined,undefined, valor, +data.toISOString().split("-")[2].split("T")[0])
+            this.tabelaTransacaos.push(t);
+          }
+        } else {
+          let saldoFinal: number = 0;
+          lista.forEach(transacao => {
+            this.tabelaTransacaos.push(transacao);
+            saldoFinal = transacao.saldo!;
+          });
+          let t = new Transacao(undefined,undefined,undefined,undefined,undefined, saldoFinal, +data.toISOString().split("-")[2].split("T")[0])
+          this.tabelaTransacaos.push(t);
+        }
+      }
     }
   }
 

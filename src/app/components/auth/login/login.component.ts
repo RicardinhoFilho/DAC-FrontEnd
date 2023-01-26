@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from '@components/cliente/services/cliente.service';
 import { Conta } from '@shared/models/conta.model';
 import { Login } from '@shared/models/login.model';
-import { User } from './../../../shared/models/user.model';
 import { AuthService } from './../services/auth.service';
 
 @Component({
@@ -39,29 +38,27 @@ export class LoginComponent implements OnInit {
   async logar(): Promise<void> {
     this.loading = true;
     if (this.formLogin.form.valid) {
-      await this.authService
-        .login(this.login)
-        .then((usuario: User | undefined) => {
-          if (usuario) {
-            this.authService.usuarioLogado = usuario;
-            if (usuario.cargo == 'cliente') {
-              this.clienteService
-                .buscarContaPorUserId(usuario.id!)
-                .subscribe((contas: Conta[]) => {
-                  this.authService.contaCliente = contas[0];
-                  this.router.navigate([
-                    '/' + this.authService.usuarioLogado.cargo + '/home',
-                  ]);
-                });
-            } else {
-              this.router.navigate([
-                '/' + this.authService.usuarioLogado.cargo + '/home',
-              ]);
-            }
+      this.authService.login(this.login).subscribe((res: any) => {
+        if (res) {
+          this.authService.usuarioLogado = res.data;
+          if (res.data.cargo == 'cliente') {
+            this.clienteService
+              .buscarContaPorUserId(res.data.id!)
+              .subscribe((contas: Conta[]) => {
+                this.authService.contaCliente = contas[0];
+                this.router.navigate([
+                  '/' + this.authService.usuarioLogado.cargo + '/home',
+                ]);
+              });
           } else {
-            this.message = 'Usuário/Senha inválidos.';
+            this.router.navigate([
+              '/' + this.authService.usuarioLogado.cargo + '/home',
+            ]);
           }
-        });
+        } else {
+          this.message = 'Usuário/Senha inválidos.';
+        }
+      });
     }
     this.loading = false;
   }

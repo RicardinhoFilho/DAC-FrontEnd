@@ -38,10 +38,10 @@ export class ClienteExtratoComponent implements OnInit {
     'saldo',
   ];
 
-  mensagem = "";
+  mensagem = '';
   cliente!: Conta;
   contaCliente$: Observable<Conta> = new Observable<Conta>();
-  contaCliente : Conta = new Conta();
+  contaCliente: Conta = new Conta();
   contas: Conta[] = [];
   usuarios: User[] = [];
 
@@ -49,7 +49,7 @@ export class ClienteExtratoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private clienteService: ClienteService,
     private authService: AuthService,
-    private userService: UserService,
+    private userService: UserService
   ) {
     this.formExtrato = this.formBuilder.group({
       dataInicio: new FormControl('', Validators.required),
@@ -66,14 +66,14 @@ export class ClienteExtratoComponent implements OnInit {
     this.cliente = this.authService.contaCliente;
 
     this.contaCliente$ = this.clienteService.buscarContaPorId(this.cliente.id!);
-    this.contaCliente$.subscribe(cliente => {
+    this.contaCliente$.subscribe((cliente) => {
       this.contaCliente = cliente;
     });
 
-    this.clienteService.getAll().subscribe(contas => {
+    this.clienteService.getAll().subscribe((contas) => {
       this.contas = contas;
     });
-    this.userService.getAllUsers().subscribe(usuarios => {
+    this.userService.getClientes().subscribe((usuarios) => {
       this.usuarios = usuarios;
     });
   }
@@ -83,11 +83,11 @@ export class ClienteExtratoComponent implements OnInit {
     this.transacaos = [];
     this.tabelaTransacaos = [];
 
-    if(dataInicio.value == null || dataFinal.value == null) {
+    if (dataInicio.value == null || dataFinal.value == null) {
       this.mensagem = `A data início e/ou data final não podem estar vazios!!!`;
       this.telaExtrato = false;
     } else {
-      this.mensagem = "";
+      this.mensagem = '';
       this.allTransacao.forEach((item) => {
         if (
           dataInicio.value.valueOf() <= item.data! &&
@@ -99,28 +99,62 @@ export class ClienteExtratoComponent implements OnInit {
         }
       });
 
-      for(let i = dataInicio.value.valueOf(); i <= dataFinal.value.valueOf(); i = i + 86400000) {
+      for (
+        let i = dataInicio.value.valueOf();
+        i <= dataFinal.value.valueOf();
+        i = i + 86400000
+      ) {
         let data: Date = new Date(i);
 
-        let lista: Transacao[] = this.transacaos.filter(item => (new Date(item.data!)).toISOString().split("-")[2].split("T")[0] == data.toISOString().split("-")[2].split("T")[0]);
+        let lista: Transacao[] = this.transacaos.filter(
+          (item) =>
+            new Date(item.data!).toISOString().split('-')[2].split('T')[0] ==
+            data.toISOString().split('-')[2].split('T')[0]
+        );
 
-        if(lista.length == 0) {
-          if(i < this.transacaos[0].data!) {
-            let valor: number = this.transacaos[0].saldo! - this.transacaos[0].valorTransacao!;
-            let t = new Transacao(undefined,undefined,undefined,undefined,undefined, valor, +data.toISOString().split("-")[2].split("T")[0])
+        if (lista.length == 0) {
+          if (i < this.transacaos[0].data!) {
+            let valor: number =
+              this.transacaos[0].saldo! - this.transacaos[0].valorTransacao!;
+            let t = new Transacao(
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              valor,
+              +data.toISOString().split('-')[2].split('T')[0]
+            );
             this.tabelaTransacaos.push(t);
           } else {
-            let valor: number = this.transacaos[this.transacaos.length - 1].saldo!;
-            let t = new Transacao(undefined,undefined,undefined,undefined,undefined, valor, +data.toISOString().split("-")[2].split("T")[0])
+            let valor: number =
+              this.transacaos[this.transacaos.length - 1].saldo!;
+            let t = new Transacao(
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              valor,
+              +data.toISOString().split('-')[2].split('T')[0]
+            );
             this.tabelaTransacaos.push(t);
           }
         } else {
           let saldoFinal: number = 0;
-          lista.forEach(transacao => {
+          lista.forEach((transacao) => {
             this.tabelaTransacaos.push(transacao);
             saldoFinal = transacao.saldo!;
           });
-          let t = new Transacao(undefined,undefined,undefined,undefined,undefined, saldoFinal, +data.toISOString().split("-")[2].split("T")[0])
+          let t = new Transacao(
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            saldoFinal,
+            +data.toISOString().split('-')[2].split('T')[0]
+          );
           this.tabelaTransacaos.push(t);
         }
       }
@@ -128,13 +162,14 @@ export class ClienteExtratoComponent implements OnInit {
   }
 
   nomeDestinatario(id: number): string | undefined {
-    let conta = this.contas.find(conta => conta.id == id);
-    if(conta) {
-      let usuario = this.usuarios.find(usuario => usuario.id == conta?.id)
-        if(usuario)
-          return usuario.nome;
+    let conta = this.contas.find((conta) => conta.id == id);
+    if (conta) {
+      let usuario = this.usuarios.find(
+        (usuario) => usuario.id == conta?.idUsuario
+      );
+      if (usuario) return usuario.nome;
     }
-    return "";
+    return '';
   }
 
   get usuarioLogado(): User {

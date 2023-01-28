@@ -17,10 +17,6 @@ export class UserService {
     }),
   };
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl, this.httpOptions);
-  }
-
   getGerentes(): Observable<User[]> {
     return this.http.get<User[]>(
       this.apiUrl + '?cargo=gerente',

@@ -92,7 +92,7 @@ export class ClienteAlterarComponent implements OnInit {
       this.contaCliente = cliente;
     });
 
-    this.userService.getAllUsers().subscribe((usuarios) => {
+    this.userService.getClientes().subscribe((usuarios) => {
       if (usuarios && this.contaCliente) {
         this.dadosUsuario = usuarios.find(
           (usuario) => usuario.id == this.contaCliente.idUsuario

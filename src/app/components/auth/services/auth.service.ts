@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment';
+import { lastValueFrom, map } from 'rxjs';
 import { Login } from './../../../shared/models/login.model';
 import { User } from './../../../shared/models/user.model';
+import { UserService } from './user.service';
 
 const LS_USER: string = 'user';
 const LS_CONTA: string = 'conta';
@@ -12,15 +11,6 @@ const LS_CONTA: string = 'conta';
   providedIn: 'root',
 })
 export class AuthService {
-  private loginUrl = `${environment.url.auth}/login`;
-  private logoutUrl = `${environment.url.auth}/logout`;
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-
   public get usuarioLogado(): User {
     return localStorage[LS_USER] ? JSON.parse(localStorage[LS_USER]) : null;
   }
@@ -37,14 +27,21 @@ export class AuthService {
     localStorage[LS_CONTA] = JSON.stringify(usuario);
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private userService: UserService) {}
 
-  login(login: Login): Observable<User> {
-    return this.http.post<User>(
-      this.loginUrl,
-      JSON.stringify(login),
-      this.httpOptions
+  async login(login: Login): Promise<User | undefined> {
+    let user: User | undefined;
+    await lastValueFrom(
+      this.userService.getAllUsers().pipe(
+        map((users: User[]) => {
+          user = users.find(
+            (user: User) =>
+              user.email === login.login && user.senha === login.senha
+          );
+        })
+      )
     );
+    return user;
   }
 
   logout() {

@@ -7,7 +7,7 @@ import { UserService } from '@components/auth/services/user.service';
 import { ClienteService } from '@components/cliente/services/cliente.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '@shared/models/user.model';
-import { concatAll, last, lastValueFrom, map, of } from 'rxjs';
+import { lastValueFrom, map } from 'rxjs';
 import { GerenteModalComponent } from '../gerente-modal/gerente-modal.component';
 import { Conta } from './../../../shared/models/conta.model';
 interface IClienteCompleto {
@@ -82,32 +82,13 @@ export class GerenteHomeComponent implements OnInit {
       });
   }
 
-  generateStrongPassword(): string {
-    let password = '';
-    const possibleChars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    const possibleNumbers = '0123456789';
-    const possibleSymbols = '!@#$%';
-    const possible = possibleChars + possibleNumbers + possibleSymbols;
-    for (let i = 0; i < 13; i++) {
-      password += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return password;
-  }
-
   acceptUser(cliente: IClienteCompleto) {
     if (confirm('Tem certeza que quer aceitar este cliente?')) {
       const newConta: Conta = Object.assign({}, cliente.conta);
-      const newUser: User = Object.assign({}, cliente.cliente);
-
       newConta.ativo = true;
-      newUser.senha = this.generateStrongPassword();
-
-      const task1$ = this.userService.atualizarUser(newUser);
-      const task2$ = this.contaService.atualizarContaCliente(newConta);
-      const tasks$ = of(task1$, task2$);
-
-      tasks$.pipe(concatAll(), last()).subscribe(() => this.setupTable());
+      this.contaService
+        .atualizarContaCliente(newConta)
+        .subscribe(() => this.setupTable());
     }
   }
 

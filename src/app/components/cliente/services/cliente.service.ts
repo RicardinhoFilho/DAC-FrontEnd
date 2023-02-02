@@ -30,11 +30,6 @@ export class ClienteService {
     return this.http.get<Conta[]>(this.apiUrl);
   }
 
-  getPendentes(): Observable<Conta[]> {
-    //pagaria a rota especifica dos pendentes como nao temos usaremos logica no componente
-    return this.http.get<Conta[]>(this.apiUrl + '?');
-  }
-
   getAllTransacaos(): Observable<Transacao[]> {
     return this.http.get<Transacao[]>(this.apiUrlTransacaos);
   }

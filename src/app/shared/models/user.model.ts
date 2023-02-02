@@ -12,6 +12,7 @@ export class User {
     public cep?: string,
     public rua?: string,
     public numero?: number,
-    public complemento?: string
+    public complemento?: string,
+    public ativo?: boolean
   ) {}
 }

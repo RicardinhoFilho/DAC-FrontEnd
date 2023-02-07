@@ -7,7 +7,9 @@ import { User } from './../../../shared/models/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/usuarios';
+  private apiUrlGerente = 'http://localhost:3000/gerente';
+  private apiUrlCliente = 'http://localhost:3000/cliente';
+  private apiUrlAuth = 'http://localhost:3000/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -19,25 +21,25 @@ export class UserService {
 
   getGerentes(): Observable<User[]> {
     return this.http.get<User[]>(
-      this.apiUrl + '?cargo=gerente',
+      this.apiUrlGerente + '/list',
       this.httpOptions
     );
   }
 
   getClientes(): Observable<User[]> {
     return this.http.get<User[]>(
-      this.apiUrl + '?cargo=cliente',
+      this.apiUrlCliente + '/list',
       this.httpOptions
     );
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(this.apiUrl + '/' + id, this.httpOptions);
+    return this.http.get<User>(this.apiUrlAuth + '/' + id, this.httpOptions);
   }
 
   inserir(usuario: User): Observable<User> {
     return this.http.post<User>(
-      this.apiUrl,
+      this.apiUrlCliente + '/cadastro',
       JSON.stringify(usuario),
       this.httpOptions
     );
@@ -45,24 +47,52 @@ export class UserService {
 
   atualizarUser(usuario: User): Observable<User> {
     return this.http.put<User>(
-      this.apiUrl + '/' + usuario.id,
+      this.apiUrlCliente + '/' + usuario.id,
       JSON.stringify(usuario),
       this.httpOptions
     );
   }
 
-  remover(id: number): Observable<User> {
-    return this.http.delete<User>(this.apiUrl + '/' + id, this.httpOptions);
+  removerGerente(id: number): Observable<User> {
+    return this.http.delete<User>(this.apiUrlGerente + '/' + id, this.httpOptions);
   }
 
   getUserByEmail(email: string): Observable<User[]> {
     return this.http.get<User[]>(
-      this.apiUrl + '?email=' + email,
+      this.apiUrlCliente + '/por-email/' + email,
+      this.httpOptions
+    );
+  }
+  getClienteByCPF(cpf: string): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.apiUrlCliente + '/por-cpf/' + cpf, 
+      this.httpOptions
+      );
+  }
+  getGerenteByCPF(cpf: string): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.apiUrlGerente + '/por-cpf/' + cpf, 
+      this.httpOptions
+      );
+  }
+
+  getClienteByEmail(email: string): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.apiUrlCliente + '/por-email/' + email,
+      this.httpOptions
+    );
+  }
+  getGerenteByEmail(email: string): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.apiUrlCliente + '/por-email/' + email,
       this.httpOptions
     );
   }
 
   getUserByCPF(cpf: string): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl + '?cpf=' + cpf, this.httpOptions);
+    return this.http.get<User[]>(
+      this.apiUrlCliente + '/por-cpf/' + cpf, 
+      this.httpOptions
+    );
   }
 }

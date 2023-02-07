@@ -27,11 +27,15 @@ export class ClienteService {
   }
 
   getAll(): Observable<Conta[]> {
-    return this.http.get<Conta[]>(this.apiUrl);
+    return this.http.get<Conta[]>(
+      this.apiUrl + '/list'
+      );
   }
 
   getAllTransacaos(): Observable<Transacao[]> {
-    return this.http.get<Transacao[]>(this.apiUrlTransacaos);
+    return this.http.get<Transacao[]>(
+      this.apiUrlTransacaos + '/transacaos'
+      );
   }
 
   postTransacao(transacao: Transacao): Observable<Transacao> {
@@ -48,7 +52,7 @@ export class ClienteService {
 
   buscarContaPorUserId(id: number): Observable<Conta[]> {
     return this.http.get<Conta[]>(
-      this.apiUrl + '?idUsuario=' + id,
+      this.apiUrl + '/' + id,
       this.httpOptions
     );
   }
@@ -63,14 +67,14 @@ export class ClienteService {
 
   getClientesByGerente(idGerente: number): Observable<Conta[]> {
     return this.http.get<Conta[]>(
-      this.apiUrl + '?idGerente=' + idGerente,
+      this.apiUrl + '/por-gerente/' + idGerente,
       this.httpOptions
     );
   }
 
   getClientesPendenteByGerente(idGerente: number): Observable<Conta[]> {
     return this.http.get<Conta[]>(
-      this.apiUrl + '?idGerente=' + idGerente + '&ativo=false',
+      this.apiUrl + '/pendentes/' + idGerente,
       this.httpOptions
     );
   }

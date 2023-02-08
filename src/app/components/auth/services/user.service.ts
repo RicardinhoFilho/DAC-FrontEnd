@@ -7,9 +7,10 @@ import { User } from './../../../shared/models/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrlGerente = 'http://localhost:3000/gerente';
-  private apiUrlCliente = 'http://localhost:3000/cliente';
-  private apiUrlAuth = 'http://localhost:3000/auth';
+  private apiUrlGerente = 'http://localhost:5004/gerente';
+  private apiUrlCliente = 'http://localhost:5002/cliente';
+  private apiUrlAuth = 'http://localhost:5001/auth';
+  private apiUrlOrquestrador = 'http://localhost:5005/cliente/'
 
   constructor(private http: HttpClient) {}
 
@@ -39,7 +40,7 @@ export class UserService {
 
   inserir(usuario: User): Observable<User> {
     return this.http.post<User>(
-      this.apiUrlCliente + '/cadastro',
+      this.apiUrlOrquestrador,
       JSON.stringify(usuario),
       this.httpOptions
     );

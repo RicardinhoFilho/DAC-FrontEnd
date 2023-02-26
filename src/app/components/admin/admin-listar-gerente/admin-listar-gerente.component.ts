@@ -115,14 +115,14 @@ export class AdminListarGerenteComponent implements OnInit {
               })
             );
 
-            this.userService.remover(id).subscribe(() => {
-              const currentUrl = this.router.url;
-              this.router
-                .navigateByUrl('/', { skipLocationChange: true })
-                .then(() => {
-                  this.router.navigate([currentUrl]);
-                });
-            });
+            // this.userService.remover(id).subscribe(() => {
+            //   const currentUrl = this.router.url;
+            //   this.router
+            //     .navigateByUrl('/', { skipLocationChange: true })
+            //     .then(() => {
+            //       this.router.navigate([currentUrl]);
+            //     });
+            // });
           });
       });
     }
